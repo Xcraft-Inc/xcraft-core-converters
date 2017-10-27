@@ -1,0 +1,24 @@
+{
+  "name": "xcraft-core-converters",
+  "version": "1.0.0",
+  "description": "Xcraft converters",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "test": "mocha test/**/*.spec.js"
+  },
+  "keywords": [
+    "xcraft",
+    "converters"
+  ],
+  "author": "Daniel Roux",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "xcraft-dev-rules": "^0.1.3"
+  }
+}
