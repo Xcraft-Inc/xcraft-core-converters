@@ -15,7 +15,9 @@
   ],
   "author": "Daniel Roux",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "cron-parser": "^2.4.3"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.3.0",
