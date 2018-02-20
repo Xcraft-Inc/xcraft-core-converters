@@ -1,7 +1,7 @@
 'use strict';
 
-const {expect} = require ('chai');
+const {expect} = require('chai');
 
-describe ('Converters can', function () {
-  it ('#...', function () {});
+describe('Converters can', function() {
+  it('#...', function() {});
 });
