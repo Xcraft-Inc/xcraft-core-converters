@@ -16,6 +16,7 @@
   "author": "Daniel Roux",
   "license": "MIT",
   "dependencies": {
+    "bignumber.js": "^4.1.0",
     "cron-parser": "^2.4.3"
   },
   "devDependencies": {
