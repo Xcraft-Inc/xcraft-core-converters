@@ -4,14 +4,15 @@ const assert = require('assert');
 
 const DateConverters = require('../lib/date.js');
 const TimeConverters = require('../lib/time.js');
+//???? const FieldType = require('../lib/field-type.js');
 
 // To run all tests, type:
 // npm test --prefix lib/xcraft-core-converters/
 
-describe('Converters can', function() {
-  //-----------------------------------------------------------------------------
-  // date
-  //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// date
+//-----------------------------------------------------------------------------
+describe('Converters date', function() {
   it('#Test date parseEdited', function() {
     let result;
 
@@ -54,10 +55,12 @@ describe('Converters can', function() {
     assert.ok(!DateConverters.check('2017-3-31'));
     assert.ok(!DateConverters.check('2017-AB-31'));
   });
+});
 
-  //-----------------------------------------------------------------------------
-  // time
-  //-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// time
+//-----------------------------------------------------------------------------
+describe('Converters time', function() {
   it('#Test time parseEdited', function() {
     let result;
 
@@ -86,5 +89,80 @@ describe('Converters can', function() {
     assert.ok(!TimeConverters.check('12:00'));
     assert.ok(!TimeConverters.check('12.00.00'));
   });
-  //-----------------------------------------------------------------------------
 });
+
+//-----------------------------------------------------------------------------
+// field-type
+//-----------------------------------------------------------------------------
+/* describe('field-type', function() {
+  it('#Test field-type string', function() {
+    let result;
+
+    result = FieldType.check('Blupi', 'Dupond', {type: 'string'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '', {type: 'string'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', null, {type: 'string'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', undefined, {type: 'string'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '', {type: 'string+'});
+    assert.equal(result.ok, false);
+  });
+
+  it('#Test field-type bool', function() {
+    let result;
+
+    result = FieldType.check('Blupi', true, {type: 'bool'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', 'true', {type: 'bool'});
+    assert.equal(result.ok, false);
+  });
+
+  it('#Test field-type number', function() {
+    let result;
+
+    result = FieldType.check('Blupi', '123', {type: 'number'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '123.456', {type: 'number'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '.123', {type: 'number'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '-123', {type: 'number'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', 123, {type: 'number'});
+    assert.equal(result.ok, false);
+
+    result = FieldType.check('Blupi', '123,456', {type: 'number'});
+    assert.equal(result.ok, false);
+  });
+
+  it('#Test field-type enum', function() {
+    let result;
+
+    result = FieldType.check('Blupi', 'A', {type: 'enum', values: ['A', 'B']});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', 'C', {type: 'enum', values: ['A', 'B']});
+    assert.equal(result.ok, false);
+
+    result = FieldType.check('Blupi', 'a', {type: 'enum', values: ['A', 'B']});
+    assert.equal(result.ok, false);
+
+    result = FieldType.check('Blupi', '', {type: 'enum', values: ['A', 'B']});
+    assert.equal(result.ok, false);
+
+    result = FieldType.check('Blupi', null, {type: 'enum', values: ['A', 'B']});
+    assert.equal(result.ok, false);
+  });
+});
+ */
