@@ -4,7 +4,14 @@ const assert = require('assert');
 
 const DateConverters = require('../lib/date.js');
 const TimeConverters = require('../lib/time.js');
-//???? const FieldType = require('../lib/field-type.js');
+const DateTimeConverters = require('../lib/datetime.js');
+const LengthConverters = require('../lib/length.js');
+const NumberConverters = require('../lib/number.js');
+const PercentConverters = require('../lib/percent.js');
+const VolumeConverters = require('../lib/volume.js');
+const WeightConverters = require('../lib/weight.js');
+const ReferenceConverters = require('../lib/reference.js');
+const FieldType = require('../lib/field-type.js');
 
 // To run all tests, type:
 // npm test --prefix lib/xcraft-core-converters/
@@ -12,9 +19,13 @@ const TimeConverters = require('../lib/time.js');
 //-----------------------------------------------------------------------------
 // date
 //-----------------------------------------------------------------------------
-describe('Converters date', function() {
-  it('#Test date parseEdited', function() {
+describe('Converter date', function() {
+  it('#Test parseEdited', function() {
     let result;
+
+    result = DateConverters.parseEdited('');
+    assert.equal(result.value, null);
+    assert.equal(result.error, null);
 
     result = DateConverters.parseEdited('31 3 2017');
     assert.equal(result.value, '2017-03-31');
@@ -29,7 +40,7 @@ describe('Converters date', function() {
     assert.equal(result.error, 'Jour incorrect');
   });
 
-  it('#Test date getDisplayed', function() {
+  it('#Test getDisplayed', function() {
     assert.equal(DateConverters.getDisplayed('2017-03-31'), '31.03.2017');
     assert.equal(DateConverters.getDisplayed('2017-03-31', 'y'), '2017');
     assert.equal(DateConverters.getDisplayed('2017-03-31', 'M'), 'Mars');
@@ -49,7 +60,7 @@ describe('Converters date', function() {
     );
   });
 
-  it('#Test date check', function() {
+  it('#Test check', function() {
     assert.ok(DateConverters.check('2017-03-31'));
     assert.ok(!DateConverters.check('2017/03/31'));
     assert.ok(!DateConverters.check('2017-3-31'));
@@ -60,8 +71,8 @@ describe('Converters date', function() {
 //-----------------------------------------------------------------------------
 // time
 //-----------------------------------------------------------------------------
-describe('Converters time', function() {
-  it('#Test time parseEdited', function() {
+describe('Converter time', function() {
+  it('#Test parseEdited', function() {
     let result;
 
     result = TimeConverters.parseEdited('14 5 0');
@@ -73,7 +84,7 @@ describe('Converters time', function() {
     assert.equal(result.error, null);
   });
 
-  it('#Test time getDisplayed', function() {
+  it('#Test getDisplayed', function() {
     assert.equal(TimeConverters.getDisplayed('12:34:56'), '12:34');
     assert.equal(TimeConverters.getDisplayed('12:34:56', 'hms'), '12:34:56');
     assert.equal(TimeConverters.getDisplayed('01:00:45', 'Hm'), '1 heure');
@@ -84,7 +95,7 @@ describe('Converters time', function() {
     assert.equal(TimeConverters.getDisplayed('00:15:45', 'duration'), '15min');
   });
 
-  it('#Test time check', function() {
+  it('#Test check', function() {
     assert.ok(TimeConverters.check('08:59:59'));
     assert.ok(!TimeConverters.check('12:00'));
     assert.ok(!TimeConverters.check('12.00.00'));
@@ -92,9 +103,158 @@ describe('Converters time', function() {
 });
 
 //-----------------------------------------------------------------------------
+// datetime
+//-----------------------------------------------------------------------------
+describe('Converter datetime', function() {
+  it('#Test parseEdited', function() {
+    let result;
+
+    result = DateTimeConverters.parseEdited('31 3 2017 14 48');
+    assert.equal(result.value, '2017-03-31T14:48:00.000Z');
+    assert.equal(result.error, null);
+
+    result = DateTimeConverters.parseEdited('10 3', '2017-03-31T14:48:00.000Z');
+    assert.equal(result.value, '2017-03-10T14:48:00.000Z');
+    assert.equal(result.error, null);
+
+    result = DateTimeConverters.parseEdited(
+      '10 3',
+      null,
+      '2017-03-31',
+      '14:48:00'
+    );
+    assert.equal(result.value, '2017-03-10T14:48:00.000Z');
+    assert.equal(result.error, null);
+  });
+
+  it('#Test getDisplayed', function() {
+    assert.equal(
+      DateTimeConverters.getDisplayed('2017-03-31T14:48:00.000Z'),
+      '31.03.2017 14:48'
+    );
+    assert.equal(
+      DateTimeConverters.getDisplayed('2017-03-31T14:48:00.000Z', 'date'),
+      '31.03.2017'
+    );
+  });
+
+  it('#Test check', function() {
+    assert.ok(DateTimeConverters.check('2019-01-18T14:00:00.000Z'));
+    assert.ok(!DateTimeConverters.check('2019-01-18T14:00:00'));
+    assert.ok(!DateTimeConverters.check('2019-01-18t14:00:00.000Z'));
+    assert.ok(!DateTimeConverters.check('coucou'));
+  });
+});
+
+//-----------------------------------------------------------------------------
+// datetime
+//-----------------------------------------------------------------------------
+describe('Converter datetime', function() {
+  it('#Test parseEdited', function() {
+    let result;
+
+    result = DateTimeConverters.parseEdited('31 3 2017 14 48');
+    assert.equal(result.value, '2017-03-31T14:48:00.000Z');
+    assert.equal(result.error, null);
+
+    result = DateTimeConverters.parseEdited('10 3', '2017-03-31T14:48:00.000Z');
+    assert.equal(result.value, '2017-03-10T14:48:00.000Z');
+    assert.equal(result.error, null);
+
+    result = DateTimeConverters.parseEdited(
+      '10 3',
+      null,
+      '2017-03-31',
+      '14:48:00'
+    );
+    assert.equal(result.value, '2017-03-10T14:48:00.000Z');
+    assert.equal(result.error, null);
+  });
+
+  it('#Test getDisplayed', function() {
+    assert.equal(
+      DateTimeConverters.getDisplayed('2017-03-31T14:48:00.000Z'),
+      '31.03.2017 14:48'
+    );
+    assert.equal(
+      DateTimeConverters.getDisplayed('2017-03-31T14:48:00.000Z', 'date'),
+      '31.03.2017'
+    );
+  });
+
+  it('#Test check', function() {
+    assert.ok(DateTimeConverters.check('2019-01-18T14:00:00.000Z'));
+    assert.ok(!DateTimeConverters.check('2019-01-18T14:00:00'));
+    assert.ok(!DateTimeConverters.check('2019-01-18t14:00:00.000Z'));
+    assert.ok(!DateTimeConverters.check('coucou'));
+  });
+});
+
+//-----------------------------------------------------------------------------
+// reference
+//-----------------------------------------------------------------------------
+describe('Converter reference', function() {
+  it('#Test generate', function() {
+    assert.equal(
+      ReferenceConverters.generate('123', '2019-01-18', '5'),
+      '00123.1901.5'
+    );
+    assert.equal(
+      ReferenceConverters.generate('123', '2019-01-18', '5', '2'),
+      '00123.1901.5-2'
+    );
+    assert.equal(
+      ReferenceConverters.generate('123456', '2019-01-18', '567'),
+      '23456.1901.7'
+    );
+  });
+
+  it('#Test getWithoutNumber', function() {
+    assert.equal(
+      ReferenceConverters.getWithoutNumber('00123.1812.1'),
+      '00123.1812'
+    );
+    assert.equal(
+      ReferenceConverters.getWithoutNumber('00123.1812.2-3'),
+      '00123.1812'
+    );
+  });
+
+  it('#Test updateSubnumber', function() {
+    assert.equal(
+      ReferenceConverters.updateSubnumber('123.1812.1', '5'),
+      '00123.1812.1-5'
+    );
+    assert.equal(
+      ReferenceConverters.updateSubnumber('123.1812.1-4', '5'),
+      '00123.1812.1-5'
+    );
+  });
+
+  it('#Test getDisplayed', function() {
+    assert.equal(
+      ReferenceConverters.getDisplayed('123.1812.1'),
+      '00123.1812.1'
+    );
+    assert.equal(
+      ReferenceConverters.getDisplayed('123456.1812.1'),
+      '23456.1812.1'
+    );
+    assert.equal(
+      ReferenceConverters.getDisplayed('00123.1812.1'),
+      '00123.1812.1'
+    );
+    assert.equal(
+      ReferenceConverters.getDisplayed('00123.1812.1-3'),
+      '00123.1812.1-3'
+    );
+  });
+});
+
+//-----------------------------------------------------------------------------
 // field-type
 //-----------------------------------------------------------------------------
-/* describe('field-type', function() {
+describe('field-type', function() {
   it('#Test field-type string', function() {
     let result;
 
@@ -165,4 +325,3 @@ describe('Converters time', function() {
     assert.equal(result.ok, false);
   });
 });
- */
