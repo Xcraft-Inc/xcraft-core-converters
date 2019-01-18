@@ -278,6 +278,7 @@ describe('Converter number', function() {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));
+    assert.ok(!NumberConverters.check(12));
   });
 });
 
@@ -319,6 +320,7 @@ describe('Converter price', function() {
     assert.ok(PriceConverters.check('123.456'));
     assert.ok(PriceConverters.check('-123'));
     assert.ok(!PriceConverters.check('-1x3'));
+    assert.ok(!PriceConverters.check(100));
   });
 });
 
@@ -373,6 +375,7 @@ describe('Converter percent', function() {
     assert.ok(PercentConverters.check('123'));
     assert.ok(PercentConverters.check('0.123'));
     assert.ok(!PercentConverters.check('-0.05'));
+    assert.ok(!PercentConverters.check(5));
   });
 });
 
@@ -469,6 +472,9 @@ describe('field-type', function() {
     result = FieldType.check('Blupi', true, {type: 'bool'});
     assert.equal(result.ok, true);
 
+    result = FieldType.check('Blupi', null, {type: 'bool'});
+    assert.equal(result.ok, false);
+
     result = FieldType.check('Blupi', 'false', {type: 'bool'});
     assert.equal(result.ok, false);
 
@@ -478,6 +484,12 @@ describe('field-type', function() {
 
   it('#Test field-type number', function() {
     let result;
+
+    result = FieldType.check('Blupi', null, {type: 'number'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '', {type: 'number'});
+    assert.equal(result.ok, true);
 
     result = FieldType.check('Blupi', '123', {type: 'number'});
     assert.equal(result.ok, true);
@@ -492,7 +504,7 @@ describe('field-type', function() {
     assert.equal(result.ok, true);
 
     result = FieldType.check('Blupi', 123, {type: 'number'});
-    assert.equal(result.ok, true);
+    assert.equal(result.ok, false);
 
     result = FieldType.check('Blupi', '123,456', {type: 'number'});
     assert.equal(result.ok, false);
@@ -514,6 +526,41 @@ describe('field-type', function() {
     assert.equal(result.ok, false);
 
     result = FieldType.check('Blupi', null, {type: 'enum', values: ['A', 'B']});
+    assert.equal(result.ok, false);
+
+    result = FieldType.check('Blupi', 'A', {type: 'enum'});
+    assert.equal(result.ok, false);
+  });
+
+  it('#Test field-type entityId', function() {
+    let result;
+
+    result = FieldType.check('Blupi', 'toto@123', {
+      type: 'entityId',
+      target: 'toto',
+    });
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '456@123', {
+      type: 'entityId',
+      target: 'toto',
+    });
+    assert.equal(result.ok, false);
+
+    result = FieldType.check('Blupi', '456@123', {type: 'entityId'});
+    assert.equal(result.ok, false);
+  });
+
+  it('#Test field-type date', function() {
+    let result;
+
+    result = FieldType.check('Blupi', '2019-03-31', {type: 'date'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', null, {type: 'date'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', null, {type: 'date+'});
     assert.equal(result.ok, false);
   });
 });
