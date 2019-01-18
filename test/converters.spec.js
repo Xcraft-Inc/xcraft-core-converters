@@ -66,6 +66,9 @@ describe('Converter date', function() {
     assert.ok(!DateConverters.check('2017/03/31'));
     assert.ok(!DateConverters.check('2017-3-31'));
     assert.ok(!DateConverters.check('2017-AB-31'));
+    assert.ok(!DateConverters.check(''));
+    assert.ok(!DateConverters.check(123));
+    assert.ok(!DateConverters.check(null));
   });
 });
 
@@ -100,6 +103,9 @@ describe('Converter time', function() {
     assert.ok(TimeConverters.check('08:59:59'));
     assert.ok(!TimeConverters.check('12:00'));
     assert.ok(!TimeConverters.check('12.00.00'));
+    assert.ok(!TimeConverters.check(''));
+    assert.ok(!TimeConverters.check(123));
+    assert.ok(!TimeConverters.check(null));
   });
 });
 
@@ -555,6 +561,9 @@ describe('field-type', function() {
     let result;
 
     result = FieldType.check('Blupi', '2019-03-31', {type: 'date'});
+    assert.equal(result.ok, true);
+
+    result = FieldType.check('Blupi', '', {type: 'date'});
     assert.equal(result.ok, true);
 
     result = FieldType.check('Blupi', null, {type: 'date'});
