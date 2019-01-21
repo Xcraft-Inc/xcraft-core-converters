@@ -26,21 +26,38 @@ describe('Converter date', function() {
   it('#Test getDisplayed', function() {
     assert.equal(DateConverters.getDisplayed('2017-03-31'), '31.03.2017');
     assert.equal(DateConverters.getDisplayed('2017-03-31', 'y'), '2017');
+    assert.equal(DateConverters.getDisplayed('2017-03-31', 'My'), 'Mars 2017');
     assert.equal(DateConverters.getDisplayed('2017-03-31', 'M'), 'Mars');
     assert.equal(DateConverters.getDisplayed('2017-03-31', 'M3'), 'Mar');
     assert.equal(DateConverters.getDisplayed('2019-01-18', 'W'), 'vendredi');
+    assert.equal(DateConverters.getDisplayed('2019-01-18', 'Wd'), 'ven 18');
+    assert.equal(DateConverters.getDisplayed('2019-01-18', 'd'), '18');
+    assert.equal(DateConverters.getDisplayed('2019-01-18', 'Wdm'), 'ven 18.01');
+    assert.equal(
+      DateConverters.getDisplayed('2019-01-18', 'Wdmy'),
+      'ven 18.01.2019'
+    );
+    assert.equal(
+      DateConverters.getDisplayed('2019-01-18', 'WdMy'),
+      'Vendredi 18 janvier 2019'
+    );
     assert.equal(
       DateConverters.getDisplayed('2019-01-18', 'dMy,W'),
       '18 janvier 2019, vendredi'
     );
     assert.equal(
-      DateConverters.getDisplayed('2019-01-18', 'W dmy'),
-      'Vendredi 18.01.2019'
+      DateConverters.getDisplayed('2019-01-18', 'dMy'),
+      '18 janvier 2019'
     );
     assert.equal(
       DateConverters.getDisplayed('2019-01-18', 'dM3y'),
       '18 jan 2019'
     );
+    assert.equal(
+      DateConverters.getDisplayed('2019-01-18', 'W dmy'),
+      'Vendredi 18.01.2019'
+    );
+    assert.equal(DateConverters.getDisplayed('2019-01-18', 'W3'), 'Ven');
   });
 
   it('#Test check', function() {
