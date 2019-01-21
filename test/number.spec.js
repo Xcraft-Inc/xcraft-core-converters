@@ -52,11 +52,14 @@ describe('Converter number', function() {
     assert.equal(null, result.error);
 
     result = NumberConverters.parseEdited('12a34');
-    assert.equal(result.value, null);
+    assert.equal(null, result.value);
     assert.ok(result.error);
   });
 
   it('#Test getDisplayed', function() {
+    assert.equal(null, NumberConverters.getDisplayed(null));
+    assert.equal("1'234", NumberConverters.getDisplayed('1234'));
+    assert.equal("-1'234", NumberConverters.getDisplayed('-1234'));
     assert.equal('0.12', NumberConverters.getDisplayed('.12'));
     assert.equal('0.12', NumberConverters.getDisplayed('.12456', 2));
     assert.equal('0.125', NumberConverters.getDisplayed('.12456', 3));

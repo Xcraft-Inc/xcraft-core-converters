@@ -29,6 +29,7 @@ describe('Converter length', function() {
   });
 
   it('#Test getDisplayed', function() {
+    assert.equal(null, LengthConverters.getDisplayed(null));
     assert.equal('1.2m', LengthConverters.getDisplayed('1.2'));
     assert.equal('1.2km', LengthConverters.getDisplayed('1200', 'km'));
     assert.equal('1200cm', LengthConverters.getDisplayed('12', 'cm'));

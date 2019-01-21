@@ -29,8 +29,10 @@ describe('Converter price', function() {
   });
 
   it('#Test getDisplayed', function() {
+    assert.equal(null, PriceConverters.getDisplayed(null));
     assert.equal('123.00', PriceConverters.getDisplayed('123'));
     assert.equal("1'234.50", PriceConverters.getDisplayed('1234.5'));
+    assert.equal("-1'234.50", PriceConverters.getDisplayed('-1234.5'));
   });
 
   it('#Test check', function() {

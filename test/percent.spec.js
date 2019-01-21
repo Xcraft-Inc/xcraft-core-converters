@@ -41,6 +41,7 @@ describe('Converter percent', function() {
   });
 
   it('#Test getDisplayed', function() {
+    assert.equal(null, PercentConverters.getDisplayed(null));
     assert.equal('12%', PercentConverters.getDisplayed('0.12'));
     assert.equal('12%', PercentConverters.getDisplayed('0.12', 5));
     assert.equal('12.35%', PercentConverters.getDisplayed('0.1234999', 2));
