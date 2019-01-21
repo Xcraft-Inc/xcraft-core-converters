@@ -32,6 +32,17 @@ describe('Converter time', function() {
     assert.equal(result.error, null);
   });
 
+  it('#Test getDisplayed', function() {
+    assert.equal(TimeConverters.getDisplayed('12:34:56'), '12:34');
+    assert.equal(TimeConverters.getDisplayed('12:34:56', 'hms'), '12:34:56');
+    assert.equal(TimeConverters.getDisplayed('01:00:45', 'Hm'), '1 heure');
+    assert.equal(TimeConverters.getDisplayed('01:30:45', 'Hm'), '1 heure 30');
+    assert.equal(TimeConverters.getDisplayed('09:30:45', 'Hm'), '9 heures 30');
+    assert.equal(TimeConverters.getDisplayed('09:30:45', 'duration'), '9h30');
+    assert.equal(TimeConverters.getDisplayed('09:00:45', 'duration'), '9h');
+    assert.equal(TimeConverters.getDisplayed('00:15:45', 'duration'), '15min');
+  });
+
   it('#Test getNowCanonical', function() {
     assert.ok(TimeConverters.getNowCanonical('12:34:56').endsWith(':00'));
   });
@@ -120,17 +131,6 @@ describe('Converter time', function() {
       TimeConverters.jsToCanonical(new Date(2019, 12, 25, 13, 20, 30)),
       '13:20:30'
     );
-  });
-
-  it('#Test getDisplayed', function() {
-    assert.equal(TimeConverters.getDisplayed('12:34:56'), '12:34');
-    assert.equal(TimeConverters.getDisplayed('12:34:56', 'hms'), '12:34:56');
-    assert.equal(TimeConverters.getDisplayed('01:00:45', 'Hm'), '1 heure');
-    assert.equal(TimeConverters.getDisplayed('01:30:45', 'Hm'), '1 heure 30');
-    assert.equal(TimeConverters.getDisplayed('09:30:45', 'Hm'), '9 heures 30');
-    assert.equal(TimeConverters.getDisplayed('09:30:45', 'duration'), '9h30');
-    assert.equal(TimeConverters.getDisplayed('09:00:45', 'duration'), '9h');
-    assert.equal(TimeConverters.getDisplayed('00:15:45', 'duration'), '15min');
   });
 
   it('#Test check', function() {

@@ -19,7 +19,7 @@ describe('field-type', function() {
     result = FieldType.check('Blupi', undefined, {type: 'string'});
     assert.equal(result.ok, true);
 
-    result = FieldType.check('Blupi', '', {type: 'string+'});
+    result = FieldType.check('Blupi', '', {type: 'string', required: true});
     assert.equal(result.ok, false);
   });
 
@@ -123,7 +123,7 @@ describe('field-type', function() {
     result = FieldType.check('Blupi', null, {type: 'date'});
     assert.equal(result.ok, true);
 
-    result = FieldType.check('Blupi', null, {type: 'date+'});
+    result = FieldType.check('Blupi', null, {type: 'date', required: true});
     assert.equal(result.ok, false);
   });
 });
