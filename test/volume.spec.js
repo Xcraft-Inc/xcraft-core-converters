@@ -39,6 +39,28 @@ describe('Converter volume', function() {
     assert.equal('5m3', VolumeConverters.getDisplayed('5', 'm3'));
   });
 
+  it('#Test getCanonicalIATA', function() {
+    assert.equal('1', VolumeConverters.getCanonicalIATA('0.1 0.2 0.3', 6000));
+    assert.equal('1.2', VolumeConverters.getCanonicalIATA('0.1 0.2 0.3', 5000));
+    assert.equal('1200', VolumeConverters.getCanonicalIATA('1 2 3', 5000));
+  });
+
+  it('#Test getDisplayedIATA', function() {
+    assert.equal('166.667kg', VolumeConverters.getDisplayedIATA('1 1 1', 6000));
+    assert.equal(
+      '166.66667kg',
+      VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 5)
+    );
+    assert.equal(
+      '166.7kg',
+      VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 1)
+    );
+    assert.equal(
+      '167kg',
+      VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 0)
+    );
+  });
+
   it('#Test check', function() {
     assert.ok(VolumeConverters.check('1 2 3'));
     assert.ok(VolumeConverters.check('12 34 56'));
