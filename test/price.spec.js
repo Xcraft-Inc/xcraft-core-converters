@@ -8,29 +8,29 @@ describe('Converter price', function() {
     let result;
 
     result = PriceConverters.parseEdited('');
-    assert.equal(result.value, null);
-    assert.equal(result.error, null);
+    assert.equal(null, result.value);
+    assert.equal(null, result.error);
 
     result = PriceConverters.parseEdited('123.00');
-    assert.equal(result.value, '123');
-    assert.equal(result.error, null);
+    assert.equal('123', result.value);
+    assert.equal(null, result.error);
 
     result = PriceConverters.parseEdited('-123');
-    assert.equal(result.value, '-123');
-    assert.equal(result.error, null);
+    assert.equal('-123', result.value);
+    assert.equal(null, result.error);
 
     result = PriceConverters.parseEdited('123.456');
-    assert.equal(result.value, '123.46');
-    assert.equal(result.error, null);
+    assert.equal('123.46', result.value);
+    assert.equal(null, result.error);
 
     result = PriceConverters.parseEdited("1'234.5");
-    assert.equal(result.value, '1234.5');
-    assert.equal(result.error, null);
+    assert.equal('1234.5', result.value);
+    assert.equal(null, result.error);
   });
 
   it('#Test getDisplayed', function() {
-    assert.equal(PriceConverters.getDisplayed('123'), '123.00');
-    assert.equal(PriceConverters.getDisplayed('1234.5'), "1'234.50");
+    assert.equal('123.00', PriceConverters.getDisplayed('123'));
+    assert.equal("1'234.50", PriceConverters.getDisplayed('1234.5'));
   });
 
   it('#Test check', function() {

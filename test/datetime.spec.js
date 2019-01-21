@@ -40,12 +40,12 @@ describe('Converter datetime', function() {
 
   it('#Test getDisplayed', function() {
     assert.equal(
-      DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'),
-      '31.03.2017 14:48'
+      '31.03.2017 14:48',
+      DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z')
     );
     assert.equal(
-      DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'date'),
-      '31.03.2017'
+      '31.03.2017',
+      DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'date')
     );
   });
 
