@@ -60,6 +60,12 @@ describe('Converter date', function() {
     assert.equal(DateConverters.getDisplayed('2019-01-18', 'W3'), 'Ven');
   });
 
+  it('#Test getCalcDate', function() {
+    assert.equal(DateConverters.getCalcDate('2017-01-05', '-2d'), '2017-01-03');
+    assert.equal(DateConverters.getCalcDate('2017-01-05', '3m'), '2017-04-05');
+    assert.equal(DateConverters.getCalcDate('2017-01-05', '1y'), '2018-01-05');
+  });
+
   it('#Test check', function() {
     assert.ok(DateConverters.check('2017-03-31'));
     assert.ok(!DateConverters.check('2017/03/31'));
