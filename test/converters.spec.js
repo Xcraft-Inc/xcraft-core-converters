@@ -108,6 +108,92 @@ describe('Converter time', function() {
     assert.ok(TimeConverters.getNowCanonical('12:34:56').endsWith(':00'));
   });
 
+  it('#Test getSortable', function() {
+    assert.equal(TimeConverters.getSortable('12:34:56'), '1234');
+    assert.equal(TimeConverters.getSortable('07:34:56'), '0734');
+  });
+
+  it('#Test getCalcTime', function() {
+    assert.equal(TimeConverters.getCalcTime('14:30:00', '-2h'), '12:30:00');
+    assert.equal(TimeConverters.getCalcTime('14:30:00', '10m'), '14:40:00');
+    assert.equal(TimeConverters.getCalcTime('14:30:00', '2s'), '14:30:02');
+  });
+
+  it('#Test getDisplayedBetweenTwoTimes', function() {
+    assert.equal(
+      TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '14:30:00'),
+      'Maintenant'
+    );
+    assert.equal(
+      TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '14:45:00'),
+      'Dans 15 minutes'
+    );
+    assert.equal(
+      TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '15:30:00'),
+      'Dans 1 heure'
+    );
+    assert.equal(
+      TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '16:30:00'),
+      'Dans 2 heures'
+    );
+    assert.equal(
+      TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '18:15:00'),
+      'Dans 3 heures 45 minutes'
+    );
+    assert.equal(
+      TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '14:29:00'),
+      'Dépassé de 1 minute'
+    );
+  });
+
+  it('#Test getPeriodDescription', function() {
+    assert.equal(
+      TimeConverters.getPeriodDescription('14:30:00', null),
+      '14:30'
+    );
+    assert.equal(
+      TimeConverters.getPeriodDescription(null, '15:10:00'),
+      '15:10'
+    );
+    assert.equal(
+      TimeConverters.getPeriodDescription('14:30:00', '14:30:00'),
+      '14:30'
+    );
+    assert.equal(
+      TimeConverters.getPeriodDescription('14:30:00', '15:10:00'),
+      '14:30 → 15:10'
+    );
+    assert.equal(
+      TimeConverters.getPeriodDescription('14:30:00', '15:10:00', 'ft'),
+      '14:30 15:10'
+    );
+    assert.equal(
+      TimeConverters.getPeriodDescription('14:30:00', '15:10:00', 'f-t'),
+      '14:30—15:10'
+    );
+    assert.equal(
+      TimeConverters.getPeriodDescription('14:30:00', '15:10:00', 'f - t'),
+      '14:30 — 15:10'
+    );
+  });
+
+  it('#Test getTotalMinutes', function() {
+    assert.equal(TimeConverters.getTotalMinutes('08:34:00'), 8 * 60 + 34);
+    assert.equal(TimeConverters.getTotalMinutes('08:34:59'), 8 * 60 + 34);
+  });
+
+  it('#Test getTimeFromMinutes', function() {
+    assert.equal(TimeConverters.getTimeFromMinutes(0), '00:00:00');
+    assert.equal(TimeConverters.getTimeFromMinutes(8 * 60 + 34), '08:34:00');
+  });
+
+  it('#Test jsToCanonical', function() {
+    assert.equal(
+      TimeConverters.jsToCanonical(new Date(2019, 12, 25, 13, 20, 30)),
+      '13:20:30'
+    );
+  });
+
   it('#Test getDisplayed', function() {
     assert.equal(TimeConverters.getDisplayed('12:34:56'), '12:34');
     assert.equal(TimeConverters.getDisplayed('12:34:56', 'hms'), '12:34:56');
