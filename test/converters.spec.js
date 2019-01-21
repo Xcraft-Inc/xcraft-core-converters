@@ -15,7 +15,7 @@ const ReferenceConverters = require('../lib/reference.js');
 const FieldType = require('../lib/field-type.js');
 
 // To run all tests, type:
-// npm test --prefix lib/xcraft-core-converters/
+// npm test xcraft-core-converters
 
 //-----------------------------------------------------------------------------
 // date
@@ -79,13 +79,33 @@ describe('Converter time', function() {
   it('#Test parseEdited', function() {
     let result;
 
-    result = TimeConverters.parseEdited('14 5 0');
+    result = TimeConverters.parseEdited('14');
+    assert.equal(result.value, '14:00:00');
+    assert.equal(result.error, null);
+
+    result = TimeConverters.parseEdited('14 5');
     assert.equal(result.value, '14:05:00');
     assert.equal(result.error, null);
 
-    result = TimeConverters.parseEdited('14', '15:30:00');
-    assert.equal(result.value, '14:30:00');
+    result = TimeConverters.parseEdited('14 5 20');
+    assert.equal(result.value, '14:05:20');
     assert.equal(result.error, null);
+
+    result = TimeConverters.parseEdited('930');
+    assert.equal(result.value, '09:30:00');
+    assert.equal(result.error, null);
+
+    result = TimeConverters.parseEdited('1620');
+    assert.equal(result.value, '16:20:00');
+    assert.equal(result.error, null);
+
+    result = TimeConverters.parseEdited('14', '15:30:59');
+    assert.equal(result.value, '14:30:59');
+    assert.equal(result.error, null);
+  });
+
+  it('#Test getNowCanonical', function() {
+    assert.ok(TimeConverters.getNowCanonical('12:34:56').endsWith(':00'));
   });
 
   it('#Test getDisplayed', function() {
