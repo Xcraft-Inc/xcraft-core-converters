@@ -31,38 +31,25 @@ describe('Converter length', function() {
     assert.equal('Unité "x" incorrecte', result.error);
   });
 
+  // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.equal(null, LengthConverters.getDisplayed(null));
-    assert.equal('1.2m', LengthConverters.getDisplayed('1.2'));
-    assert.equal('1.2km', LengthConverters.getDisplayed('1200', 'km'));
-    assert.equal('1200cm', LengthConverters.getDisplayed('12', 'cm'));
+    assert.equal(null,     LengthConverters.getDisplayed(null));
+    assert.equal('1.2m',   LengthConverters.getDisplayed('1.2'));
+    assert.equal('1.2km',  LengthConverters.getDisplayed('1200', 'km'));
+    assert.equal('1200cm', LengthConverters.getDisplayed('12',   'cm'));
   });
 
+  // prettier-ignore
   it('#Test convertLength', function() {
-    assert.equal('1.2', LengthConverters.convertLength('12', 'mm', 'cm'));
-    assert.equal('120', LengthConverters.convertLength('12', 'cm', 'mm'));
-    assert.equal('12000', LengthConverters.convertLength('12', 'km', 'm'));
-    assert.equal('1.2', LengthConverters.convertLength('1.23456', 'm', 'm', 1));
-    assert.equal(
-      '1.23',
-      LengthConverters.convertLength('1.23456', 'm', 'm', 2)
-    );
-    assert.equal(
-      '1.235',
-      LengthConverters.convertLength('1.23456', 'm', 'm', 3)
-    );
-    assert.equal(
-      '1.2346',
-      LengthConverters.convertLength('1.23456', 'm', 'm', 4)
-    );
-    assert.equal(
-      '1.23456',
-      LengthConverters.convertLength('1.23456', 'm', 'm', 5)
-    );
-    assert.equal(
-      '1.23456',
-      LengthConverters.convertLength('1.23456', 'm', 'm', 6)
-    );
+    assert.equal('1.2',     LengthConverters.convertLength('12',      'mm', 'cm'  ));
+    assert.equal('120',     LengthConverters.convertLength('12',      'cm', 'mm'  ));
+    assert.equal('12000',   LengthConverters.convertLength('12',      'km', 'm'   ));
+    assert.equal('1.2',     LengthConverters.convertLength('1.23456', 'm',  'm', 1));
+    assert.equal('1.23',    LengthConverters.convertLength('1.23456', 'm',  'm', 2));
+    assert.equal('1.235',   LengthConverters.convertLength('1.23456', 'm',  'm', 3));
+    assert.equal('1.2346',  LengthConverters.convertLength('1.23456', 'm',  'm', 4));
+    assert.equal('1.23456', LengthConverters.convertLength('1.23456', 'm',  'm', 5));
+    assert.equal('1.23456', LengthConverters.convertLength('1.23456', 'm',  'm', 6));
   });
 
   it('#Test check correct', function() {

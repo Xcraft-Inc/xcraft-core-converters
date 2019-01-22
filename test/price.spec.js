@@ -65,6 +65,7 @@ describe('Converter price', function() {
   });
 
   it('#Test check wrong', function() {
+    assert.ok(!PriceConverters.check("12'000"));
     assert.ok(!PriceConverters.check('123.456'));
     assert.ok(!PriceConverters.check('-1x3'));
     assert.ok(!PriceConverters.check(100));

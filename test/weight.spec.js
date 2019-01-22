@@ -19,7 +19,7 @@ describe('Converter weight', function() {
     assert.equal(null, result.error);
 
     result = WeightConverters.parseEdited('2t', 'mg');
-    assert.equal('1230', result.value);
+    assert.equal('2000', result.value);
     assert.equal(null, result.error);
 
     result = WeightConverters.parseEdited('12', 'kg');
@@ -32,33 +32,19 @@ describe('Converter weight', function() {
     assert.equal('1200g', WeightConverters.getDisplayed('1.2', 'g'));
   });
 
+  // prettier-ignore
   it('#Test convertWeight', function() {
-    assert.equal('12', WeightConverters.convertWeight('12', 'kg', 'kg', 3));
-    assert.equal('1200', WeightConverters.convertWeight('1.2', 'g', 'mg', 3));
-    assert.equal('30', WeightConverters.convertWeight('0.03', 't', 'kg', 3));
-    assert.equal(
-      '1.2',
-      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 1)
-    );
-    assert.equal(
-      '1.23',
-      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 2)
-    );
-    assert.equal(
-      '1.235',
-      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 3)
-    );
-    assert.equal(
-      '1.2346',
-      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 4)
-    );
-    assert.equal(
-      '1.23456',
-      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 5)
-    );
-    assert.equal(
-      '1.23456',
-      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 6)
+    assert.equal('12',       WeightConverters.convertWeight('12',      'kg', 'kg', 3));
+    assert.equal('1200',     WeightConverters.convertWeight('1.2',     'g',  'mg', 3));
+    assert.equal('30',       WeightConverters.convertWeight('0.03',    't',  'kg', 3));
+    assert.equal('1.235',    WeightConverters.convertWeight('1.23456', 'kg', 'kg'));
+    assert.equal('1',        WeightConverters.convertWeight('1.23456', 'kg', 'kg', 0));
+    assert.equal('1.2',      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 1));
+    assert.equal('1.23',     WeightConverters.convertWeight('1.23456', 'kg', 'kg', 2));
+    assert.equal('1.235',    WeightConverters.convertWeight('1.23456', 'kg', 'kg', 3));
+    assert.equal('1.2346',   WeightConverters.convertWeight('1.23456', 'kg', 'kg', 4));
+    assert.equal('1.23456',  WeightConverters.convertWeight('1.23456', 'kg', 'kg', 5));
+    assert.equal('1.23456',  WeightConverters.convertWeight('1.23456', 'kg', 'kg', 6)
     );
   });
 

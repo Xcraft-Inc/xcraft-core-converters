@@ -14,7 +14,11 @@ const parseFormat = {
 };
 
 function convertLength(value, decimals) {
-  BigNumber.config({FORMAT: parseFormat, ERRORS: false});
+  BigNumber.config({
+    FORMAT: parseFormat,
+    DECIMAL_PLACES: decimals || 3,
+    ERRORS: false,
+  });
   console.log('TOTO');
   console.log(value);
   value = new BigNumber(value);

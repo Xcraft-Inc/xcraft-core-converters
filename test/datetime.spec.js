@@ -41,15 +41,10 @@ describe('Converter datetime', function() {
   //-   assert.equal(result.error, null);
   //- });
 
+  // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.equal(
-      '31.03.2017 14:48',
-      DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z')
-    );
-    assert.equal(
-      '31.03.2017',
-      DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'date')
-    );
+    assert.equal('31.03.2017 14:48', DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'));
+    assert.equal('31.03.2017',       DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'date'));
   });
 
   it('#Test check correct', function() {
