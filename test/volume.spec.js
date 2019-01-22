@@ -25,16 +25,28 @@ describe('Converter volume', function() {
     result = VolumeConverters.parseEdited('12 13 14', 'm');
     assert.equal('12 13 14', result.value);
     assert.equal(null, result.error);
+
+    result = VolumeConverters.parseEdited('12m3', 'm3');
+    assert.equal('12', result.value);
+    assert.equal(null, result.error);
+
+    result = VolumeConverters.parseEdited('12dm3', 'm3');
+    assert.equal('0.012', result.value);
+    assert.equal(null, result.error);
+
+    result = VolumeConverters.parseEdited('12 13', 'm');
+    assert.equal(null, result.value);
+    assert.ok(result.error);
   });
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.equal(null,                VolumeConverters.getDisplayed(null));
-    assert.equal('12 × 13 × 140 cm',  VolumeConverters.getDisplayed('0.12 0.13 1.4', 'cm'));
-    assert.equal('1.2 × 1.3 × 1.4 m', VolumeConverters.getDisplayed('1.2 1.3 1.4',   'm'));
+    assert.equal('12 × 13 × 140 cm',  VolumeConverters.getDisplayed('0.12 0.13 1.4', 'cm' ));
+    assert.equal('1.2 × 1.3 × 1.4 m', VolumeConverters.getDisplayed('1.2 1.3 1.4',   'm'  ));
     assert.equal('12dm3',             VolumeConverters.getDisplayed('0.012',         'dm3'));
-    assert.equal('12l',               VolumeConverters.getDisplayed('0.012',         'l'));
-    assert.equal('5m3',               VolumeConverters.getDisplayed('5',             'm3'));
+    assert.equal('12l',               VolumeConverters.getDisplayed('0.012',         'l'  ));
+    assert.equal('5m3',               VolumeConverters.getDisplayed('5',             'm3' ));
   });
 
   // prettier-ignore
@@ -46,11 +58,12 @@ describe('Converter volume', function() {
 
   // prettier-ignore
   it('#Test getDisplayedIATA', function() {
-    assert.equal('166.667kg',   VolumeConverters.getDisplayedIATA('1 1 1', 6000));
-    assert.equal('166.667kg',   VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg'));
-    assert.equal('166.66667kg', VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 5));
-    assert.equal('166.7kg',     VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 1));
-    assert.equal('167kg',       VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 0));
+    assert.equal('166.667kg', VolumeConverters.getDisplayedIATA('1 1 1', 6000         ));
+    assert.equal('166.667kg', VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg'   ));
+    assert.equal('167kg',     VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 0));
+    assert.equal('166.7kg',   VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 1));
+    assert.equal('166.667kg', VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 3));
+    assert.equal('166.667kg', VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 5));
   });
 
   it('#Test check correct', function() {
