@@ -64,17 +64,22 @@ describe('Converter volume', function() {
     );
   });
 
-  it('#Test check', function() {
+  it('#Test check correct', function() {
     assert.ok(VolumeConverters.check('1 2 3'));
     assert.ok(VolumeConverters.check('12 34 56'));
     assert.ok(VolumeConverters.check('1.2 3.4 5.6'));
     assert.ok(VolumeConverters.check('.2 .3 .4'));
     assert.ok(VolumeConverters.check('1'));
     assert.ok(VolumeConverters.check('123'));
+  });
+
+  it('#Test check wrong', function() {
     assert.ok(!VolumeConverters.check('2 3'));
     assert.ok(!VolumeConverters.check('2 3 4 5'));
     assert.ok(!VolumeConverters.check('2 -3 4'));
     assert.ok(!VolumeConverters.check('2,3,4'));
+    assert.ok(!VolumeConverters.check('2dm3'));
+    assert.ok(!VolumeConverters.check('2 dm3'));
     assert.ok(!VolumeConverters.check('abc'));
     assert.ok(!VolumeConverters.check(12));
     assert.ok(!VolumeConverters.check(12, 34, 56));

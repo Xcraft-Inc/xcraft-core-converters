@@ -52,8 +52,12 @@ describe('Converter datetime', function() {
     );
   });
 
-  it('#Test check', function() {
+  it('#Test check correct', function() {
+    assert.ok(DateTimeConverters.check('0000-00-00T00:00:00.000Z'));
     assert.ok(DateTimeConverters.check('2019-01-18T14:00:00.000Z'));
+  });
+
+  it('#Test check wrong', function() {
     assert.ok(!DateTimeConverters.check('2019-01-18T14:00:00'));
     assert.ok(!DateTimeConverters.check('2019-01-18t14:00:00.000Z'));
     assert.ok(!DateTimeConverters.check('coucou'));

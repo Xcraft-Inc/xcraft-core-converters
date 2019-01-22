@@ -71,11 +71,14 @@ describe('Converter number', function() {
     assert.equal('0.12456', NumberConverters.getDisplayed('.12456', 6));
   });
 
-  it('#Test check', function() {
+  it('#Test check correct', function() {
     assert.ok(NumberConverters.check('123'));
     assert.ok(NumberConverters.check('-123'));
     assert.ok(NumberConverters.check('.123'));
     assert.ok(NumberConverters.check('1.23'));
+  });
+
+  it('#Test check wrong', function() {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));

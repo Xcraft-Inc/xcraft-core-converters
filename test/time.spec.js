@@ -136,8 +136,13 @@ describe('Converter time', function() {
     );
   });
 
-  it('#Test check', function() {
-    assert.ok(TimeConverters.check('08:59:59'));
+  it('#Test check correct', function() {
+    assert.ok(TimeConverters.check('00:00:00'));
+    assert.ok(TimeConverters.check('08:10:30'));
+    assert.ok(TimeConverters.check('23:59:59'));
+  });
+
+  it('#Test check wrong', function() {
     assert.ok(!TimeConverters.check('12:00'));
     assert.ok(!TimeConverters.check('12.00.00'));
     assert.ok(!TimeConverters.check(''));

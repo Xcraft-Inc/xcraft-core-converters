@@ -223,8 +223,12 @@ describe('Converter date', function() {
     assert.equal(1, DateConverters.getWeekOfYear('2019-12-31'));
   });
 
-  it('#Test check', function() {
+  it('#Test check correct', function() {
+    assert.ok(DateConverters.check('0000-00-00'));
     assert.ok(DateConverters.check('2017-03-31'));
+  });
+
+  it('#Test check wrong', function() {
     assert.ok(!DateConverters.check('2017/03/31'));
     assert.ok(!DateConverters.check('2017-3-31'));
     assert.ok(!DateConverters.check('2017-AB-31'));

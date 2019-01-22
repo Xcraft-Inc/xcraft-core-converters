@@ -65,10 +65,13 @@ describe('Converter length', function() {
     );
   });
 
-  it('#Test check', function() {
+  it('#Test check correct', function() {
     assert.ok(LengthConverters.check('123'));
     assert.ok(LengthConverters.check('.123'));
     assert.ok(LengthConverters.check('1.23'));
+  });
+
+  it('#Test check wrong', function() {
     assert.ok(!LengthConverters.check('-123'));
     assert.ok(!LengthConverters.check('123m'));
     assert.ok(!LengthConverters.check('123cm'));

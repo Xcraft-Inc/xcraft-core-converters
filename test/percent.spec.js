@@ -63,11 +63,15 @@ describe('Converter percent', function() {
     assert.equal('12.3%', PercentConverters.getDisplayed('0.123'));
   });
 
-  it('#Test check', function() {
+  it('#Test check correct', function() {
     assert.ok(PercentConverters.check('1'));
     assert.ok(PercentConverters.check('123'));
     assert.ok(PercentConverters.check('0.123'));
     assert.ok(PercentConverters.check('-0.05'));
+  });
+
+  it('#Test check wrong', function() {
+    assert.ok(!PercentConverters.check('10%'));
     assert.ok(!PercentConverters.check(5));
   });
 });
