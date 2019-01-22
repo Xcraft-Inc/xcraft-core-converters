@@ -7,6 +7,34 @@ const assert = require('assert');
 const TimeConverters = require('../lib/time.js');
 
 describe('Converter time', function() {
+  // prettier-ignore
+  it('#Test jsToCanonical', function() {
+    assert.equal('00:00:00', TimeConverters.jsToCanonical(new Date(2019, 12, 25,  0,  0,  0)));
+    assert.equal('13:20:30', TimeConverters.jsToCanonical(new Date(2019, 12, 25, 13, 20, 30)));
+    assert.equal('23:59:59', TimeConverters.jsToCanonical(new Date(2019, 12, 25, 23, 59, 59)));
+  });
+
+  // prettier-ignore
+  it('#Test canonicalToJs', function() {
+    assert.equal(new Date(2000, 0, 1,  0,  0,  0).toISOString(), TimeConverters.canonicalToJs("00:00:00").toISOString());
+    assert.equal(new Date(2000, 0, 1,  9, 30,  0).toISOString(), TimeConverters.canonicalToJs("09:30:00").toISOString());
+    assert.equal(new Date(2000, 0, 1, 23, 59, 59).toISOString(), TimeConverters.canonicalToJs("23:59:59").toISOString());
+  });
+
+  // prettier-ignore
+  it('#Test getHours', function() {
+    assert.equal( 0, TimeConverters.getHours("00:00:00"));
+    assert.equal(12, TimeConverters.getHours("12:00:00"));
+    assert.equal(23, TimeConverters.getHours("23:00:00"));
+  });
+
+  // prettier-ignore
+  it('#Test addHours', function() {
+    assert.equal("01:00:00", TimeConverters.addHours("00:00:00", 1));
+    assert.equal("01:30:02", TimeConverters.addHours("00:30:02", 1));
+    assert.equal("20:30:02", TimeConverters.addHours("17:30:02", 3));
+  });
+
   it('#Test parseEdited', function() {
     let result;
 
@@ -91,11 +119,6 @@ describe('Converter time', function() {
   it('#Test getTimeFromMinutes', function() {
     assert.equal('00:00:00', TimeConverters.getTimeFromMinutes(0));
     assert.equal('08:34:00', TimeConverters.getTimeFromMinutes(8 * 60 + 34));
-  });
-
-  // prettier-ignore
-  it('#Test jsToCanonical', function() {
-    assert.equal('13:20:30', TimeConverters.jsToCanonical(new Date(2019, 12, 25, 13, 20, 30)));
   });
 
   it('#Test check correct', function() {
