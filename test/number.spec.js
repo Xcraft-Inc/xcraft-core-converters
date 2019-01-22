@@ -1,5 +1,8 @@
 'use strict';
 
+// To run test:
+// npm test xcraft-core-converters
+
 const assert = require('assert');
 const NumberConverters = require('../lib/number.js');
 

@@ -1,5 +1,8 @@
 'use strict';
 
+// To run test:
+// npm test xcraft-core-converters
+
 const assert = require('assert');
 const FieldType = require('../lib/field-type-checker.js');
 
@@ -70,6 +73,68 @@ describe('field-type', function() {
     assert.equal(false, result.ok);
   });
 
+  it('#Test field-type price', function() {
+    let result;
+
+    result = FieldType.check('Blupi', null, {type: 'price'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '', {type: 'price'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '123', {type: 'price'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '123.50', {type: 'price'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '.12', {type: 'price'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '-123', {type: 'price'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', 123, {type: 'price'});
+    assert.equal(false, result.ok);
+
+    result = FieldType.check('Blupi', '123,45', {type: 'price'});
+    assert.equal(false, result.ok);
+  });
+
+  it('#Test field-type percent', function() {
+    let result;
+
+    result = FieldType.check('Blupi', null, {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '0.5', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '.5', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '.555555', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '1', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '-0.1', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '-.1', {type: 'percent'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', 123, {type: 'percent'});
+    assert.equal(false, result.ok);
+
+    result = FieldType.check('Blupi', '123,456', {type: 'percent'});
+    assert.equal(false, result.ok);
+  });
+
   it('#Test field-type enum', function() {
     let result;
 
@@ -123,7 +188,29 @@ describe('field-type', function() {
     result = FieldType.check('Blupi', null, {type: 'date'});
     assert.equal(true, result.ok);
 
+    result = FieldType.check('Blupi', '31 03 2019', {type: 'date'});
+    assert.equal(false, result.ok);
+
     result = FieldType.check('Blupi', null, {type: 'date', required: true});
+    assert.equal(false, result.ok);
+  });
+
+  it('#Test field-type time', function() {
+    let result;
+
+    result = FieldType.check('Blupi', '12:00:00', {type: 'time'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '', {type: 'time'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', null, {type: 'time'});
+    assert.equal(true, result.ok);
+
+    result = FieldType.check('Blupi', '12:00', {type: 'time'});
+    assert.equal(false, result.ok);
+
+    result = FieldType.check('Blupi', null, {type: 'time', required: true});
     assert.equal(false, result.ok);
   });
 });

@@ -1,5 +1,8 @@
 'use strict';
 
+// To run test:
+// npm test xcraft-core-converters
+
 const assert = require('assert');
 const PriceConverters = require('../lib/price.js');
 
@@ -25,6 +28,18 @@ describe('Converter price', function() {
 
     result = PriceConverters.parseEdited("1'234.5");
     assert.equal('1234.5', result.value);
+    assert.equal(null, result.error);
+
+    result = PriceConverters.parseEdited('1.2345');
+    assert.equal('1.23', result.value);
+    assert.equal(null, result.error);
+
+    result = PriceConverters.parseEdited('1.2999');
+    assert.equal('1.3', result.value);
+    assert.equal(null, result.error);
+
+    result = PriceConverters.parseEdited('1.9999');
+    assert.equal('2', result.value);
     assert.equal(null, result.error);
   });
 

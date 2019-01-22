@@ -1,5 +1,8 @@
 'use strict';
 
+// To run test:
+// npm test xcraft-core-converters
+
 const assert = require('assert');
 const WeightConverters = require('../lib/weight.js');
 

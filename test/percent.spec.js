@@ -1,5 +1,8 @@
 'use strict';
 
+// To run test:
+// npm test xcraft-core-converters
+
 const assert = require('assert');
 const PercentConverters = require('../lib/percent.js');
 
@@ -27,6 +30,18 @@ describe('Converter percent', function() {
     assert.equal('0.00002', result.value);
     assert.equal(null, result.error);
 
+    result = PercentConverters.parseEdited('-2%');
+    assert.equal('-0.02', result.value);
+    assert.equal(null, result.error);
+
+    result = PercentConverters.parseEdited('-.2%');
+    assert.equal('-0.002', result.value);
+    assert.equal(null, result.error);
+
+    result = PercentConverters.parseEdited('-0.2%');
+    assert.equal('-0.002', result.value);
+    assert.equal(null, result.error);
+
     result = PercentConverters.parseEdited('0.45');
     assert.equal('0.45', result.value);
     assert.equal(null, result.error);
@@ -49,9 +64,10 @@ describe('Converter percent', function() {
   });
 
   it('#Test check', function() {
+    assert.ok(PercentConverters.check('1'));
     assert.ok(PercentConverters.check('123'));
     assert.ok(PercentConverters.check('0.123'));
-    assert.ok(!PercentConverters.check('-0.05'));
+    assert.ok(PercentConverters.check('-0.05'));
     assert.ok(!PercentConverters.check(5));
   });
 });
