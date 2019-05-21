@@ -102,7 +102,7 @@ describe('Converter price', function() {
     const options = {
       decimal: '.',
       thousands: '\u2009',
-      minus: '−',
+      minus: '\u2212', // minus
       precision: '1M',
       unitSeparator: ' ',
       unit: '',
@@ -137,7 +137,7 @@ describe('Converter price', function() {
     const options = {
       decimal: '.',
       thousands: '\u2009',
-      minus: '−',
+      minus: '\u2212', // minus
       precision: '1M',
       unitSeparator: ' ',
       unit: '',
