@@ -101,7 +101,7 @@ describe('Converter price', function() {
   it('#Test getDisplayed with money and precision 1M and separators', function() {
     const options = {
       decimal: '.',
-      thousands: '\u2009',
+      thousands: '\u2009', // thin space
       minus: '\u2212', // minus
       precision: '1M',
       unitSeparator: ' ',
@@ -136,7 +136,7 @@ describe('Converter price', function() {
 
     const options = {
       decimal: '.',
-      thousands: '\u2009',
+      thousands: '\u2009', // thin space
       minus: '\u2212', // minus
       precision: '1M',
       unitSeparator: ' ',
