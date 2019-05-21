@@ -8,65 +8,65 @@ describe('Converter number', function() {
     let result;
 
     result = NumberConverters.parseEdited('');
-    assert.equal(null, result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('123');
-    assert.equal('123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('00123');
-    assert.equal('123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('+123');
-    assert.equal('123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('-123');
-    assert.equal('-123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '-123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('123.00');
-    assert.equal('123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('123.800');
-    assert.equal('123.8', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '123.8');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('123.456789');
-    assert.equal('123.456789', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '123.456789');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('.123');
-    assert.equal('.123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '.123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('0.123');
-    assert.equal('.123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '.123');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited("1'000.00");
-    assert.equal('1000', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '1000');
+    assert.strictEqual(result.error, null);
 
     result = NumberConverters.parseEdited('12a34');
-    assert.equal(null, result.value);
+    assert.strictEqual(result.value, null);
     assert.ok(result.error);
   });
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.equal(null,       NumberConverters.getDisplayed(null       ));
-    assert.equal("1'234",    NumberConverters.getDisplayed('1234'     ));
-    assert.equal("-1'234",   NumberConverters.getDisplayed('-1234'    ));
-    assert.equal('0.12',     NumberConverters.getDisplayed('.12'      ));
-    assert.equal('0.12',     NumberConverters.getDisplayed('.12456', 2));
-    assert.equal('0.125',    NumberConverters.getDisplayed('.12456', 3));
-    assert.equal('0.1246',   NumberConverters.getDisplayed('.12456', 4));
-    assert.equal('0.12456',  NumberConverters.getDisplayed('.12456', 5));
-    assert.equal('0.12456',  NumberConverters.getDisplayed('.12456', 6));
+    assert.strictEqual(NumberConverters.getDisplayed(null       ), null);
+    assert.strictEqual(NumberConverters.getDisplayed('1234'     ), "1'234");
+    assert.strictEqual(NumberConverters.getDisplayed('-1234'    ), "-1'234");
+    assert.strictEqual(NumberConverters.getDisplayed('.12'      ), '0.12');
+    assert.strictEqual(NumberConverters.getDisplayed('.12456', 2), '0.12');
+    assert.strictEqual(NumberConverters.getDisplayed('.12456', 3), '0.125');
+    assert.strictEqual(NumberConverters.getDisplayed('.12456', 4), '0.1246');
+    assert.strictEqual(NumberConverters.getDisplayed('.12456', 5), '0.12456');
+    assert.strictEqual(NumberConverters.getDisplayed('.12456', 6), '0.12456');
   });
 
   it('#Test check correct', function() {

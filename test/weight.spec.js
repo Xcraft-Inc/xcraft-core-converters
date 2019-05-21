@@ -8,55 +8,56 @@ describe('Converter weight', function() {
     let result;
 
     result = WeightConverters.parseEdited('');
-    assert.equal(null, result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.error, null);
 
     result = WeightConverters.parseEdited('123', 'g');
-    assert.equal('0.123', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '0.123');
+    assert.strictEqual(result.error, null);
 
     result = WeightConverters.parseEdited('2t', 'mg');
-    assert.equal('2000', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '2000');
+    assert.strictEqual(result.error, null);
 
     result = WeightConverters.parseEdited('12', 'kg');
-    assert.equal('12', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
 
     result = WeightConverters.parseEdited('12.3', 'kg');
-    assert.equal('12.3', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '12.3');
+    assert.strictEqual(result.error, null);
 
     result = WeightConverters.parseEdited('12.3456', 'kg');
-    assert.equal('12.346', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '12.346');
+    assert.strictEqual(result.error, null);
   });
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.equal(null,    WeightConverters.getDisplayed(null));
-    assert.equal('1200g', WeightConverters.getDisplayed('1.2', 'g'));
+    assert.strictEqual(WeightConverters.getDisplayed(null), null);
+    assert.strictEqual(WeightConverters.getDisplayed('1.2', 'g'), '1200g');
   });
 
   // prettier-ignore
   it('#Test convertWeight', function() {
-    assert.equal('12',       WeightConverters.convertWeight('12',      'kg', 'kg'   ));
-    assert.equal('12',       WeightConverters.convertWeight('12',      'kg', 'kg', 3));
-    assert.equal('1200',     WeightConverters.convertWeight('1.2',     'g',  'mg', 3));
-    assert.equal('30',       WeightConverters.convertWeight('0.03',    't',  'kg', 3));
-    assert.equal('1.235',    WeightConverters.convertWeight('1.23456', 'kg', 'kg'   ));
-    assert.equal('1',        WeightConverters.convertWeight('1.23456', 'kg', 'kg', 0));
-    assert.equal('1.2',      WeightConverters.convertWeight('1.23456', 'kg', 'kg', 1));
-    assert.equal('1.23',     WeightConverters.convertWeight('1.23456', 'kg', 'kg', 2));
-    assert.equal('1.235',    WeightConverters.convertWeight('1.23456', 'kg', 'kg', 3));
-    assert.equal('1.2346',   WeightConverters.convertWeight('1.23456', 'kg', 'kg', 4));
-    assert.equal('1.23456',  WeightConverters.convertWeight('1.23456', 'kg', 'kg', 5));
-    assert.equal('1.23456',  WeightConverters.convertWeight('1.23456', 'kg', 'kg', 6));
+    assert.strictEqual(WeightConverters.convertWeight('12',      'kg', 'kg'   ), '12');
+    assert.strictEqual(WeightConverters.convertWeight('12',      'kg', 'kg', 3), '12');
+    assert.strictEqual(WeightConverters.convertWeight('1.2',     'g',  'mg', 3), '1200');
+    assert.strictEqual(WeightConverters.convertWeight('0.03',    't',  'kg', 3), '30');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg'   ), '1.235');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 0), '1');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 1), '1.2');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 2), '1.23');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 3), '1.235');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 4), '1.2346');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 5), '1.23456');
+    assert.strictEqual(WeightConverters.convertWeight('1.23456', 'kg', 'kg', 6), '1.23456');
   });
 
+  // prettier-ignore
   it('#Test getSortable', function() {
-    assert.equal('00000012000000', WeightConverters.getSortable('12'));
-    assert.equal('00000001666666', WeightConverters.getSortable('1.666666667'));
+    assert.strictEqual(WeightConverters.getSortable('12'         ), '00000012000000');
+    assert.strictEqual(WeightConverters.getSortable('1.666666667'), '00000001666666');
   });
 
   it('#Test check correct', function() {

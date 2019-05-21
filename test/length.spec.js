@@ -8,45 +8,45 @@ describe('Converter length', function() {
     let result;
 
     result = LengthConverters.parseEdited('123', 'cm');
-    assert.equal('1.23', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '1.23');
+    assert.strictEqual(result.error, null);
 
     result = LengthConverters.parseEdited('12', 'm');
-    assert.equal('12', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
 
     result = LengthConverters.parseEdited('2km', 'mm');
-    assert.equal('2000', result.value);
-    assert.equal(null, result.error);
+    assert.strictEqual(result.value, '2000');
+    assert.strictEqual(result.error, null);
 
     result = LengthConverters.parseEdited('2', 'x');
-    assert.equal(null, result.value);
-    assert.equal('Unité "x" incorrecte', result.error);
+    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.error, 'Unité "x" incorrecte');
 
     result = LengthConverters.parseEdited('2x');
-    assert.equal(null, result.value);
-    assert.equal('Unité "x" incorrecte', result.error);
+    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.error, 'Unité "x" incorrecte');
   });
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.equal(null,     LengthConverters.getDisplayed(null));
-    assert.equal('1.2m',   LengthConverters.getDisplayed('1.2'));
-    assert.equal('1.2km',  LengthConverters.getDisplayed('1200', 'km'));
-    assert.equal('1200cm', LengthConverters.getDisplayed('12',   'cm'));
+    assert.strictEqual(LengthConverters.getDisplayed(null        ), null);
+    assert.strictEqual(LengthConverters.getDisplayed('1.2'       ), '1.2m');
+    assert.strictEqual(LengthConverters.getDisplayed('1200', 'km'), '1.2km');
+    assert.strictEqual(LengthConverters.getDisplayed('12',   'cm'), '1200cm');
   });
 
   // prettier-ignore
   it('#Test convertLength', function() {
-    assert.equal('1.2',     LengthConverters.convertLength('12',      'mm', 'cm'  ));
-    assert.equal('120',     LengthConverters.convertLength('12',      'cm', 'mm'  ));
-    assert.equal('12000',   LengthConverters.convertLength('12',      'km', 'm'   ));
-    assert.equal('1.2',     LengthConverters.convertLength('1.23456', 'm',  'm', 1));
-    assert.equal('1.23',    LengthConverters.convertLength('1.23456', 'm',  'm', 2));
-    assert.equal('1.235',   LengthConverters.convertLength('1.23456', 'm',  'm', 3));
-    assert.equal('1.2346',  LengthConverters.convertLength('1.23456', 'm',  'm', 4));
-    assert.equal('1.23456', LengthConverters.convertLength('1.23456', 'm',  'm', 5));
-    assert.equal('1.23456', LengthConverters.convertLength('1.23456', 'm',  'm', 6));
+    assert.strictEqual(LengthConverters.convertLength('12',      'mm', 'cm'  ), '1.2');
+    assert.strictEqual(LengthConverters.convertLength('12',      'cm', 'mm'  ), '120');
+    assert.strictEqual(LengthConverters.convertLength('12',      'km', 'm'   ), '12000');
+    assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 1), '1.2');
+    assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 2), '1.23');
+    assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 3), '1.235');
+    assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 4), '1.2346');
+    assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 5), '1.23456');
+    assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 6), '1.23456');
   });
 
   it('#Test check correct', function() {
