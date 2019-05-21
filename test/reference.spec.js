@@ -1,8 +1,5 @@
 'use strict';
 
-// To run test:
-// npm test xcraft-core-converters
-
 const assert = require('assert');
 const ReferenceConverters = require('../lib/reference.js');
 describe('Converter reference', function() {

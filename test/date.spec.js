@@ -1,8 +1,5 @@
 'use strict';
 
-// To run test:
-// npm test xcraft-core-converters
-
 const assert = require('assert');
 const DateConverters = require('../lib/date.js');
 describe('Converter date', function() {
