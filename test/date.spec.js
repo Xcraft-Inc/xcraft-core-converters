@@ -2,6 +2,33 @@
 
 const assert = require('assert');
 const DateConverters = require('../lib/date.js');
+const StringBuilder = require('goblin-nabu/lib/string-builder.js');
+
+function getDisplayed(canonical, format) {
+  const s = DateConverters.getDisplayed(canonical, format);
+  return StringBuilder._toFlatten(s);
+}
+
+function getPeriodDescription(fromDate, toDate, format) {
+  const s = DateConverters.getPeriodDescription(fromDate, toDate, format);
+  return StringBuilder._toFlatten(s);
+}
+
+function getMonthDescription(month, format) {
+  const s = DateConverters.getMonthDescription(month, format);
+  return StringBuilder._toFlatten(s);
+}
+
+function getDOWDescription(dow, format) {
+  const s = DateConverters.getDOWDescription(dow, format);
+  return StringBuilder._toFlatten(s);
+}
+
+function getDisplayedBetweenTwoDates(date1, date2) {
+  const s = DateConverters.getDisplayedBetweenTwoDates(date1, date2);
+  return StringBuilder._toFlatten(s);
+}
+
 describe('Converter date', function() {
   it('#Test parseEdited', function() {
     let result;
@@ -25,33 +52,34 @@ describe('Converter date', function() {
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.strictEqual(DateConverters.getDisplayed('2017-03-31'),          '31.03.2017');
-    assert.strictEqual(DateConverters.getDisplayed('2017-03-31', 'y'),     '2017');
-    assert.strictEqual(DateConverters.getDisplayed('2017-03-31', 'My'),    'Mars 2017');
-    assert.strictEqual(DateConverters.getDisplayed('2017-03-31', 'M'),     'Mars');
-    assert.strictEqual(DateConverters.getDisplayed('2017-03-31', 'M3'),    'Mar');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'W'),     'vendredi');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'Wd'),    'ven 18');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'd'),     '18');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'Wdm'),   'ven 18.01');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'Wdmy'),  'ven 18.01.2019');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'WdMy'),  'Vendredi 18 janvier 2019');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'dMy,W'), '18 janvier 2019, vendredi');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'dMy'),   '18 janvier 2019');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'dM3y'),  '18 jan 2019');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'W dmy'), 'Vendredi 18.01.2019');
-    assert.strictEqual(DateConverters.getDisplayed('2019-01-18', 'W3'),    'Ven');
+    assert.strictEqual(getDisplayed('2017-03-31'         ), '31.03.2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'y'    ), '2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'My'   ), '@{Mars} 2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M'    ), '@{Mars}');
+    assert.strictEqual(getDisplayed('2017-01-31', 'M3'   ), '@{Jan}');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M3'   ), '@{Mars}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W'    ), '@{vendredi}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wd'   ), '@{ven} 18');
+    assert.strictEqual(getDisplayed('2019-01-18', 'd'    ), '18');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wdm'  ), '@{ven} 18.01');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wdmy' ), '@{ven} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy' ), '@{Vendredi} 18 @{janvier} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dMy,W'), '18 @{janvier} 2019, @{vendredi}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dMy'  ), '18 @{janvier} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dM3y' ), '18 @{jan} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy'), '@{Vendredi} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W3'   ), '@{Ven}');
   });
 
   // prettier-ignore
   it('#Test getDisplayedBetweenTwoDates', function() {
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-25'), "Aujourd'hui");
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-26'), 'Demain');
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-27'), 'Après-demain');
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-24'), 'Hier');
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-23'), 'Avant-hier');
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-31'), 'Dans 6 jours');
-    assert.strictEqual(DateConverters.getDisplayedBetweenTwoDates('2019-12-25', '2019-12-22'), 'Dépassé de 3 jours');
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-25'), "@{date|between-two-dates|Aujourd'hui}");
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-26'), '@{date|between-two-dates|Demain}');
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-27'), '@{date|between-two-dates|Après-demain}');
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-24'), '@{date|between-two-dates|Hier}');
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-23'), '@{date|between-two-dates|Avant-hier}');
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-31'), '@{date|between-two-dates|Dans} 6 @{date|between-two-dates|jours}');
+    assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-22'), '@{date|between-two-dates|Dépassé de} 3 @{date|between-two-dates|jours}');
   });
 
   // prettier-ignore
@@ -75,60 +103,50 @@ describe('Converter date', function() {
 
   // prettier-ignore
   it('#Test getPeriodDescription', function() {
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-01', '2019-12-31'      ), '2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-01', '2020-12-31'      ), '2019 → 2020');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-01', '2019-03-31'      ), 'Janvier → mars 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2018-10-01', '2019-03-31'      ), 'Octobre 2018 → mars 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-21', '2019-01-26'      ), '21 → 26 janvier 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-21', '2019-02-12'      ), '21 janvier → 12 février 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-11-03', '2020-01-22'      ), '3 novembre 2019 → 22 janvier 2020');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-21', null              ), '21 janvier 2019 → 31 décembre ∞');
-    assert.strictEqual(DateConverters.getPeriodDescription(null,         '2019-01-22'      ), '1 janvier -∞ → 22 janvier 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-21', null,         's' ), '21 janvier 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription(null,         '2019-01-22', 's' ), '22 janvier 2019');
-    assert.strictEqual(DateConverters.getPeriodDescription('2019-01-21', '2019-02-12', 's3'), '21 jan → 12 fév 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-01', '2019-12-31'      ), '2019');
+    assert.strictEqual(getPeriodDescription('2019-01-01', '2020-12-31'      ), '2019 → 2020');
+    assert.strictEqual(getPeriodDescription('2019-01-01', '2019-03-31'      ), 'janvier → mars 2019');
+    assert.strictEqual(getPeriodDescription('2018-10-01', '2019-03-31'      ), 'octobre 2018 → mars 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-01-26'      ), '21 → 26 janvier 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-02-12'      ), '21 janvier → 12 février 2019');
+    assert.strictEqual(getPeriodDescription('2019-11-03', '2020-01-22'      ), '3 novembre 2019 → 22 janvier 2020');
+    assert.strictEqual(getPeriodDescription('2019-01-21', null              ), '21 janvier 2019 → 31 décembre ∞');
+    assert.strictEqual(getPeriodDescription(null,         '2019-01-22'      ), '1 janvier -∞ → 22 janvier 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', null,         's' ), '21 janvier 2019');
+    assert.strictEqual(getPeriodDescription(null,         '2019-01-22', 's' ), '22 janvier 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-02-12', 's3'), '21 jan → 12 fév 2019');
   });
 
+  // prettier-ignore
   it('#Test getCalcDate', function() {
-    assert.strictEqual(
-      DateConverters.getCalcDate('2017-01-05', '-2d'),
-      '2017-01-03'
-    );
-    assert.strictEqual(
-      DateConverters.getCalcDate('2017-01-05', '3m'),
-      '2017-04-05'
-    );
-    assert.strictEqual(
-      DateConverters.getCalcDate('2017-01-05', '1y'),
-      '2018-01-05'
-    );
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '-2d'), '2017-01-03');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '3m' ), '2017-04-05');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '1y' ), '2018-01-05');
   });
 
   // prettier-ignore
   it('#Test getDOWDescription', function() {
-    assert.strictEqual(DateConverters.getDOWDescription(0),                   'lundi');
-    assert.strictEqual(DateConverters.getDOWDescription(1),                   'mardi');
-    assert.strictEqual(DateConverters.getDOWDescription(6),                   'dimanche');
-    assert.strictEqual(DateConverters.getDOWDescription(1, '3'),              'mar');
-    assert.strictEqual(DateConverters.getDOWDescription(1, 'u3'),             'Mar');
-    assert.strictEqual(DateConverters.getDOWDescription(1, 'firstUpperCase'), 'Mardi');
-    assert.strictEqual(DateConverters.getDOWDescription(-1),                  null);
-    assert.strictEqual(DateConverters.getDOWDescription(7),                   null);
+    assert.strictEqual(getDOWDescription(0),                   'lundi');
+    assert.strictEqual(getDOWDescription(1),                   'mardi');
+    assert.strictEqual(getDOWDescription(6),                   'dimanche');
+    assert.strictEqual(getDOWDescription(1, '3'),              'mar');
+    assert.strictEqual(getDOWDescription(1, 'u3'),             'Mar');
+    assert.strictEqual(getDOWDescription(1, 'firstUpperCase'), 'Mardi');
+    assert.strictEqual(getDOWDescription(-1),                  '');
+    assert.strictEqual(getDOWDescription(7),                   '');
   });
 
   // prettier-ignore
   it('#Test getMonthDescription', function() {
-    assert.strictEqual(DateConverters.getMonthDescription(0),        'Janvier');
-    assert.strictEqual(DateConverters.getMonthDescription(11),       'Décembre');
-    assert.strictEqual(DateConverters.getMonthDescription(11),       'Décembre');
-    assert.strictEqual(DateConverters.getMonthDescription(11, '1'),  'D');
-    assert.strictEqual(DateConverters.getMonthDescription(11, '2'),  'Dé');
-    assert.strictEqual(DateConverters.getMonthDescription(11, '3'),  'Déc');
-    assert.strictEqual(DateConverters.getMonthDescription(11, '4'),  'Déce');
-    assert.strictEqual(DateConverters.getMonthDescription(11, 'l'),  'décembre');
-    assert.strictEqual(DateConverters.getMonthDescription(11, '3l'), 'déc');
-    assert.strictEqual(DateConverters.getMonthDescription(-1),       null);
-    assert.strictEqual(DateConverters.getMonthDescription(12),       null);
+    assert.strictEqual(getMonthDescription(0),        'Janvier');
+    assert.strictEqual(getMonthDescription(11),       'Décembre');
+    assert.strictEqual(getMonthDescription(11),       'Décembre');
+    assert.strictEqual(getMonthDescription(11, '1'),  'D');
+    assert.strictEqual(getMonthDescription(11, '3'),  'Déc');
+    assert.strictEqual(getMonthDescription(11, 'l'),  'décembre');
+    assert.strictEqual(getMonthDescription(11, '3l'), 'déc');
+    assert.strictEqual(getMonthDescription(-1),       "");
+    assert.strictEqual(getMonthDescription(12),       "");
   });
 
   // prettier-ignore
