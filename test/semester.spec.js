@@ -25,12 +25,12 @@ describe('Converter semester', function() {
 
   // prettier-ignore
   it('#Test getDisplayed with default format', function() {
-    assert.strictEqual(SemesterConverters.getDisplayed('1', 'long'), 'Premier semestre');
-    assert.strictEqual(SemesterConverters.getDisplayed('1'), 'Premier semestre');
-    assert.strictEqual(SemesterConverters.getDisplayed('2'), 'Deuxième semestre');
+    assert.strictEqual(SemesterConverters.getDisplayed('1', 'long').nabuId, 'Premier semestre');
+    assert.strictEqual(SemesterConverters.getDisplayed('1'        ).nabuId, 'Premier semestre');
+    assert.strictEqual(SemesterConverters.getDisplayed('2'        ).nabuId, 'Deuxième semestre');
 
-    assert.strictEqual(SemesterConverters.getDisplayed(1), 'Premier semestre');
-    assert.strictEqual(SemesterConverters.getDisplayed(2), 'Deuxième semestre');
+    assert.strictEqual(SemesterConverters.getDisplayed(1).nabuId, 'Premier semestre');
+    assert.strictEqual(SemesterConverters.getDisplayed(2).nabuId, 'Deuxième semestre');
   });
 
   it('#Test getDisplayed with number format', function() {

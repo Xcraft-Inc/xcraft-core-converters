@@ -20,10 +20,10 @@ describe('Converter quarter', function() {
   });
 
   it('#Test getDisplayed without error', function() {
-    assert.strictEqual(QuarterConverters.getDisplayed('1'), 'Q1');
-    assert.strictEqual(QuarterConverters.getDisplayed('4'), 'Q4');
+    assert.strictEqual(QuarterConverters.getDisplayed('1').nabuId, 'Q1');
+    assert.strictEqual(QuarterConverters.getDisplayed('4').nabuId, 'Q4');
 
-    assert.strictEqual(QuarterConverters.getDisplayed(1), 'Q1');
-    assert.strictEqual(QuarterConverters.getDisplayed(4), 'Q4');
+    assert.strictEqual(QuarterConverters.getDisplayed(1).nabuId, 'Q1');
+    assert.strictEqual(QuarterConverters.getDisplayed(4).nabuId, 'Q4');
   });
 });

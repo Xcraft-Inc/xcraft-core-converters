@@ -25,32 +25,35 @@ describe('Converter month', function() {
     assert.strictEqual(MonthConverters.getDisplayed(0, 'number'), '');
   });
 
+  // prettier-ignore
   it('#Test getDisplayed with default format', function() {
-    assert.strictEqual(MonthConverters.getDisplayed('1', 'long'), 'Janvier');
-    assert.strictEqual(MonthConverters.getDisplayed('1'), 'Janvier');
-    assert.strictEqual(MonthConverters.getDisplayed('12'), 'Décembre');
+    assert.strictEqual(MonthConverters.getDisplayed('1', 'long').nabuId, 'Janvier');
+    assert.strictEqual(MonthConverters.getDisplayed('1'        ).nabuId, 'Janvier');
+    assert.strictEqual(MonthConverters.getDisplayed('12'       ).nabuId, 'Décembre');
 
-    assert.strictEqual(MonthConverters.getDisplayed(1), 'Janvier');
-    assert.strictEqual(MonthConverters.getDisplayed(12), 'Décembre');
+    assert.strictEqual(MonthConverters.getDisplayed( 1).nabuId, 'Janvier');
+    assert.strictEqual(MonthConverters.getDisplayed(12).nabuId, 'Décembre');
   });
 
+  // prettier-ignore
   it('#Test getDisplayed with short format', function() {
-    assert.strictEqual(MonthConverters.getDisplayed('1', 'short'), 'Jan');
-    assert.strictEqual(MonthConverters.getDisplayed('6', 'short'), 'Juin');
-    assert.strictEqual(MonthConverters.getDisplayed('7', 'short'), 'Juil');
-    assert.strictEqual(MonthConverters.getDisplayed('12', 'short'), 'Déc');
+    assert.strictEqual(MonthConverters.getDisplayed( '1', 'short').nabuId, 'Jan');
+    assert.strictEqual(MonthConverters.getDisplayed( '6', 'short').nabuId, 'Juin');
+    assert.strictEqual(MonthConverters.getDisplayed( '7', 'short').nabuId, 'Juil');
+    assert.strictEqual(MonthConverters.getDisplayed('12', 'short').nabuId, 'Déc');
 
-    assert.strictEqual(MonthConverters.getDisplayed(1, 'short'), 'Jan');
-    assert.strictEqual(MonthConverters.getDisplayed(6, 'short'), 'Juin');
-    assert.strictEqual(MonthConverters.getDisplayed(7, 'short'), 'Juil');
-    assert.strictEqual(MonthConverters.getDisplayed(12, 'short'), 'Déc');
+    assert.strictEqual(MonthConverters.getDisplayed( 1, 'short').nabuId, 'Jan');
+    assert.strictEqual(MonthConverters.getDisplayed( 6, 'short').nabuId, 'Juin');
+    assert.strictEqual(MonthConverters.getDisplayed( 7, 'short').nabuId, 'Juil');
+    assert.strictEqual(MonthConverters.getDisplayed(12, 'short').nabuId, 'Déc');
   });
 
+  // prettier-ignore
   it('#Test getDisplayed with number format', function() {
-    assert.strictEqual(MonthConverters.getDisplayed('1', 'number'), '1');
+    assert.strictEqual(MonthConverters.getDisplayed( '1', 'number'),  '1');
     assert.strictEqual(MonthConverters.getDisplayed('12', 'number'), '12');
 
-    assert.strictEqual(MonthConverters.getDisplayed(1, 'number'), '1');
+    assert.strictEqual(MonthConverters.getDisplayed( 1, 'number'),  '1');
     assert.strictEqual(MonthConverters.getDisplayed(12, 'number'), '12');
   });
 });
