@@ -2,6 +2,17 @@
 
 const assert = require('assert');
 const TimeConverters = require('../lib/time.js');
+const StringBuilder = require('goblin-nabu/lib/string-builder.js');
+
+function getDisplayed(canonical, format) {
+  const s = TimeConverters.getDisplayed(canonical, format);
+  return StringBuilder._toFlatten(s);
+}
+
+function getDisplayedBetweenTwoTimes(time1, time2, format) {
+  const s = TimeConverters.getDisplayedBetweenTwoTimes(time1, time2, format);
+  return StringBuilder._toFlatten(s);
+}
 
 describe('Converter time', function() {
   // prettier-ignore
@@ -62,14 +73,14 @@ describe('Converter time', function() {
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.strictEqual(TimeConverters.getDisplayed('12:34:56'            ), '12:34');
-    assert.strictEqual(TimeConverters.getDisplayed('12:34:56', 'hms'     ), '12:34:56');
-    assert.strictEqual(TimeConverters.getDisplayed('01:00:45', 'Hm'      ), '1 heure');
-    assert.strictEqual(TimeConverters.getDisplayed('01:30:45', 'Hm'      ), '1 heure 30');
-    assert.strictEqual(TimeConverters.getDisplayed('09:30:45', 'Hm'      ), '9 heures 30');
-    assert.strictEqual(TimeConverters.getDisplayed('09:30:45', 'duration'), '9h30');
-    assert.strictEqual(TimeConverters.getDisplayed('09:00:45', 'duration'), '9h');
-    assert.strictEqual(TimeConverters.getDisplayed('00:15:45', 'duration'), '15min');
+    assert.strictEqual(getDisplayed('12:34:56'            ), '12:34');
+    assert.strictEqual(getDisplayed('12:34:56', 'hms'     ), '12:34:56');
+    assert.strictEqual(getDisplayed('01:00:45', 'Hm'      ), '1 @{heure}');
+    assert.strictEqual(getDisplayed('01:30:45', 'Hm'      ), '1 @{heure} 30');
+    assert.strictEqual(getDisplayed('09:30:45', 'Hm'      ), '9 @{heures} 30');
+    assert.strictEqual(getDisplayed('09:30:45', 'duration'), '9h30');
+    assert.strictEqual(getDisplayed('09:00:45', 'duration'), '9h');
+    assert.strictEqual(getDisplayed('00:15:45', 'duration'), '15min');
   });
 
   it('#Test getNowCanonical', function() {
@@ -90,12 +101,12 @@ describe('Converter time', function() {
 
   // prettier-ignore
   it('#Test getDisplayedBetweenTwoTimes', function() {
-    assert.strictEqual(TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '14:30:00'), 'Maintenant');
-    assert.strictEqual(TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '14:45:00'), 'Dans 15 minutes');
-    assert.strictEqual(TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '15:30:00'), 'Dans 1 heure');
-    assert.strictEqual(TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '16:30:00'), 'Dans 2 heures');
-    assert.strictEqual(TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '18:15:00'), 'Dans 3 heures 45 minutes');
-    assert.strictEqual(TimeConverters.getDisplayedBetweenTwoTimes('14:30:00', '14:29:00'), 'Dépassé de 1 minute');
+    assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '14:30:00'), '@{time|between-two-times|Maintenant}');
+    assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '14:45:00'), '@{time|between-two-times|Dans} 15 @{minutes}');
+    assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '15:30:00'), '@{time|between-two-times|Dans} 1 @{heure}');
+    assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '16:30:00'), '@{time|between-two-times|Dans} 2 @{heures}');
+    assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '18:15:00'), '@{time|between-two-times|Dans} 3 @{heures} 45 @{minutes}');
+    assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '14:29:00'), '@{time|between-two-times|Dépassé de} 1 @{minute}');
   });
 
   // prettier-ignore

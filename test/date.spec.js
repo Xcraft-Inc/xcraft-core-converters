@@ -47,7 +47,10 @@ describe('Converter date', function() {
 
     result = DateConverters.parseEdited('31 2 2017');
     assert.strictEqual(result.value, '2017-03-03');
-    assert.strictEqual(result.error, 'Jour incorrect');
+    assert.strictEqual(
+      StringBuilder._toFlatten(result.error),
+      '@{Jour incorrect}'
+    );
   });
 
   // prettier-ignore
