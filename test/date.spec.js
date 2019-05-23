@@ -54,21 +54,21 @@ describe('Converter date', function() {
   it('#Test getDisplayed', function() {
     assert.strictEqual(getDisplayed('2017-03-31'         ), '31.03.2017');
     assert.strictEqual(getDisplayed('2017-03-31', 'y'    ), '2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'My'   ), '@{month|long|upper|Mars} 2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'M'    ), '@{month|long|upper|Mars}');
-    assert.strictEqual(getDisplayed('2017-01-31', 'M3'   ), '@{month|short|upper|Jan}');
-    assert.strictEqual(getDisplayed('2017-03-31', 'M3'   ), '@{month|short|upper|Mars}');
+    assert.strictEqual(getDisplayed('2017-03-31', 'My'   ), '@{month|long|capitalize|Mars} 2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M'    ), '@{month|long|capitalize|Mars}');
+    assert.strictEqual(getDisplayed('2017-01-31', 'M3'   ), '@{month|short|capitalize|Jan}');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M3'   ), '@{month|short|capitalize|Mars}');
     assert.strictEqual(getDisplayed('2019-01-18', 'W'    ), '@{dow|long|lower|vendredi}');
     assert.strictEqual(getDisplayed('2019-01-18', 'Wd'   ), '@{dow|short|lower|ven} 18');
     assert.strictEqual(getDisplayed('2019-01-18', 'd'    ), '18');
     assert.strictEqual(getDisplayed('2019-01-18', 'Wdm'  ), '@{dow|short|lower|ven} 18.01');
     assert.strictEqual(getDisplayed('2019-01-18', 'Wdmy' ), '@{dow|short|lower|ven} 18.01.2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy' ), '@{dow|long|upper|Vendredi} 18 @{month|long|lower|janvier} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy' ), '@{dow|long|capitalize|Vendredi} 18 @{month|long|lower|janvier} 2019');
     assert.strictEqual(getDisplayed('2019-01-18', 'dMy,W'), '18 @{month|long|lower|janvier} 2019, @{dow|long|lower|vendredi}');
     assert.strictEqual(getDisplayed('2019-01-18', 'dMy'  ), '18 @{month|long|lower|janvier} 2019');
     assert.strictEqual(getDisplayed('2019-01-18', 'dM3y' ), '18 @{month|short|lower|jan} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy'), '@{dow|long|upper|Vendredi} 18.01.2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W3'   ), '@{dow|short|upper|Ven}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy'), '@{dow|long|capitalize|Vendredi} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W3'   ), '@{dow|short|capitalize|Ven}');
   });
 
   // prettier-ignore
@@ -130,19 +130,19 @@ describe('Converter date', function() {
     assert.strictEqual(getDOWDescription(1),                   '@{dow|long|lower|mardi}');
     assert.strictEqual(getDOWDescription(6),                   '@{dow|long|lower|dimanche}');
     assert.strictEqual(getDOWDescription(1, '3'),              '@{dow|short|lower|mar}');
-    assert.strictEqual(getDOWDescription(1, 'u3'),             '@{dow|short|upper|Mar}');
-    assert.strictEqual(getDOWDescription(1, 'firstUpperCase'), '@{dow|long|upper|Mardi}');
+    assert.strictEqual(getDOWDescription(1, 'u3'),             '@{dow|short|capitalize|Mar}');
+    assert.strictEqual(getDOWDescription(1, 'firstUpperCase'), '@{dow|long|capitalize|Mardi}');
     assert.strictEqual(getDOWDescription(-1),                  '');
     assert.strictEqual(getDOWDescription(7),                   '');
   });
 
   // prettier-ignore
   it('#Test getMonthDescription', function() {
-    assert.strictEqual(getMonthDescription(0),        '@{month|long|upper|Janvier}');
-    assert.strictEqual(getMonthDescription(11),       '@{month|long|upper|Décembre}');
-    assert.strictEqual(getMonthDescription(11),       '@{month|long|upper|Décembre}');
+    assert.strictEqual(getMonthDescription(0),        '@{month|long|capitalize|Janvier}');
+    assert.strictEqual(getMonthDescription(11),       '@{month|long|capitalize|Décembre}');
+    assert.strictEqual(getMonthDescription(11),       '@{month|long|capitalize|Décembre}');
     assert.strictEqual(getMonthDescription(11, '1'),  '@{month|one-letter|D}');
-    assert.strictEqual(getMonthDescription(11, '3'),  '@{month|short|upper|Déc}');
+    assert.strictEqual(getMonthDescription(11, '3'),  '@{month|short|capitalize|Déc}');
     assert.strictEqual(getMonthDescription(11, 'l'),  '@{month|long|lower|décembre}');
     assert.strictEqual(getMonthDescription(11, '3l'), '@{month|short|lower|déc}');
     assert.strictEqual(getMonthDescription(-1),       "");
