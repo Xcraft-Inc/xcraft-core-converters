@@ -2,8 +2,10 @@
 
 const assert = require('assert');
 const LengthConverters = require('../lib/length.js');
+const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
 describe('Converter length', function() {
+  // prettier-ignore
   it('#Test parseEdited', function() {
     let result;
 
@@ -21,11 +23,11 @@ describe('Converter length', function() {
 
     result = LengthConverters.parseEdited('2', 'x');
     assert.strictEqual(result.value, null);
-    assert.strictEqual(result.error, 'Unité "x" incorrecte');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Unité} "x" @{incorrecte}');
 
     result = LengthConverters.parseEdited('2x');
     assert.strictEqual(result.value, null);
-    assert.strictEqual(result.error, 'Unité "x" incorrecte');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Unité} "x" @{incorrecte}');
   });
 
   // prettier-ignore
