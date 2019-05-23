@@ -3,6 +3,8 @@
 const assert = require('assert');
 const QuarterConverters = require('../lib/quarter.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter quarter', function() {
   it('#Test getDisplayed with empty', function() {
     assert.strictEqual(QuarterConverters.getDisplayed(null), '');

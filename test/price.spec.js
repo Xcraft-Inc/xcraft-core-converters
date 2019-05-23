@@ -3,6 +3,8 @@
 const assert = require('assert');
 const PriceConverters = require('../lib/price.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter price', function() {
   it('#Test parseEdited', function() {
     let result;

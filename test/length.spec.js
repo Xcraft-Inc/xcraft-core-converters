@@ -4,6 +4,8 @@ const assert = require('assert');
 const LengthConverters = require('../lib/length.js');
 const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter length', function() {
   // prettier-ignore
   it('#Test parseEdited', function() {

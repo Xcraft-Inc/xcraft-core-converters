@@ -3,6 +3,8 @@
 const assert = require('assert');
 const FieldType = require('../lib/field-type-checker.js');
 
+//-----------------------------------------------------------------------------
+
 describe('field-type', function() {
   it('#Test field-type string', function() {
     let result;

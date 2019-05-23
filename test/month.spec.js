@@ -9,6 +9,8 @@ function getDisplayed(canonical, format) {
   return StringBuilder._toFlatten(s);
 }
 
+//-----------------------------------------------------------------------------
+
 describe('Converter month', function() {
   it('#Test getDisplayed with empty', function() {
     assert.strictEqual(getDisplayed(null), '');
@@ -57,9 +59,11 @@ describe('Converter month', function() {
 
   // prettier-ignore
   it('#Test getDisplayed with various format', function() {
-    assert.strictEqual(getDisplayed( '7', 'one-letter' ), '@{month|one-letter|J}');
-    assert.strictEqual(getDisplayed( '7', 'short-lower'), '@{month|short|lower|juil}');
-    assert.strictEqual(getDisplayed( '7', 'long-lower' ), '@{month|long|lower|juillet}');
+    assert.strictEqual(getDisplayed('7', 'one-letter' ), '@{month|one-letter|J}');
+    assert.strictEqual(getDisplayed('7', 'short'      ), '@{month|short|capitalize|Juil}');
+    assert.strictEqual(getDisplayed('7'               ), '@{month|long|capitalize|Juillet}');
+    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{month|short|lower|juil}');
+    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{month|long|lower|juillet}');
   });
 
   // prettier-ignore

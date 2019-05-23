@@ -3,6 +3,8 @@
 const assert = require('assert');
 const WeightConverters = require('../lib/weight.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter weight', function() {
   it('#Test parseEdited', function() {
     let result;

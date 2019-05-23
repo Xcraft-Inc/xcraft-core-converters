@@ -2,6 +2,9 @@
 
 const assert = require('assert');
 const ReferenceConverters = require('../lib/reference.js');
+
+//-----------------------------------------------------------------------------
+
 describe('Converter reference', function() {
   // prettier-ignore
   it('#Test generate', function() {

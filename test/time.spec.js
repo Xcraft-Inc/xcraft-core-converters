@@ -14,6 +14,8 @@ function getDisplayedBetweenTwoTimes(time1, time2, format) {
   return StringBuilder._toFlatten(s);
 }
 
+//-----------------------------------------------------------------------------
+
 describe('Converter time', function() {
   // prettier-ignore
   it('#Test jsToCanonical', function() {

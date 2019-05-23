@@ -3,6 +3,8 @@
 const assert = require('assert');
 const SemesterConverters = require('../lib/semester.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter semester', function() {
   it('#Test getDisplayed with empty', function() {
     assert.strictEqual(SemesterConverters.getDisplayed(null), '');

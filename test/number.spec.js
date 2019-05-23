@@ -3,6 +3,8 @@
 const assert = require('assert');
 const NumberConverters = require('../lib/number.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter number', function() {
   it('#Test parseEdited', function() {
     let result;

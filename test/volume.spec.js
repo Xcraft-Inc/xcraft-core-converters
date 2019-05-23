@@ -3,6 +3,8 @@
 const assert = require('assert');
 const VolumeConverters = require('../lib/volume.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter volume', function() {
   it('#Test parseEdited', function() {
     let result;

@@ -3,6 +3,8 @@
 const assert = require('assert');
 const PercentConverters = require('../lib/percent.js');
 
+//-----------------------------------------------------------------------------
+
 describe('Converter percent', function() {
   it('#Test parseEdited', function() {
     let result;
