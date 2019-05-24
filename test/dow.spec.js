@@ -36,31 +36,31 @@ describe('Converter dow (day of week)', function() {
 
   // prettier-ignore
   it('#Test getDisplayed with default format', function() {
-    assert.strictEqual(getDisplayed('1', 'long'), '@{dow|long|capitalize|Lundi}');
-    assert.strictEqual(getDisplayed('1'        ), '@{dow|long|capitalize|Lundi}');
-    assert.strictEqual(getDisplayed('7'        ), '@{dow|long|capitalize|Dimanche}');
+    assert.strictEqual(getDisplayed('1', 'long'), '@{dow|Lundi}');
+    assert.strictEqual(getDisplayed('1'        ), '@{dow|Lundi}');
+    assert.strictEqual(getDisplayed('7'        ), '@{dow|Dimanche}');
 
-    assert.strictEqual(getDisplayed(1), '@{dow|long|capitalize|Lundi}');
-    assert.strictEqual(getDisplayed(7), '@{dow|long|capitalize|Dimanche}');
+    assert.strictEqual(getDisplayed(1), '@{dow|Lundi}');
+    assert.strictEqual(getDisplayed(7), '@{dow|Dimanche}');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with short format', function() {
-    assert.strictEqual(getDisplayed('1', 'short'), '@{dow|short|capitalize|Lun}');
-    assert.strictEqual(getDisplayed('6', 'short'), '@{dow|short|capitalize|Sam}');
-    assert.strictEqual(getDisplayed('7', 'short'), '@{dow|short|capitalize|Dim}');
+    assert.strictEqual(getDisplayed('1', 'short'), '@{dow|Lun}');
+    assert.strictEqual(getDisplayed('6', 'short'), '@{dow|Sam}');
+    assert.strictEqual(getDisplayed('7', 'short'), '@{dow|Dim}');
 
-    assert.strictEqual(getDisplayed(1, 'short'), '@{dow|short|capitalize|Lun}');
-    assert.strictEqual(getDisplayed(6, 'short'), '@{dow|short|capitalize|Sam}');
-    assert.strictEqual(getDisplayed(7, 'short'), '@{dow|short|capitalize|Dim}');
+    assert.strictEqual(getDisplayed(1, 'short'), '@{dow|Lun}');
+    assert.strictEqual(getDisplayed(6, 'short'), '@{dow|Sam}');
+    assert.strictEqual(getDisplayed(7, 'short'), '@{dow|Dim}');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with various format', function() {
-    assert.strictEqual(getDisplayed('7', 'short'      ), '@{dow|short|capitalize|Dim}');
-    assert.strictEqual(getDisplayed('7'               ), '@{dow|long|capitalize|Dimanche}');
-    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{dow|short|lower|dim}');
-    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{dow|long|lower|dimanche}');
+    assert.strictEqual(getDisplayed('7', 'short'      ), '@{dow|Dim}');
+    assert.strictEqual(getDisplayed('7'               ), '@{dow|Dimanche}');
+    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{dow|dim}');
+    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{dow|dimanche}');
   });
 
   // prettier-ignore
