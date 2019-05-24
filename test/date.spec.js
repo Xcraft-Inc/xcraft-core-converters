@@ -53,21 +53,21 @@ describe('Converter date', function() {
   it('#Test getDisplayed', function() {
     assert.strictEqual(getDisplayed('2017-03-31'         ), '31.03.2017');
     assert.strictEqual(getDisplayed('2017-03-31', 'y'    ), '2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'My'   ), '@{month|Mars} 2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'M'    ), '@{month|Mars}');
-    assert.strictEqual(getDisplayed('2017-01-31', 'M3'   ), '@{month|Jan}');
-    assert.strictEqual(getDisplayed('2017-03-31', 'M3'   ), '@{month|Mars}');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W'    ), '@{dow|Vendredi}');
-    assert.strictEqual(getDisplayed('2019-01-18', 'Wd'   ), '@{dow|Ven} 18');
+    assert.strictEqual(getDisplayed('2017-03-31', 'My'   ), '@{month|long|March} 2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M'    ), '@{month|long|March}');
+    assert.strictEqual(getDisplayed('2017-01-31', 'M3'   ), '@{month|short|January}');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M3'   ), '@{month|short|March}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W'    ), '@{dow|long|Friday}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wd'   ), '@{dow|short|Friday} 18');
     assert.strictEqual(getDisplayed('2019-01-18', 'd'    ), '18');
-    assert.strictEqual(getDisplayed('2019-01-18', 'Wdm'  ), '@{dow|Ven} 18.01');
-    assert.strictEqual(getDisplayed('2019-01-18', 'Wdmy' ), '@{dow|Ven} 18.01.2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy' ), '@{dow|Vendredi} 18 @{month|janvier} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'dMy,W'), '18 @{month|janvier} 2019, @{dow|Vendredi}');
-    assert.strictEqual(getDisplayed('2019-01-18', 'dMy'  ), '18 @{month|janvier} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'dM3y' ), '18 @{month|jan} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy'), '@{dow|Vendredi} 18.01.2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W3'   ), '@{dow|Ven}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wdm'  ), '@{dow|short|Friday} 18.01');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wdmy' ), '@{dow|short|Friday} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy' ), '@{dow|long|Friday} 18 @{month|long|january} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dMy,W'), '18 @{month|long|january} 2019, @{dow|long|Friday}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dMy'  ), '18 @{month|long|january} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dM3y' ), '18 @{month|short|january} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy'), '@{dow|long|Friday} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W3'   ), '@{dow|short|Friday}');
   });
 
   // prettier-ignore
@@ -104,16 +104,16 @@ describe('Converter date', function() {
   it('#Test getPeriodDescription', function() {
     assert.strictEqual(getPeriodDescription('2019-01-01', '2019-12-31'      ), '2019');
     assert.strictEqual(getPeriodDescription('2019-01-01', '2020-12-31'      ), '2019 → 2020');
-    assert.strictEqual(getPeriodDescription('2019-01-01', '2019-03-31'      ), '@{month|janvier} → @{month|mars} 2019');
-    assert.strictEqual(getPeriodDescription('2018-10-01', '2019-03-31'      ), '@{month|octobre} 2018 → @{month|mars} 2019');
-    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-01-26'      ), '21 → 26 @{month|janvier} 2019');
-    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-02-12'      ), '21 @{month|janvier} → 12 @{month|février} 2019');
-    assert.strictEqual(getPeriodDescription('2019-11-03', '2020-01-22'      ), '3 @{month|novembre} 2019 → 22 @{month|janvier} 2020');
-    assert.strictEqual(getPeriodDescription('2019-01-21', null              ), '21 @{month|janvier} 2019 → 31 @{month|décembre} ∞');
-    assert.strictEqual(getPeriodDescription(null,         '2019-01-22'      ), '1 @{month|janvier} -∞ → 22 @{month|janvier} 2019');
-    assert.strictEqual(getPeriodDescription('2019-01-21', null,         's' ), '21 @{month|janvier} 2019');
-    assert.strictEqual(getPeriodDescription(null,         '2019-01-22', 's' ), '22 @{month|janvier} 2019');
-    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-02-12', 's3'), '21 @{month|jan} → 12 @{month|fév} 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-01', '2019-03-31'      ), '@{month|long|january} → @{month|long|march} 2019');
+    assert.strictEqual(getPeriodDescription('2018-10-01', '2019-03-31'      ), '@{month|long|october} 2018 → @{month|long|march} 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-01-26'      ), '21 → 26 @{month|long|january} 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-02-12'      ), '21 @{month|long|january} → 12 @{month|long|february} 2019');
+    assert.strictEqual(getPeriodDescription('2019-11-03', '2020-01-22'      ), '3 @{month|long|november} 2019 → 22 @{month|long|january} 2020');
+    assert.strictEqual(getPeriodDescription('2019-01-21', null              ), '21 @{month|long|january} 2019 → 31 @{month|long|december} ∞');
+    assert.strictEqual(getPeriodDescription(null,         '2019-01-22'      ), '1 @{month|long|january} -∞ → 22 @{month|long|january} 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', null,         's' ), '21 @{month|long|january} 2019');
+    assert.strictEqual(getPeriodDescription(null,         '2019-01-22', 's' ), '22 @{month|long|january} 2019');
+    assert.strictEqual(getPeriodDescription('2019-01-21', '2019-02-12', 's3'), '21 @{month|short|january} → 12 @{month|short|february} 2019');
   });
 
   // prettier-ignore
