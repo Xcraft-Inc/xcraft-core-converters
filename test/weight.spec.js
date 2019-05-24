@@ -34,6 +34,10 @@ describe('Converter weight', function() {
     assert.strictEqual(result.error, null);
   });
 
+  it('#Test getDisplayed without format', function() {
+    assert.strictEqual(typeof WeightConverters.getDisplayed('12'), 'string');
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(WeightConverters.getDisplayed(null), null);

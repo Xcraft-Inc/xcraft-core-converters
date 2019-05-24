@@ -65,6 +65,11 @@ describe('Converter datetime', function() {
   });
 
   // prettier-ignore
+  it('#Test getDisplayed without format', function() {
+    assert.strictEqual(typeof DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'), 'string');
+  });
+
+  // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'        ), '31.03.2017 12:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'time'), '12:48');

@@ -38,6 +38,10 @@ describe('Converter volume', function() {
     assert.ok(result.error);
   });
 
+  it('#Test getDisplayed without format', function() {
+    assert.strictEqual(typeof VolumeConverters.getDisplayed('5'), 'string');
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(VolumeConverters.getDisplayed(null                  ), null);

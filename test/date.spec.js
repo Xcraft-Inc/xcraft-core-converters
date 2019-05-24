@@ -45,6 +45,10 @@ describe('Converter date', function() {
     );
   });
 
+  it('#Test getDisplayed without format', function() {
+    assert.strictEqual(typeof getDisplayed('2017-03-31'), 'string');
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(getDisplayed('2017-03-31'         ), '31.03.2017');

@@ -32,6 +32,10 @@ describe('Converter length', function() {
     assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Unité} "x" @{incorrecte}');
   });
 
+  it('#Test getDisplayed without format', function() {
+    assert.strictEqual(typeof LengthConverters.getDisplayed('12'), 'string');
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(LengthConverters.getDisplayed(null        ), null);

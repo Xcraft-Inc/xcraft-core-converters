@@ -73,6 +73,10 @@ describe('Converter time', function() {
     assert.strictEqual(result.error, null);
   });
 
+  it('#Test getDisplayed without format', function() {
+    assert.strictEqual(typeof getDisplayed('12:34:56'), 'string');
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(getDisplayed('12:34:56'            ), '12:34');
