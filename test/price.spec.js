@@ -44,12 +44,52 @@ describe('Converter price', function() {
     result = PriceConverters.parseEdited('1.9999');
     assert.strictEqual(result.value, '2');
     assert.strictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('.9999');
+    assert.strictEqual(result.value, '1');
+    assert.strictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited(' 12');
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('1 2');
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('12 ');
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited("123'456");
+    assert.strictEqual(result.value, '123456');
+    assert.strictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited("1 23''45' 6");
+    assert.strictEqual(result.value, '123456');
+    assert.strictEqual(result.error, null);
   });
 
   it('#Test parseEdited with error', function() {
     let result;
 
+    result = PriceConverters.parseEdited('blupi');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('A12');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
     result = PriceConverters.parseEdited('12A');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('12..3');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('12,3');
     assert.strictEqual(result.value, null);
     assert.notStrictEqual(result.error, null);
 
