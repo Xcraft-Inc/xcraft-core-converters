@@ -46,6 +46,18 @@ describe('Converter price', function() {
     assert.strictEqual(result.error, null);
   });
 
+  it('#Test parseEdited with error', function() {
+    let result;
+
+    result = PriceConverters.parseEdited('12A');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PriceConverters.parseEdited('12.3.4');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+  });
+
   // prettier-ignore
   it('#Test getDisplayed with empty input', function() {
     assert.strictEqual(PriceConverters.getDisplayed(undefined), '');
