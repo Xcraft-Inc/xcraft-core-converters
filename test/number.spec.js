@@ -49,6 +49,18 @@ describe('Converter number', function() {
     assert.strictEqual(result.value, '.123');
     assert.strictEqual(result.error, null);
 
+    result = NumberConverters.parseEdited(' 12');
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('1 2');
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('12 ');
+    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.error, null);
+
     result = NumberConverters.parseEdited("1'000.00");
     assert.strictEqual(result.value, '1000');
     assert.strictEqual(result.error, null);
@@ -56,6 +68,34 @@ describe('Converter number', function() {
     result = NumberConverters.parseEdited('12a34');
     assert.strictEqual(result.value, null);
     assert.ok(result.error);
+  });
+
+  it('#Test parseEdited with error', function() {
+    let result;
+
+    result = NumberConverters.parseEdited('blupi');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('A12');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('12A');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('12..3');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('12,3');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('12.3.4');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
   });
 
   // prettier-ignore
