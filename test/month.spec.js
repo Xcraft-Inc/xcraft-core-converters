@@ -36,34 +36,34 @@ describe('Converter month', function() {
 
   // prettier-ignore
   it('#Test getDisplayed with default format', function() {
-    assert.strictEqual(getDisplayed('1', 'long'), '@{month|long|January}');
-    assert.strictEqual(getDisplayed('1'        ), '@{month|long|January}');
-    assert.strictEqual(getDisplayed('12'       ), '@{month|long|December}');
+    assert.strictEqual(getDisplayed('1', 'long'), '@{month|long|january|Janvier}');
+    assert.strictEqual(getDisplayed('1'        ), '@{month|long|january|Janvier}');
+    assert.strictEqual(getDisplayed('12'       ), '@{month|long|december|Décembre}');
 
-    assert.strictEqual(getDisplayed( 1), '@{month|long|January}');
-    assert.strictEqual(getDisplayed(12), '@{month|long|December}');
+    assert.strictEqual(getDisplayed( 1), '@{month|long|january|Janvier}');
+    assert.strictEqual(getDisplayed(12), '@{month|long|december|Décembre}');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with short format', function() {
-    assert.strictEqual(getDisplayed( '1', 'short'), '@{month|short|January}');
-    assert.strictEqual(getDisplayed( '6', 'short'), '@{month|short|June}');
-    assert.strictEqual(getDisplayed( '7', 'short'), '@{month|short|July}');
-    assert.strictEqual(getDisplayed('12', 'short'), '@{month|short|December}');
+    assert.strictEqual(getDisplayed( '1', 'short'), '@{month|short|january|Jan}');
+    assert.strictEqual(getDisplayed( '6', 'short'), '@{month|short|june|Juin}');
+    assert.strictEqual(getDisplayed( '7', 'short'), '@{month|short|july|Juil}');
+    assert.strictEqual(getDisplayed('12', 'short'), '@{month|short|december|Déc}');
 
-    assert.strictEqual(getDisplayed( 1, 'short'), '@{month|short|January}');
-    assert.strictEqual(getDisplayed( 6, 'short'), '@{month|short|June}');
-    assert.strictEqual(getDisplayed( 7, 'short'), '@{month|short|July}');
-    assert.strictEqual(getDisplayed(12, 'short'), '@{month|short|December}');
+    assert.strictEqual(getDisplayed( 1, 'short'), '@{month|short|january|Jan}');
+    assert.strictEqual(getDisplayed( 6, 'short'), '@{month|short|june|Juin}');
+    assert.strictEqual(getDisplayed( 7, 'short'), '@{month|short|july|Juil}');
+    assert.strictEqual(getDisplayed(12, 'short'), '@{month|short|december|Déc}');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with various format', function() {
-    assert.strictEqual(getDisplayed('7', 'one-letter' ), '@{month|one-letter|July}');
-    assert.strictEqual(getDisplayed('7', 'short'      ), '@{month|short|July}');
-    assert.strictEqual(getDisplayed('7'               ), '@{month|long|July}');
-    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{month|short|july}');
-    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{month|long|july}');
+    assert.strictEqual(getDisplayed('7', 'one-letter' ), '@{month|one-letter|july|J}');
+    assert.strictEqual(getDisplayed('7', 'short'      ), '@{month|short|july|Juil}');
+    assert.strictEqual(getDisplayed('7'               ), '@{month|long|july|Juillet}');
+    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{month|short|july|juil}');
+    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{month|long|july|juillet}');
   });
 
   // prettier-ignore

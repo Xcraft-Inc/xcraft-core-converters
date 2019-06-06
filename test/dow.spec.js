@@ -36,31 +36,31 @@ describe('Converter dow (day of week)', function() {
 
   // prettier-ignore
   it('#Test getDisplayed with default format', function() {
-    assert.strictEqual(getDisplayed('1', 'long'), '@{dow|long|Monday}');
-    assert.strictEqual(getDisplayed('1'        ), '@{dow|long|Monday}');
-    assert.strictEqual(getDisplayed('7'        ), '@{dow|long|Sunday}');
+    assert.strictEqual(getDisplayed('1', 'long'), '@{dow|long|monday|Lundi}');
+    assert.strictEqual(getDisplayed('1'        ), '@{dow|long|monday|Lundi}');
+    assert.strictEqual(getDisplayed('7'        ), '@{dow|long|sunday|Dimanche}');
 
-    assert.strictEqual(getDisplayed(1), '@{dow|long|Monday}');
-    assert.strictEqual(getDisplayed(7), '@{dow|long|Sunday}');
+    assert.strictEqual(getDisplayed(1), '@{dow|long|monday|Lundi}');
+    assert.strictEqual(getDisplayed(7), '@{dow|long|sunday|Dimanche}');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with short format', function() {
-    assert.strictEqual(getDisplayed('1', 'short'), '@{dow|short|Monday}');
-    assert.strictEqual(getDisplayed('6', 'short'), '@{dow|short|Saturday}');
-    assert.strictEqual(getDisplayed('7', 'short'), '@{dow|short|Sunday}');
+    assert.strictEqual(getDisplayed('1', 'short'), '@{dow|short|monday|Lun}');
+    assert.strictEqual(getDisplayed('6', 'short'), '@{dow|short|saturday|Sam}');
+    assert.strictEqual(getDisplayed('7', 'short'), '@{dow|short|sunday|Dim}');
 
-    assert.strictEqual(getDisplayed(1, 'short'), '@{dow|short|Monday}');
-    assert.strictEqual(getDisplayed(6, 'short'), '@{dow|short|Saturday}');
-    assert.strictEqual(getDisplayed(7, 'short'), '@{dow|short|Sunday}');
+    assert.strictEqual(getDisplayed(1, 'short'), '@{dow|short|monday|Lun}');
+    assert.strictEqual(getDisplayed(6, 'short'), '@{dow|short|saturday|Sam}');
+    assert.strictEqual(getDisplayed(7, 'short'), '@{dow|short|sunday|Dim}');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with various format', function() {
-    assert.strictEqual(getDisplayed('7', 'short'      ), '@{dow|short|Sunday}');
-    assert.strictEqual(getDisplayed('7'               ), '@{dow|long|Sunday}');
-    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{dow|short|sunday}');
-    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{dow|long|sunday}');
+    assert.strictEqual(getDisplayed('7', 'short'      ), '@{dow|short|sunday|Dim}');
+    assert.strictEqual(getDisplayed('7'               ), '@{dow|long|sunday|Dimanche}');
+    assert.strictEqual(getDisplayed('7', 'short-lower'), '@{dow|short|sunday|dim}');
+    assert.strictEqual(getDisplayed('7', 'long-lower' ), '@{dow|long|sunday|dimanche}');
   });
 
   // prettier-ignore
