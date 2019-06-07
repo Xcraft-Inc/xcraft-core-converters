@@ -109,6 +109,8 @@ describe('Converter number', function() {
     assert.strictEqual(NumberConverters.getDisplayed('.12456', 4), '0.1246');
     assert.strictEqual(NumberConverters.getDisplayed('.12456', 5), '0.12456');
     assert.strictEqual(NumberConverters.getDisplayed('.12456', 6), '0.12456');
+    assert.strictEqual(NumberConverters.getDisplayed(1234       ), "1'234");
+    assert.strictEqual(NumberConverters.getDisplayed(0          ), "0");
   });
 
   it('#Test check correct', function() {
