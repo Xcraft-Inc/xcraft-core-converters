@@ -16,13 +16,13 @@ describe('Converter datetime', function() {
   // prettier-ignore
   it('#Test canonicalToJs', function() {
     let js;
-    
+
     js = DateTimeConverters.canonicalToJs('2011-10-05T00:00:00.000Z');
     assert.strictEqual(js.getHours(), 0);
-    
+
     js = DateTimeConverters.canonicalToJs('2011-10-05T13:48:00.000Z');
     assert.strictEqual(js.getHours(), 13);
-    
+
     js = DateTimeConverters.canonicalToJs('2011-10-05T23:59:59.000Z');
     assert.strictEqual(js.getHours(), 23);
   });
@@ -50,7 +50,7 @@ describe('Converter datetime', function() {
   // prettier-ignore
   it('#Test parseEdited', function() {
     let result;
-    
+
     result = DateTimeConverters.parseEdited('31 3 2017 13 41 0');
     assert.strictEqual(result.value, '2017-03-31T13:41:00.000Z');
     assert.strictEqual(result.error, null);
