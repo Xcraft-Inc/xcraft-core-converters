@@ -60,6 +60,10 @@ describe('Converter time', function() {
     assert.strictEqual(result.value, '14:05:20');
     assert.strictEqual(result.error, null);
 
+    result = TimeConverters.parseEdited('30');
+    assert.strictEqual(result.value, '00:30:00');
+    assert.strictEqual(result.error, null);
+
     result = TimeConverters.parseEdited('930');
     assert.strictEqual(result.value, '09:30:00');
     assert.strictEqual(result.error, null);
@@ -71,6 +75,20 @@ describe('Converter time', function() {
     result = TimeConverters.parseEdited('14', '15:30:59');
     assert.strictEqual(result.value, '14:30:59');
     assert.strictEqual(result.error, null);
+  });
+
+  // prettier-ignore
+  it('#Test invalid parseEdited', function() {
+    let result;
+
+    result = TimeConverters.parseEdited('23 60');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Minutes incorrectes}');
+
+    result = TimeConverters.parseEdited('960');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Minutes incorrectes}');
+
+    result = TimeConverters.parseEdited('2400');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Heure incorrecte}');
   });
 
   it('#Test getDisplayed without format', function() {
