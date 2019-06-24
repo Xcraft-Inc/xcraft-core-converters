@@ -36,13 +36,47 @@ describe('Converter date', function() {
     result = DateConverters.parseEdited('31', '2017-03-10');
     assert.strictEqual(result.value, '2017-03-31');
     assert.strictEqual(result.error, null);
+  });
+
+  // prettier-ignore
+  it('#Test invalid parseEdited', function() {
+    let result;
 
     result = DateConverters.parseEdited('31 2 2017');
     assert.strictEqual(result.value, '2017-03-03');
-    assert.strictEqual(
-      StringBuilder._toFlatten(result.error),
-      '@{Jour incorrect}'
-    );
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+
+    result = DateConverters.parseEdited('100');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('1000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('10000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('100000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('1000000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('10000000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('100000000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
+
+    result = DateConverters.parseEdited('1000000000');
+    assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Jour incorrect}');
+    assert.strictEqual(result.value, '2019-06-24');
   });
 
   it('#Test getDisplayed without format', function() {
