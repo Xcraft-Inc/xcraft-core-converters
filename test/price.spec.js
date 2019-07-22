@@ -21,6 +21,10 @@ describe('Converter price', function() {
     assert.strictEqual(result.value, '-123');
     assert.strictEqual(result.error, null);
 
+    result = PriceConverters.parseEdited('−1.00'); // test with minus \u2212
+    assert.strictEqual(result.value, '-1');
+    assert.strictEqual(result.error, null);
+
     result = PriceConverters.parseEdited('123.456');
     assert.strictEqual(result.value, '123.46');
     assert.strictEqual(result.error, null);
