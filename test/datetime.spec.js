@@ -62,6 +62,12 @@ describe('Converter datetime', function() {
     result = DateTimeConverters.parseEdited('10 3', null, '2017-03-31', '12:43:00');
     assert.strictEqual(result.value, '2017-03-10T12:43:00.000Z');
     assert.strictEqual(result.error, null);
+
+    result = DateTimeConverters.parseEdited('31.');
+    assert.strictEqual(result.error, null);
+
+    result = DateTimeConverters.parseEdited('31.3.');
+    assert.strictEqual(result.error, null);
   });
 
   // prettier-ignore

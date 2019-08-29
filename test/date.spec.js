@@ -33,6 +33,15 @@ describe('Converter date', function() {
     assert.strictEqual(result.value, '2017-03-31');
     assert.strictEqual(result.error, null);
 
+    result = DateConverters.parseEdited('31');
+    assert.strictEqual(result.error, null);
+
+    result = DateConverters.parseEdited('31.');
+    assert.strictEqual(result.error, null);
+
+    result = DateConverters.parseEdited('31.03.');
+    assert.strictEqual(result.error, null);
+
     result = DateConverters.parseEdited('31', '2017-03-10');
     assert.strictEqual(result.value, '2017-03-31');
     assert.strictEqual(result.error, null);
