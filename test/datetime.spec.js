@@ -63,10 +63,18 @@ describe('Converter datetime', function() {
     assert.strictEqual(result.value, '2017-03-10T12:43:00.000Z');
     assert.strictEqual(result.error, null);
 
-    result = DateTimeConverters.parseEdited('31.');
+    result = DateTimeConverters.parseEdited('17.');
     assert.strictEqual(result.error, null);
 
     result = DateTimeConverters.parseEdited('31.3.');
+    assert.strictEqual(result.error, null);
+
+    result = DateTimeConverters.parseEdited('0', '2019-03-31T12:42:00.000Z');
+    assert.strictEqual(result.value, '2019-03-31T12:42:00.000Z');
+    assert.strictEqual(result.error, null);
+
+    result = DateTimeConverters.parseEdited('05 0', '2019-03-31T12:42:00.000Z');
+    assert.strictEqual(result.value, '2019-03-05T12:42:00.000Z');
     assert.strictEqual(result.error, null);
   });
 
