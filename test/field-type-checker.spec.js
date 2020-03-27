@@ -66,7 +66,7 @@ describe('field-type', function() {
     assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', 123, {type: 'number'});
-    assert.strictEqual(result.ok, false);
+    assert.strictEqual(result.ok, true); // accept native number
 
     result = FieldType.check('Blupi', '123,456', {type: 'number'});
     assert.strictEqual(result.ok, false);

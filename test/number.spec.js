@@ -118,12 +118,12 @@ describe('Converter number', function() {
     assert.ok(NumberConverters.check('-123'));
     assert.ok(NumberConverters.check('.123'));
     assert.ok(NumberConverters.check('1.23'));
+    assert.ok(NumberConverters.check(12)); // accept native number
   });
 
   it('#Test check wrong', function() {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));
-    assert.ok(!NumberConverters.check(12));
   });
 });
