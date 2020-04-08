@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function () {
   return {
     files: [
       'lib/**/*.js', // adjust if required
