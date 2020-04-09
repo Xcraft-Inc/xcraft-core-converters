@@ -11,8 +11,8 @@ function getDisplayed(canonical, format) {
 
 //-----------------------------------------------------------------------------
 
-describe('Converter dow (day of week)', function() {
-  it('#Test getDisplayed with empty', function() {
+describe('Converter dow (day of week)', function () {
+  it('#Test getDisplayed with empty', function () {
     assert.strictEqual(getDisplayed(null), '');
     assert.strictEqual(getDisplayed(undefined), '');
     assert.strictEqual(getDisplayed(''), '');

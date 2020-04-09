@@ -21,8 +21,8 @@ function getDisplayedBetweenTwoDates(date1, date2) {
 
 //-----------------------------------------------------------------------------
 
-describe('Converter date', function() {
-  it('#Test parseEdited', function() {
+describe('Converter date', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = DateConverters.parseEdited('');
@@ -98,7 +98,7 @@ describe('Converter date', function() {
     assert.strictEqual(result.value, now);
   });
 
-  it('#Test getDisplayed without format', function() {
+  it('#Test getDisplayed without format', function () {
     assert.strictEqual(typeof getDisplayed('2017-03-31'), 'string');
   });
 
@@ -184,12 +184,12 @@ describe('Converter date', function() {
     assert.strictEqual(DateConverters.getWeekOfYear('2019-12-31'),  1);
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(DateConverters.check('0000-00-00'));
     assert.ok(DateConverters.check('2017-03-31'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!DateConverters.check('2017/03/31'));
     assert.ok(!DateConverters.check('2017-3-31'));
     assert.ok(!DateConverters.check('2017-AB-31'));

@@ -4,8 +4,8 @@ const assert = require('assert');
 const YearMonthConverters = require('../lib/year-month.js');
 const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
-describe('Converter year-month', function() {
-  it('#Test getDisplayed without erros', function() {
+describe('Converter year-month', function () {
+  it('#Test getDisplayed without erros', function () {
     assert.strictEqual(
       YearMonthConverters.getDisplayed('2016-1', 'short'),
       '1.16'
@@ -38,13 +38,13 @@ describe('Converter year-month', function() {
     );
   });
 
-  it('#Test getDisplayed with empty', function() {
+  it('#Test getDisplayed with empty', function () {
     assert.strictEqual(YearMonthConverters.getDisplayed(null), '');
     assert.strictEqual(YearMonthConverters.getDisplayed(undefined), '');
     assert.strictEqual(YearMonthConverters.getDisplayed(''), '');
   });
 
-  it('#Test getDisplayed with various errors', function() {
+  it('#Test getDisplayed with various errors', function () {
     assert.strictEqual(
       YearMonthConverters.getDisplayed('tralala', 'short'),
       ''

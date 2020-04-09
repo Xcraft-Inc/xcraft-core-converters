@@ -6,7 +6,7 @@ const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter length', function() {
+describe('Converter length', function () {
   // prettier-ignore
   it('#Test parseEdited', function() {
     let result;
@@ -32,7 +32,7 @@ describe('Converter length', function() {
     assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Unité} "x" @{incorrecte}');
   });
 
-  it('#Test getDisplayed without format', function() {
+  it('#Test getDisplayed without format', function () {
     assert.strictEqual(typeof LengthConverters.getDisplayed('12'), 'string');
   });
 
@@ -57,13 +57,13 @@ describe('Converter length', function() {
     assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 6), '1.23456');
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(LengthConverters.check('123'));
     assert.ok(LengthConverters.check('.123'));
     assert.ok(LengthConverters.check('1.23'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!LengthConverters.check('-123'));
     assert.ok(!LengthConverters.check('123m'));
     assert.ok(!LengthConverters.check('123cm'));

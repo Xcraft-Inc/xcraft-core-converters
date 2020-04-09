@@ -5,7 +5,7 @@ const ReferenceConverters = require('../lib/reference.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter reference', function() {
+describe('Converter reference', function () {
   // prettier-ignore
   it('#Test generate', function() {
     assert.strictEqual(ReferenceConverters.generate('123',    '2019-01-18', '5'     ), '00123.1901.5');

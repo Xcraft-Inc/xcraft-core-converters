@@ -16,7 +16,7 @@ function getDisplayedBetweenTwoTimes(time1, time2, format) {
 
 //-----------------------------------------------------------------------------
 
-describe('Converter time', function() {
+describe('Converter time', function () {
   // prettier-ignore
   it('#Test jsToCanonical', function() {
     assert.strictEqual(TimeConverters.jsToCanonical(new Date(2019, 12, 25,  0,  0,  0)), '00:00:00');
@@ -45,7 +45,7 @@ describe('Converter time', function() {
     assert.strictEqual(TimeConverters.addHours("17:30:02", 3), "20:30:02");
   });
 
-  it('#Test parseEdited', function() {
+  it('#Test parseEdited', function () {
     let result;
 
     result = TimeConverters.parseEdited('14');
@@ -91,7 +91,7 @@ describe('Converter time', function() {
     assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Heure incorrecte}');
   });
 
-  it('#Test getDisplayed without format', function() {
+  it('#Test getDisplayed without format', function () {
     assert.strictEqual(typeof getDisplayed('12:34:56'), 'string');
   });
 
@@ -107,11 +107,11 @@ describe('Converter time', function() {
     assert.strictEqual(getDisplayed('00:15:45', 'duration'), '15min');
   });
 
-  it('#Test getNowCanonical', function() {
+  it('#Test getNowCanonical', function () {
     assert.ok(TimeConverters.getNowCanonical('12:34:56').endsWith(':00'));
   });
 
-  it('#Test getSortable', function() {
+  it('#Test getSortable', function () {
     assert.strictEqual(TimeConverters.getSortable('12:34:56'), '1234');
     assert.strictEqual(TimeConverters.getSortable('07:34:56'), '0734');
   });
@@ -156,13 +156,13 @@ describe('Converter time', function() {
     assert.strictEqual(TimeConverters.getTimeFromMinutes(8 * 60 + 34), '08:34:00');
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(TimeConverters.check('00:00:00'));
     assert.ok(TimeConverters.check('08:10:30'));
     assert.ok(TimeConverters.check('23:59:59'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!TimeConverters.check('12:00'));
     assert.ok(!TimeConverters.check('12.00.00'));
     assert.ok(!TimeConverters.check(''));

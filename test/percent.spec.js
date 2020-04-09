@@ -5,8 +5,8 @@ const PercentConverters = require('../lib/percent.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter percent', function() {
-  it('#Test parseEdited', function() {
+describe('Converter percent', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = PercentConverters.parseEdited('');
@@ -63,14 +63,14 @@ describe('Converter percent', function() {
     assert.strictEqual(PercentConverters.getDisplayed('0.123'       ), '12.3%');
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(PercentConverters.check('1'));
     assert.ok(PercentConverters.check('123'));
     assert.ok(PercentConverters.check('0.123'));
     assert.ok(PercentConverters.check('-0.05'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!PercentConverters.check('10%'));
     assert.ok(!PercentConverters.check(5));
   });

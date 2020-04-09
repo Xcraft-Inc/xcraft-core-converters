@@ -5,8 +5,8 @@ const NumberConverters = require('../lib/number.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter number', function() {
-  it('#Test parseEdited', function() {
+describe('Converter number', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = NumberConverters.parseEdited('');
@@ -70,7 +70,7 @@ describe('Converter number', function() {
     assert.ok(result.error);
   });
 
-  it('#Test parseEdited with error', function() {
+  it('#Test parseEdited with error', function () {
     let result;
 
     result = NumberConverters.parseEdited('blupi');
@@ -113,7 +113,7 @@ describe('Converter number', function() {
     assert.strictEqual(NumberConverters.getDisplayed(0          ), "0");
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(NumberConverters.check('123'));
     assert.ok(NumberConverters.check('-123'));
     assert.ok(NumberConverters.check('.123'));
@@ -121,7 +121,7 @@ describe('Converter number', function() {
     assert.ok(NumberConverters.check(12)); // accept native number
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));

@@ -5,8 +5,8 @@ const VolumeConverters = require('../lib/volume.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter volume', function() {
-  it('#Test parseEdited', function() {
+describe('Converter volume', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = VolumeConverters.parseEdited('');
@@ -38,7 +38,7 @@ describe('Converter volume', function() {
     assert.ok(result.error);
   });
 
-  it('#Test getDisplayed without format', function() {
+  it('#Test getDisplayed without format', function () {
     assert.strictEqual(typeof VolumeConverters.getDisplayed('5'), 'string');
   });
 
@@ -69,7 +69,7 @@ describe('Converter volume', function() {
     assert.strictEqual(VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 5), '166.667kg');
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(VolumeConverters.check('1 2 3'));
     assert.ok(VolumeConverters.check('12 34 56'));
     assert.ok(VolumeConverters.check('1.2 3.4 5.6'));
@@ -78,7 +78,7 @@ describe('Converter volume', function() {
     assert.ok(VolumeConverters.check('123'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!VolumeConverters.check('2 3'));
     assert.ok(!VolumeConverters.check('2 3 4 5'));
     assert.ok(!VolumeConverters.check('2 -3 4'));

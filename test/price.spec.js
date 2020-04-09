@@ -5,8 +5,8 @@ const PriceConverters = require('../lib/price.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter price', function() {
-  it('#Test parseEdited', function() {
+describe('Converter price', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = PriceConverters.parseEdited('');
@@ -74,7 +74,7 @@ describe('Converter price', function() {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function() {
+  it('#Test parseEdited with error', function () {
     let result;
 
     result = PriceConverters.parseEdited('blupi');
@@ -194,7 +194,7 @@ describe('Converter price', function() {
     assert.strictEqual(PriceConverters.getDisplayed(         1234, "p-1M"),   "1'234");
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(PriceConverters.check('123'));
     assert.ok(PriceConverters.check('123.45'));
     assert.ok(PriceConverters.check('-123'));
@@ -204,7 +204,7 @@ describe('Converter price', function() {
     assert.ok(PriceConverters.check('-.25'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!PriceConverters.check(null));
     assert.ok(!PriceConverters.check(''));
     assert.ok(!PriceConverters.check("12'000"));

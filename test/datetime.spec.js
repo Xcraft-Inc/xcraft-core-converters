@@ -5,7 +5,7 @@ const DateTimeConverters = require('../lib/datetime.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter datetime', function() {
+describe('Converter datetime', function () {
   // prettier-ignore
   it('#Test jsToCanonical', function() {
     assert.strictEqual(DateTimeConverters.jsToCanonical(new Date(2019, 0, 18,  0,  0,  0)), '2019-01-18T00:00:00.000Z');
@@ -90,12 +90,12 @@ describe('Converter datetime', function() {
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'date'), '31.03.2017');
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(DateTimeConverters.check('0000-00-00T00:00:00.000Z'));
     assert.ok(DateTimeConverters.check('2019-01-18T14:00:00.000Z'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!DateTimeConverters.check('2019-01-18T14:00:00'));
     assert.ok(!DateTimeConverters.check('2019-01-18t14:00:00.000Z'));
     assert.ok(!DateTimeConverters.check('coucou'));

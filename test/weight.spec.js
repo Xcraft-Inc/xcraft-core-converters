@@ -5,8 +5,8 @@ const WeightConverters = require('../lib/weight.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter weight', function() {
-  it('#Test parseEdited', function() {
+describe('Converter weight', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = WeightConverters.parseEdited('');
@@ -34,7 +34,7 @@ describe('Converter weight', function() {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test getDisplayed without format', function() {
+  it('#Test getDisplayed without format', function () {
     assert.strictEqual(typeof WeightConverters.getDisplayed('12'), 'string');
   });
 
@@ -66,14 +66,14 @@ describe('Converter weight', function() {
     assert.strictEqual(WeightConverters.getSortable('1.666666667'), '00000001666666');
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(WeightConverters.check('1'));
     assert.ok(WeightConverters.check('12'));
     assert.ok(WeightConverters.check('1.2'));
     assert.ok(WeightConverters.check('.2'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!WeightConverters.check('-3'));
     assert.ok(!WeightConverters.check('1kg'));
     assert.ok(!WeightConverters.check('1 kg'));

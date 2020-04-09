@@ -5,8 +5,8 @@ const IntegerConverters = require('../lib/integer.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter integer', function() {
-  it('#Test parseEdited', function() {
+describe('Converter integer', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = IntegerConverters.parseEdited('');
@@ -78,7 +78,7 @@ describe('Converter integer', function() {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function() {
+  it('#Test parseEdited with error', function () {
     let result;
 
     result = IntegerConverters.parseEdited('blupi');
@@ -113,12 +113,12 @@ describe('Converter integer', function() {
     assert.strictEqual(IntegerConverters.getDisplayed(0          ), "0");
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(IntegerConverters.check('123'));
     assert.ok(IntegerConverters.check('-123'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!IntegerConverters.check('1.23'));
     assert.ok(!IntegerConverters.check('123m'));
     assert.ok(!IntegerConverters.check('123cm'));

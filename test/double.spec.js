@@ -5,8 +5,8 @@ const DoubleConverters = require('../lib/double.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter double', function() {
-  it('#Test parseEdited', function() {
+describe('Converter double', function () {
+  it('#Test parseEdited', function () {
     let result;
 
     result = DoubleConverters.parseEdited('');
@@ -70,7 +70,7 @@ describe('Converter double', function() {
     assert.ok(result.error);
   });
 
-  it('#Test parseEdited with error', function() {
+  it('#Test parseEdited with error', function () {
     let result;
 
     result = DoubleConverters.parseEdited('blupi');
@@ -109,13 +109,13 @@ describe('Converter double', function() {
     assert.strictEqual(DoubleConverters.getDisplayed(0          ), "0.00");
   });
 
-  it('#Test check correct', function() {
+  it('#Test check correct', function () {
     assert.ok(DoubleConverters.check('-123.00'));
     assert.ok(DoubleConverters.check('1.23'));
     assert.ok(DoubleConverters.check('0.00'));
   });
 
-  it('#Test check wrong', function() {
+  it('#Test check wrong', function () {
     assert.ok(!DoubleConverters.check('123'));
     assert.ok(!DoubleConverters.check('123m'));
     assert.ok(!DoubleConverters.check('123cm'));
