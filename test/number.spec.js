@@ -17,6 +17,10 @@ describe('Converter number', function () {
     assert.strictEqual(result.value, '123');
     assert.strictEqual(result.error, null);
 
+    result = NumberConverters.parseEdited(123);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
+
     result = NumberConverters.parseEdited('00123');
     assert.strictEqual(result.value, '123');
     assert.strictEqual(result.error, null);
@@ -115,6 +119,7 @@ describe('Converter number', function () {
 
   it('#Test check correct', function () {
     assert.ok(NumberConverters.check('123'));
+    assert.ok(NumberConverters.check(123));
     assert.ok(NumberConverters.check('-123'));
     assert.ok(NumberConverters.check('.123'));
     assert.ok(NumberConverters.check('1.23'));
