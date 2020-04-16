@@ -17,6 +17,10 @@ describe('Converter double', function () {
     assert.strictEqual(result.value, '123');
     assert.strictEqual(result.error, null);
 
+    result = DoubleConverters.parseEdited(123);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
+
     result = DoubleConverters.parseEdited('00123');
     assert.strictEqual(result.value, '123');
     assert.strictEqual(result.error, null);
@@ -110,7 +114,10 @@ describe('Converter double', function () {
   });
 
   it('#Test check correct', function () {
+    assert.ok(DoubleConverters.check('123.00'));
+    assert.ok(DoubleConverters.check(123.0));
     assert.ok(DoubleConverters.check('-123.00'));
+    assert.ok(DoubleConverters.check(-123.0));
     assert.ok(DoubleConverters.check('1.23'));
     assert.ok(DoubleConverters.check('0.00'));
   });
@@ -122,6 +129,5 @@ describe('Converter double', function () {
     assert.ok(!DoubleConverters.check('cm'));
     assert.ok(!DoubleConverters.check('.123'));
     assert.ok(!DoubleConverters.check('-123.0'));
-    assert.ok(!DoubleConverters.check(12));
   });
 });

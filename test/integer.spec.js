@@ -17,6 +17,10 @@ describe('Converter integer', function () {
     assert.strictEqual(result.value, '123');
     assert.strictEqual(result.error, null);
 
+    result = IntegerConverters.parseEdited(123);
+    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.error, null);
+
     result = IntegerConverters.parseEdited('00123');
     assert.strictEqual(result.value, '123');
     assert.strictEqual(result.error, null);
@@ -115,6 +119,7 @@ describe('Converter integer', function () {
 
   it('#Test check correct', function () {
     assert.ok(IntegerConverters.check('123'));
+    assert.ok(IntegerConverters.check(123));
     assert.ok(IntegerConverters.check('-123'));
   });
 
@@ -124,6 +129,5 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('123cm'));
     assert.ok(!IntegerConverters.check('.123'));
     assert.ok(!IntegerConverters.check('cm'));
-    assert.ok(!IntegerConverters.check(12));
   });
 });
