@@ -19,6 +19,43 @@ function getDisplayedBetweenTwoDates(date1, date2) {
   return StringBuilder._toFlatten(s);
 }
 
+function getDescription(fromDate, toDate) {
+  fromDate = DateConverters.getDisplayed(fromDate);
+  toDate = DateConverters.getDisplayed(toDate);
+  return `${fromDate} -> ${toDate}`;
+}
+
+function testChangePeriod(
+  fromDate,
+  toDate,
+  direction,
+  hopeFromDate,
+  honeToDate
+) {
+  fromDate = DateConverters.parseEdited(fromDate).value;
+  toDate = DateConverters.parseEdited(toDate).value;
+  hopeFromDate = DateConverters.parseEdited(hopeFromDate).value;
+  honeToDate = DateConverters.parseEdited(honeToDate).value;
+
+  const r = DateConverters.changePeriod(fromDate, toDate, direction);
+  const input = getDescription(fromDate, toDate);
+  const hope = getDescription(hopeFromDate, honeToDate);
+  const result = getDescription(r.fromDate, r.toDate);
+  assert.strictEqual(
+    result,
+    hope,
+    `Normal: input=${input}, direction=${direction}, message=${r.message}`
+  );
+
+  const rr = DateConverters.changePeriod(hopeFromDate, honeToDate, -direction);
+  const rResult = getDescription(rr.fromDate, rr.toDate);
+  assert.strictEqual(
+    rResult,
+    input,
+    `Reverse: input=${hope}, direction=${-direction}, message=${rr.message}`
+  );
+}
+
 //-----------------------------------------------------------------------------
 
 describe('Converter date', function () {
@@ -196,5 +233,64 @@ describe('Converter date', function () {
     assert.ok(!DateConverters.check(''));
     assert.ok(!DateConverters.check(123));
     assert.ok(!DateConverters.check(null));
+  });
+
+  // prettier-ignore
+  it('#Test addDays', function () {
+    assert.strictEqual(DateConverters.addDays('2020-03-01',  1), '2020-03-02');
+    assert.strictEqual(DateConverters.addDays('2020-03-01', 31), '2020-04-01');
+    assert.strictEqual(DateConverters.addDays('2020-03-31',  1), '2020-04-01');
+    assert.strictEqual(DateConverters.addDays('2020-03-01', -1), '2020-02-29');
+  });
+
+  // prettier-ignore
+  it('#Test addMonths', function () {
+    assert.strictEqual(DateConverters.addMonths('2020-03-01',   1), '2020-04-01');
+    assert.strictEqual(DateConverters.addMonths('2020-03-31',   1), '2020-04-30');
+    assert.strictEqual(DateConverters.addMonths('2020-02-29',  12), '2021-02-28');
+    assert.strictEqual(DateConverters.addMonths('2020-12-01',   1), '2021-01-01');
+    assert.strictEqual(DateConverters.addMonths('2020-12-31',   1), '2021-01-31');
+    assert.strictEqual(DateConverters.addMonths('2020-12-31',   2), '2021-02-28');
+    assert.strictEqual(DateConverters.addMonths('2020-12-31',  14), '2022-02-28');
+    assert.strictEqual(DateConverters.addMonths('2020-12-31',  26), '2023-02-28');
+    assert.strictEqual(DateConverters.addMonths('2020-12-31',  38), '2024-02-29');
+    assert.strictEqual(DateConverters.addMonths('2020-12-31',  50), '2025-02-28');
+    
+    assert.strictEqual(DateConverters.addMonths('2020-03-01',  -1), '2020-02-01');
+    assert.strictEqual(DateConverters.addMonths('2020-03-31',  -1), '2020-02-29');
+    assert.strictEqual(DateConverters.addMonths('2020-02-29',  -1), '2020-01-31');
+    assert.strictEqual(DateConverters.addMonths('2020-02-29', -11), '2019-03-31');
+    assert.strictEqual(DateConverters.addMonths('2020-02-29', -12), '2019-02-28');
+    assert.strictEqual(DateConverters.addMonths('2020-02-29', -13), '2019-01-31');
+  });
+
+  // prettier-ignore
+  it('#Test changePeriod', function () {
+    // Whole year test:
+    testChangePeriod('01.01.2020', '31.12.2020',  1, '01.01.2021', '31.12.2021');
+    testChangePeriod('01.01.2020', '31.12.2020', -1, '01.01.2019', '31.12.2019');
+
+    testChangePeriod('01.01.2020', '31.12.2021',  1, '01.01.2022', '31.12.2023');
+    testChangePeriod('01.01.2020', '31.12.2021', -1, '01.01.2018', '31.12.2019');
+
+    // Whole month test:
+    testChangePeriod('01.03.2020', '31.03.2020',  1, '01.04.2020', '30.04.2020');
+    testChangePeriod('01.03.2020', '31.03.2020', -1, '01.02.2020', '29.02.2020');
+
+    testChangePeriod('01.03.2020', '30.04.2020',  1, '01.05.2020', '30.06.2020');
+    testChangePeriod('01.03.2020', '30.04.2020', -1, '01.01.2020', '29.02.2020');
+
+    testChangePeriod('01.12.2020', '31.12.2020',  1, '01.01.2021', '31.01.2021');
+    testChangePeriod('01.12.2020', '31.12.2020', -1, '01.11.2020', '30.11.2020');
+
+    testChangePeriod('01.01.2020', '31.01.2020',  1, '01.02.2020', '29.02.2020');
+    testChangePeriod('01.01.2020', '31.01.2020', -1, '01.12.2019', '31.12.2019');
+
+    // Strange periods test:
+    testChangePeriod('10.01.2020', '20.01.2020',  1, '21.01.2020', '31.01.2020');
+    testChangePeriod('15.01.2020', '25.01.2020',  1, '26.01.2020', '05.02.2020');
+
+    testChangePeriod('20.01.2020', '30.01.2020', -1, '09.01.2020', '19.01.2020');
+    testChangePeriod('10.01.2020', '20.01.2020', -1, '30.12.2019', '09.01.2020');
   });
 });
