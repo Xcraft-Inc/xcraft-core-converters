@@ -100,6 +100,22 @@ describe('Converter number', function () {
     result = NumberConverters.parseEdited('12.3.4');
     assert.strictEqual(result.value, null);
     assert.notStrictEqual(result.error, null);
+
+    result = NumberConverters.parseEdited('49', 50, 100);
+    assert.strictEqual(result.value, '50');
+    assert.ok(result.error);
+
+    result = NumberConverters.parseEdited('101', 50, 100);
+    assert.strictEqual(result.value, '100');
+    assert.ok(result.error);
+
+    result = NumberConverters.parseEdited('-101', -100, -50);
+    assert.strictEqual(result.value, '-100');
+    assert.ok(result.error);
+
+    result = NumberConverters.parseEdited('-49', -100, -50);
+    assert.strictEqual(result.value, '-50');
+    assert.ok(result.error);
   });
 
   // prettier-ignore

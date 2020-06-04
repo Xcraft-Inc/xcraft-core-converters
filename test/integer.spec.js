@@ -100,6 +100,22 @@ describe('Converter integer', function () {
     result = IntegerConverters.parseEdited('12,3');
     assert.strictEqual(result.value, null);
     assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('49', 50, 100);
+    assert.strictEqual(result.value, '50');
+    assert.ok(result.error);
+
+    result = IntegerConverters.parseEdited('101', 50, 100);
+    assert.strictEqual(result.value, '100');
+    assert.ok(result.error);
+
+    result = IntegerConverters.parseEdited('-101', -100, -50);
+    assert.strictEqual(result.value, '-100');
+    assert.ok(result.error);
+
+    result = IntegerConverters.parseEdited('-49', -100, -50);
+    assert.strictEqual(result.value, '-50');
+    assert.ok(result.error);
   });
 
   // prettier-ignore
@@ -118,6 +134,8 @@ describe('Converter integer', function () {
   });
 
   it('#Test check correct', function () {
+    assert.ok(IntegerConverters.check('0'));
+    assert.ok(IntegerConverters.check(0));
     assert.ok(IntegerConverters.check('123'));
     assert.ok(IntegerConverters.check(123));
     assert.ok(IntegerConverters.check('-123'));
@@ -129,5 +147,8 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('123cm'));
     assert.ok(!IntegerConverters.check('.123'));
     assert.ok(!IntegerConverters.check('cm'));
+    assert.ok(!IntegerConverters.check(''));
+    assert.ok(!IntegerConverters.check(null));
+    assert.ok(!IntegerConverters.check(undefined));
   });
 });

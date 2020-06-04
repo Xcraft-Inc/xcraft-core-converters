@@ -54,6 +54,50 @@ describe('Converter percent', function () {
     assert.ok(result.error);
   });
 
+  it('#Test parseEdited with error', function () {
+    let result;
+
+    result = PercentConverters.parseEdited('blupi');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PercentConverters.parseEdited('A12');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PercentConverters.parseEdited('12A');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PercentConverters.parseEdited('12..3');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PercentConverters.parseEdited('12,3');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PercentConverters.parseEdited('12.3.4');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = PercentConverters.parseEdited('24%', 0.25, 0.75);
+    assert.strictEqual(result.value, '25%');
+    assert.ok(result.error);
+
+    result = PercentConverters.parseEdited('76%', 0.25, 0.75);
+    assert.strictEqual(result.value, '75%');
+    assert.ok(result.error);
+
+    result = PercentConverters.parseEdited('-76%', -0.75, -0.25);
+    assert.strictEqual(result.value, '-75%');
+    assert.ok(result.error);
+
+    result = PercentConverters.parseEdited('-24%', -0.75, -0.25);
+    assert.strictEqual(result.value, '-25%');
+    assert.ok(result.error);
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(PercentConverters.getDisplayed(null          ), null);
