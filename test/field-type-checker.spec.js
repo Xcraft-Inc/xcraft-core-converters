@@ -94,7 +94,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', 123, {type: 'price'});
-    assert.strictEqual(result.ok, false);
+    assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', '123,45', {type: 'price'});
     assert.strictEqual(result.ok, false);
@@ -128,7 +128,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', 123, {type: 'percent'});
-    assert.strictEqual(result.ok, false);
+    assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', '123,456', {type: 'percent'});
     assert.strictEqual(result.ok, false);

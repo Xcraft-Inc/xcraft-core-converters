@@ -118,6 +118,8 @@ describe('Converter number', function () {
   });
 
   it('#Test check correct', function () {
+    assert.ok(NumberConverters.check('0'));
+    assert.ok(NumberConverters.check(0));
     assert.ok(NumberConverters.check('123'));
     assert.ok(NumberConverters.check(123));
     assert.ok(NumberConverters.check('-123'));
@@ -130,5 +132,8 @@ describe('Converter number', function () {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));
+    assert.ok(!NumberConverters.check(''));
+    assert.ok(!NumberConverters.check(null));
+    assert.ok(!NumberConverters.check(undefined));
   });
 });

@@ -64,6 +64,9 @@ describe('Converter percent', function () {
   });
 
   it('#Test check correct', function () {
+    assert.ok(PercentConverters.check('0'));
+    assert.ok(PercentConverters.check(0));
+    assert.ok(PercentConverters.check(5));
     assert.ok(PercentConverters.check('1'));
     assert.ok(PercentConverters.check('123'));
     assert.ok(PercentConverters.check('0.123'));
@@ -72,6 +75,8 @@ describe('Converter percent', function () {
 
   it('#Test check wrong', function () {
     assert.ok(!PercentConverters.check('10%'));
-    assert.ok(!PercentConverters.check(5));
+    assert.ok(!PercentConverters.check(''));
+    assert.ok(!PercentConverters.check(null));
+    assert.ok(!PercentConverters.check(undefined));
   });
 });

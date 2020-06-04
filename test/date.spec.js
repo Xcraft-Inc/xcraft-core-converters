@@ -232,7 +232,9 @@ describe('Converter date', function () {
     assert.ok(!DateConverters.check('2017-AB-31'));
     assert.ok(!DateConverters.check(''));
     assert.ok(!DateConverters.check(123));
+    assert.ok(!DateConverters.check(''));
     assert.ok(!DateConverters.check(null));
+    assert.ok(!DateConverters.check(undefined));
   });
 
   // prettier-ignore

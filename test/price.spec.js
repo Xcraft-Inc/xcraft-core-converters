@@ -195,6 +195,9 @@ describe('Converter price', function () {
   });
 
   it('#Test check correct', function () {
+    assert.ok(PriceConverters.check('0'));
+    assert.ok(PriceConverters.check(0));
+    assert.ok(PriceConverters.check(100));
     assert.ok(PriceConverters.check('123'));
     assert.ok(PriceConverters.check('123.45'));
     assert.ok(PriceConverters.check('-123'));
@@ -205,11 +208,12 @@ describe('Converter price', function () {
   });
 
   it('#Test check wrong', function () {
-    assert.ok(!PriceConverters.check(null));
     assert.ok(!PriceConverters.check(''));
     assert.ok(!PriceConverters.check("12'000"));
     assert.ok(!PriceConverters.check('123.456'));
     assert.ok(!PriceConverters.check('-1x3'));
-    assert.ok(!PriceConverters.check(100));
+    assert.ok(!PriceConverters.check(''));
+    assert.ok(!PriceConverters.check(null));
+    assert.ok(!PriceConverters.check(undefined));
   });
 });
