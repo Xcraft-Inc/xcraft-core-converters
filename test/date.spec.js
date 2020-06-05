@@ -208,9 +208,13 @@ describe('Converter date', function () {
 
   // prettier-ignore
   it('#Test getCalcDate', function() {
-    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '-2d'), '2017-01-03');
-    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '3m' ), '2017-04-05');
-    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '1y' ), '2018-01-05');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '-2d'   ,  1), '2017-01-03');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '-2d'   , -1), '2017-01-07');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '30d'   ,  1), '2017-02-04');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '3m'    ,  1), '2017-04-05');
+    assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '1y'    ,  1), '2018-01-05');
+    assert.strictEqual(DateConverters.getCalcDate('2020-01-01', '1y/-1d',  1), '2020-12-31');
+    assert.strictEqual(DateConverters.getCalcDate('2020-12-31', '1y/-1d', -1), '2020-01-01');
   });
 
   // prettier-ignore
