@@ -101,20 +101,20 @@ describe('Converter double', function () {
     assert.strictEqual(result.value, null);
     assert.notStrictEqual(result.error, null);
 
-    result = DoubleConverters.parseEdited('49', 50, 100);
-    assert.strictEqual(result.value, '50.00');
+    result = DoubleConverters.parseEdited('49', '50', '100');
+    assert.strictEqual(result.value, '50');
     assert.ok(result.error);
 
-    result = DoubleConverters.parseEdited('101', 50, 100);
-    assert.strictEqual(result.value, '100.00');
+    result = DoubleConverters.parseEdited('101', '50', '100');
+    assert.strictEqual(result.value, '100');
     assert.ok(result.error);
 
-    result = DoubleConverters.parseEdited('-101', -100, -50);
-    assert.strictEqual(result.value, '-100.00');
+    result = DoubleConverters.parseEdited('-101', '-100', '-50');
+    assert.strictEqual(result.value, '-100');
     assert.ok(result.error);
 
-    result = DoubleConverters.parseEdited('-49', -100, -50);
-    assert.strictEqual(result.value, '-50.00');
+    result = DoubleConverters.parseEdited('-49', '-100', '-50');
+    assert.strictEqual(result.value, '-50');
     assert.ok(result.error);
   });
 
