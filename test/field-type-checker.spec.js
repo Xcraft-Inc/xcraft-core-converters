@@ -50,26 +50,23 @@ describe('field-type', function () {
     result = FieldType.check('Blupi', null, {type: 'number'});
     assert.strictEqual(result.ok, true);
 
-    result = FieldType.check('Blupi', '', {type: 'number'});
+    result = FieldType.check('Blupi', 123.456, {type: 'number'});
     assert.strictEqual(result.ok, true);
 
-    result = FieldType.check('Blupi', '123', {type: 'number'});
+    result = FieldType.check('Blupi', 0.123, {type: 'number'});
     assert.strictEqual(result.ok, true);
 
-    result = FieldType.check('Blupi', '123.456', {type: 'number'});
-    assert.strictEqual(result.ok, true);
-
-    result = FieldType.check('Blupi', '.123', {type: 'number'});
-    assert.strictEqual(result.ok, true);
-
-    result = FieldType.check('Blupi', '-123', {type: 'number'});
+    result = FieldType.check('Blupi', -123, {type: 'number'});
     assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', 123, {type: 'number'});
-    assert.strictEqual(result.ok, true); // accept native number
+    assert.strictEqual(result.ok, true);
 
-    result = FieldType.check('Blupi', '123,456', {type: 'number'});
-    assert.strictEqual(result.ok, false);
+    result = FieldType.check('Blupi', '', {type: 'number'});
+    assert.strictEqual(result.ok, false); // reject string
+
+    result = FieldType.check('Blupi', '123', {type: 'number'});
+    assert.strictEqual(result.ok, false); // reject string
   });
 
   it('#Test field-type price', function () {
