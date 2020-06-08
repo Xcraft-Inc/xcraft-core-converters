@@ -133,17 +133,23 @@ describe('Converter integer', function () {
     assert.strictEqual(IntegerConverters.getDisplayed(0          ), "0");
   });
 
-  it('#Test check correct', function () {
+  it('#Test check no-strict', function () {
+    assert.ok(!IntegerConverters.check(undefined));
+    assert.ok(IntegerConverters.check(null));
     assert.ok(IntegerConverters.check(0));
     assert.ok(IntegerConverters.check(123));
     assert.ok(IntegerConverters.check(''));
     assert.ok(IntegerConverters.check('0'));
     assert.ok(IntegerConverters.check('123'));
     assert.ok(IntegerConverters.check('-123'));
-    assert.ok(IntegerConverters.check(null));
   });
 
   it('#Test check strict', function () {
+    assert.ok(!IntegerConverters.check(undefined, true));
+    assert.ok(!IntegerConverters.check(null, true));
+    assert.ok(IntegerConverters.check(0, true));
+    assert.ok(IntegerConverters.check(123, true));
+    assert.ok(!IntegerConverters.check('', true));
     assert.ok(!IntegerConverters.check('0', true));
     assert.ok(!IntegerConverters.check('123', true));
     assert.ok(!IntegerConverters.check('-123', true));
@@ -155,6 +161,5 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('123cm'));
     assert.ok(!IntegerConverters.check('.123'));
     assert.ok(!IntegerConverters.check('cm'));
-    assert.ok(!IntegerConverters.check(undefined));
   });
 });

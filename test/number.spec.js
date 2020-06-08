@@ -137,7 +137,8 @@ describe('Converter number', function () {
     assert.strictEqual(NumberConverters.getDisplayed('1234'    ), "1'234"); // accept string
   });
 
-  it('#Test check correct', function () {
+  it('#Test check no-strict', function () {
+    assert.ok(!NumberConverters.check(undefined));
     assert.ok(NumberConverters.check(null));
     assert.ok(NumberConverters.check(0));
     assert.ok(NumberConverters.check(12));
@@ -147,10 +148,21 @@ describe('Converter number', function () {
     assert.ok(NumberConverters.check(''));
     assert.ok(NumberConverters.check('0')); // accept string
     assert.ok(NumberConverters.check('123'));
-    assert.ok(NumberConverters.check(null));
+    assert.ok(NumberConverters.check('-123'));
+    assert.ok(NumberConverters.check('+123'));
+    assert.ok(NumberConverters.check('.123'));
+    assert.ok(NumberConverters.check('1.23'));
   });
 
   it('#Test check strict', function () {
+    assert.ok(!NumberConverters.check(undefined, true));
+    assert.ok(!NumberConverters.check(null, true));
+    assert.ok(NumberConverters.check(0, true));
+    assert.ok(NumberConverters.check(12, true));
+    assert.ok(NumberConverters.check(123, true));
+    assert.ok(NumberConverters.check(-123, true));
+    assert.ok(NumberConverters.check(123, true));
+    assert.ok(!NumberConverters.check('', true));
     assert.ok(!NumberConverters.check('0', true));
     assert.ok(!NumberConverters.check('123', true));
     assert.ok(!NumberConverters.check('-123', true));
@@ -163,6 +175,5 @@ describe('Converter number', function () {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));
-    assert.ok(!NumberConverters.check(undefined));
   });
 });

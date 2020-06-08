@@ -226,10 +226,13 @@ describe('Converter price', function () {
     assert.strictEqual(PriceConverters.getDisplayed(         1234, "p-1M"),   "1'234");
   });
 
-  it('#Test check correct', function () {
-    assert.ok(PriceConverters.check('0'));
+  it('#Test check no-strict', function () {
+    assert.ok(!PriceConverters.check(undefined));
+    assert.ok(PriceConverters.check(null));
     assert.ok(PriceConverters.check(0));
     assert.ok(PriceConverters.check(100));
+    assert.ok(PriceConverters.check(''));
+    assert.ok(PriceConverters.check('0'));
     assert.ok(PriceConverters.check('123'));
     assert.ok(PriceConverters.check('123.45'));
     assert.ok(PriceConverters.check('-123'));
@@ -239,13 +242,25 @@ describe('Converter price', function () {
     assert.ok(PriceConverters.check('-.25'));
   });
 
+  it('#Test check strict', function () {
+    assert.ok(!PriceConverters.check(undefined, true));
+    assert.ok(!PriceConverters.check(null, true));
+    assert.ok(!PriceConverters.check(0, true));
+    assert.ok(!PriceConverters.check(100, true));
+    assert.ok(PriceConverters.check('', true));
+    assert.ok(PriceConverters.check('0', true));
+    assert.ok(PriceConverters.check('123', true));
+    assert.ok(PriceConverters.check('123.45', true));
+    assert.ok(PriceConverters.check('-123', true));
+    assert.ok(PriceConverters.check('0.25', true));
+    assert.ok(PriceConverters.check('.25', true));
+    assert.ok(PriceConverters.check('-0.25', true));
+    assert.ok(PriceConverters.check('-.25', true));
+  });
+
   it('#Test check wrong', function () {
-    assert.ok(!PriceConverters.check(''));
     assert.ok(!PriceConverters.check("12'000"));
     assert.ok(!PriceConverters.check('123.456'));
     assert.ok(!PriceConverters.check('-1x3'));
-    assert.ok(!PriceConverters.check(''));
-    assert.ok(!PriceConverters.check(null));
-    assert.ok(!PriceConverters.check(undefined));
   });
 });
