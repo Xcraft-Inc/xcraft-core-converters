@@ -14,76 +14,76 @@ describe('Converter integer', function () {
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('123');
-    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.value, 123);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited(123);
-    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.value, 123);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('00123');
-    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.value, 123);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('+123');
-    assert.strictEqual(result.value, '123');
+    assert.strictEqual(result.value, 123);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('-123');
-    assert.strictEqual(result.value, '-123');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('123.00');
-    assert.strictEqual(result.value, '123');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('123.800');
-    assert.strictEqual(result.value, '123');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('123.456789');
-    assert.strictEqual(result.value, '123');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('.123');
-    assert.strictEqual(result.value, '0');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('0.123');
-    assert.strictEqual(result.value, '0');
+    assert.strictEqual(result.value, -123);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited(' 12');
-    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.value, 12);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('1 2');
-    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.value, 12);
     assert.strictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('12 ');
-    assert.strictEqual(result.value, '12');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited("1'000.00");
-    assert.strictEqual(result.value, '1000');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('12a34');
-    assert.strictEqual(result.value, null);
-    assert.ok(result.error);
-
-    result = IntegerConverters.parseEdited('12.3.4');
-    assert.strictEqual(result.value, '12');
-    assert.strictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited('12..3');
-    assert.strictEqual(result.value, '12');
+    assert.strictEqual(result.value, 12);
     assert.strictEqual(result.error, null);
   });
 
   it('#Test parseEdited with error', function () {
     let result;
+
+    result = IntegerConverters.parseEdited('123.00');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('123.800');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('123.456789');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('.123');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('0.123');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited("1'000.00");
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('12a34');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('12.3.4');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited('12..3');
+    assert.strictEqual(result.value, null);
+    assert.notStrictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('blupi');
     assert.strictEqual(result.value, null);
@@ -101,20 +101,20 @@ describe('Converter integer', function () {
     assert.strictEqual(result.value, null);
     assert.notStrictEqual(result.error, null);
 
-    result = IntegerConverters.parseEdited('49', '50', '100');
-    assert.strictEqual(result.value, '50');
+    result = IntegerConverters.parseEdited('49', 50, 100);
+    assert.strictEqual(result.value, 50);
     assert.ok(result.error);
 
-    result = IntegerConverters.parseEdited('101', '50', '100');
-    assert.strictEqual(result.value, '100');
+    result = IntegerConverters.parseEdited('101', 50, 100);
+    assert.strictEqual(result.value, 100);
     assert.ok(result.error);
 
-    result = IntegerConverters.parseEdited('-101', '-100', '-50');
-    assert.strictEqual(result.value, '-100');
+    result = IntegerConverters.parseEdited('-101', -100, -50);
+    assert.strictEqual(result.value, -100);
     assert.ok(result.error);
 
-    result = IntegerConverters.parseEdited('-49', '-100', '-50');
-    assert.strictEqual(result.value, '-50');
+    result = IntegerConverters.parseEdited('-49', -100, -50);
+    assert.strictEqual(result.value, -50);
     assert.ok(result.error);
   });
 
@@ -134,11 +134,19 @@ describe('Converter integer', function () {
   });
 
   it('#Test check correct', function () {
-    assert.ok(IntegerConverters.check('0'));
     assert.ok(IntegerConverters.check(0));
-    assert.ok(IntegerConverters.check('123'));
     assert.ok(IntegerConverters.check(123));
+    assert.ok(IntegerConverters.check(''));
+    assert.ok(IntegerConverters.check('0'));
+    assert.ok(IntegerConverters.check('123'));
     assert.ok(IntegerConverters.check('-123'));
+    assert.ok(IntegerConverters.check(null));
+  });
+
+  it('#Test check strict', function () {
+    assert.ok(!IntegerConverters.check('0', true));
+    assert.ok(!IntegerConverters.check('123', true));
+    assert.ok(!IntegerConverters.check('-123', true));
   });
 
   it('#Test check wrong', function () {
@@ -147,8 +155,6 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('123cm'));
     assert.ok(!IntegerConverters.check('.123'));
     assert.ok(!IntegerConverters.check('cm'));
-    assert.ok(!IntegerConverters.check(''));
-    assert.ok(!IntegerConverters.check(null));
     assert.ok(!IntegerConverters.check(undefined));
   });
 });

@@ -63,10 +63,10 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', '', {type: 'number'});
-    assert.strictEqual(result.ok, false); // reject string
+    assert.strictEqual(result.ok, true);
 
     result = FieldType.check('Blupi', '123', {type: 'number'});
-    assert.strictEqual(result.ok, false); // reject string
+    assert.strictEqual(result.ok, true);
   });
 
   it('#Test field-type price', function () {
