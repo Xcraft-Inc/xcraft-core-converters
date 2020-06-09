@@ -17,6 +17,10 @@ describe('Converter integer', function () {
     assert.strictEqual(result.value, 123);
     assert.strictEqual(result.error, null);
 
+    result = IntegerConverters.parseEdited('123.00');
+    assert.strictEqual(result.value, 123);
+    assert.strictEqual(result.error, null);
+
     result = IntegerConverters.parseEdited(123);
     assert.strictEqual(result.value, 123);
     assert.strictEqual(result.error, null);
@@ -44,33 +48,29 @@ describe('Converter integer', function () {
     result = IntegerConverters.parseEdited('12 ');
     assert.strictEqual(result.value, 12);
     assert.strictEqual(result.error, null);
+
+    result = IntegerConverters.parseEdited("1'000.00");
+    assert.strictEqual(result.value, 1000);
+    assert.strictEqual(result.error, null);
   });
 
   it('#Test parseEdited with error', function () {
     let result;
 
-    result = IntegerConverters.parseEdited('123.00');
-    assert.strictEqual(result.value, null);
-    assert.notStrictEqual(result.error, null);
-
     result = IntegerConverters.parseEdited('123.800');
-    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.value, 123);
     assert.notStrictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('123.456789');
-    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.value, 123);
     assert.notStrictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('.123');
-    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.value, 0);
     assert.notStrictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('0.123');
-    assert.strictEqual(result.value, null);
-    assert.notStrictEqual(result.error, null);
-
-    result = IntegerConverters.parseEdited("1'000.00");
-    assert.strictEqual(result.value, null);
+    assert.strictEqual(result.value, 0);
     assert.notStrictEqual(result.error, null);
 
     result = IntegerConverters.parseEdited('12a34');
@@ -121,6 +121,16 @@ describe('Converter integer', function () {
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(IntegerConverters.getDisplayed(null       ), null);
+    assert.strictEqual(IntegerConverters.getDisplayed(0          ), "0");
+    assert.strictEqual(IntegerConverters.getDisplayed(1234       ), "1'234");
+    assert.strictEqual(IntegerConverters.getDisplayed(-1234      ), "-1'234");
+    assert.strictEqual(IntegerConverters.getDisplayed(.12        ), '0');
+    assert.strictEqual(IntegerConverters.getDisplayed(.12456,   2), '0');
+    assert.strictEqual(IntegerConverters.getDisplayed(.12456,   3), '0');
+    assert.strictEqual(IntegerConverters.getDisplayed(.12456,   4), '0');
+    assert.strictEqual(IntegerConverters.getDisplayed(.12456,   5), '0');
+    assert.strictEqual(IntegerConverters.getDisplayed(.12456,   6), '0');
+    assert.strictEqual(IntegerConverters.getDisplayed('0'        ), "0");
     assert.strictEqual(IntegerConverters.getDisplayed('1234'     ), "1'234");
     assert.strictEqual(IntegerConverters.getDisplayed('-1234'    ), "-1'234");
     assert.strictEqual(IntegerConverters.getDisplayed('.12'      ), '0');
@@ -129,8 +139,6 @@ describe('Converter integer', function () {
     assert.strictEqual(IntegerConverters.getDisplayed('.12456', 4), '0');
     assert.strictEqual(IntegerConverters.getDisplayed('.12456', 5), '0');
     assert.strictEqual(IntegerConverters.getDisplayed('.12456', 6), '0');
-    assert.strictEqual(IntegerConverters.getDisplayed(1234       ), "1'234");
-    assert.strictEqual(IntegerConverters.getDisplayed(0          ), "0");
   });
 
   it('#Test check no-strict', function () {
@@ -138,10 +146,12 @@ describe('Converter integer', function () {
     assert.ok(IntegerConverters.check(null));
     assert.ok(IntegerConverters.check(0));
     assert.ok(IntegerConverters.check(123));
+    assert.ok(!IntegerConverters.check(5.1));
     assert.ok(IntegerConverters.check(''));
     assert.ok(IntegerConverters.check('0'));
     assert.ok(IntegerConverters.check('123'));
     assert.ok(IntegerConverters.check('-123'));
+    assert.ok(!IntegerConverters.check('5.1'));
   });
 
   it('#Test check strict', function () {
@@ -149,10 +159,12 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check(null, true));
     assert.ok(IntegerConverters.check(0, true));
     assert.ok(IntegerConverters.check(123, true));
+    assert.ok(!IntegerConverters.check(5.1, true));
     assert.ok(!IntegerConverters.check('', true));
     assert.ok(!IntegerConverters.check('0', true));
     assert.ok(!IntegerConverters.check('123', true));
     assert.ok(!IntegerConverters.check('-123', true));
+    assert.ok(!IntegerConverters.check('5.1', true));
   });
 
   it('#Test check wrong', function () {
