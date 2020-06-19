@@ -209,4 +209,11 @@ describe('Converter color', function () {
     assert.strictEqual(result.l, 50);
     assert.strictEqual(result.n, 127);
   });
+
+  // prettier-ignore
+  it('#Test slide', function () {
+    assert.strictEqual(ColorConverters.slide("#224466", "#446688", 0.0), "#224466");
+    assert.strictEqual(ColorConverters.slide("#224466", "#446688", 0.5), "#335577");
+    assert.strictEqual(ColorConverters.slide("#224466", "#446688", 1.0), "#446688");
+  });
 });
