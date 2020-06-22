@@ -37,12 +37,12 @@ describe('Converter color', function () {
     assert.strictEqual(result.value, '#0080FF');
     assert.strictEqual(result.error, null);
 
-    result = ColorConverters.parseEdited('cmy(100,0,255)');
-    assert.strictEqual(result.value, 'CMY(100,0,255)');
+    result = ColorConverters.parseEdited('cmyk(100,0,0,50)');
+    assert.strictEqual(result.value, 'CMYK(100,0,0,50)');
     assert.strictEqual(result.error, null);
 
-    result = ColorConverters.parseEdited('cmy(100, 0, 255)');
-    assert.strictEqual(result.value, 'CMY(100,0,255)');
+    result = ColorConverters.parseEdited('cmyk(100, 0, 0, 50)');
+    assert.strictEqual(result.value, 'CMYK(100,0,0,50)');
     assert.strictEqual(result.error, null);
 
     result = ColorConverters.parseEdited('g(100)');
@@ -60,13 +60,13 @@ describe('Converter color', function () {
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.strictEqual(ColorConverters.getDisplayed(null        ), null);
-    assert.strictEqual(ColorConverters.getDisplayed('#000000'   ), 'RGB(0,0,0)');
-    assert.strictEqual(ColorConverters.getDisplayed('#0080FF'   ), 'RGB(0,128,255)');
-    assert.strictEqual(ColorConverters.getDisplayed('#FFFFFF'   ), 'RGB(255,255,255)');
-    assert.strictEqual(ColorConverters.getDisplayed('CMY(0,0,0)'), 'CMY(0,0,0)');
-    assert.strictEqual(ColorConverters.getDisplayed('G(100)'    ), 'G(100)');
-    assert.strictEqual(ColorConverters.getDisplayed('HSL(1,2,3)'), 'HSL(1,2,3)');
+    assert.strictEqual(ColorConverters.getDisplayed(null           ), null);
+    assert.strictEqual(ColorConverters.getDisplayed('#000000'      ), 'RGB(0,0,0)');
+    assert.strictEqual(ColorConverters.getDisplayed('#0080FF'      ), 'RGB(0,128,255)');
+    assert.strictEqual(ColorConverters.getDisplayed('#FFFFFF'      ), 'RGB(255,255,255)');
+    assert.strictEqual(ColorConverters.getDisplayed('CMYK(0,0,0,0)'), 'CMYK(0,0,0,0)');
+    assert.strictEqual(ColorConverters.getDisplayed('G(100)'       ), 'G(100)');
+    assert.strictEqual(ColorConverters.getDisplayed('HSL(1,2,3)'   ), 'HSL(1,2,3)');
   });
 
   it('#Test analysisFromCanonical', function () {
@@ -90,25 +90,27 @@ describe('Converter color', function () {
     assert.strictEqual(result.g, 0);
     assert.strictEqual(result.b, 0);
     assert.strictEqual(result.c, 0);
-    assert.strictEqual(result.m, 255);
-    assert.strictEqual(result.y, 255);
+    assert.strictEqual(result.m, 100);
+    assert.strictEqual(result.y, 100);
+    assert.strictEqual(result.k, 0);
     assert.strictEqual(result.h, 0);
     assert.strictEqual(result.s, 100);
     assert.strictEqual(result.l, 100);
-    assert.strictEqual(result.n, 170);
+    assert.strictEqual(result.n, 67);
 
     result = ColorConverters.analysisFromCanonical('#00FF00');
     assert.strictEqual(result.mode, 'RGB');
     assert.strictEqual(result.r, 0);
     assert.strictEqual(result.g, 255);
     assert.strictEqual(result.b, 0);
-    assert.strictEqual(result.c, 255);
+    assert.strictEqual(result.c, 100);
     assert.strictEqual(result.m, 0);
-    assert.strictEqual(result.y, 255);
+    assert.strictEqual(result.y, 100);
+    assert.strictEqual(result.k, 0);
     assert.strictEqual(result.h, 120);
     assert.strictEqual(result.s, 100);
     assert.strictEqual(result.l, 100);
-    assert.strictEqual(result.n, 170);
+    assert.strictEqual(result.n, 67);
 
     result = ColorConverters.analysisFromCanonical('#FFC800');
     assert.strictEqual(result.mode, 'RGB');
@@ -119,24 +121,46 @@ describe('Converter color', function () {
     assert.strictEqual(result.s, 100);
     assert.strictEqual(result.l, 100);
 
-    result = ColorConverters.analysisFromCanonical('CMY(1,222,33)');
-    assert.strictEqual(result.mode, 'CMY');
-    assert.strictEqual(result.c, 1);
-    assert.strictEqual(result.m, 222);
-    assert.strictEqual(result.y, 33);
+    result = ColorConverters.analysisFromCanonical('#FFFFFF');
+    assert.strictEqual(result.mode, 'RGB');
+    assert.strictEqual(result.r, 255);
+    assert.strictEqual(result.g, 255);
+    assert.strictEqual(result.b, 255);
+    assert.strictEqual(result.c, 0);
+    assert.strictEqual(result.m, 0);
+    assert.strictEqual(result.y, 0);
+    assert.strictEqual(result.k, 0);
 
-    result = ColorConverters.analysisFromCanonical('CMY(0,255,255)');
-    assert.strictEqual(result.mode, 'CMY');
+    result = ColorConverters.analysisFromCanonical('#000000');
+    assert.strictEqual(result.mode, 'RGB');
+    assert.strictEqual(result.r, 0);
+    assert.strictEqual(result.g, 0);
+    assert.strictEqual(result.b, 0);
+    assert.strictEqual(result.c, 0);
+    assert.strictEqual(result.m, 0);
+    assert.strictEqual(result.y, 0);
+    assert.strictEqual(result.k, 100);
+
+    result = ColorConverters.analysisFromCanonical('CMYK(11,22,33,44)');
+    assert.strictEqual(result.mode, 'CMYK');
+    assert.strictEqual(result.c, 11);
+    assert.strictEqual(result.m, 22);
+    assert.strictEqual(result.y, 33);
+    assert.strictEqual(result.k, 44);
+
+    result = ColorConverters.analysisFromCanonical('CMYK(0,100,100,0)');
+    assert.strictEqual(result.mode, 'CMYK');
     assert.strictEqual(result.r, 255);
     assert.strictEqual(result.g, 0);
     assert.strictEqual(result.b, 0);
     assert.strictEqual(result.c, 0);
-    assert.strictEqual(result.m, 255);
-    assert.strictEqual(result.y, 255);
+    assert.strictEqual(result.m, 100);
+    assert.strictEqual(result.y, 100);
+    assert.strictEqual(result.k, 0);
     assert.strictEqual(result.h, 0);
     assert.strictEqual(result.s, 100);
     assert.strictEqual(result.l, 100);
-    assert.strictEqual(result.n, 170);
+    assert.strictEqual(result.n, 67);
 
     result = ColorConverters.analysisFromCanonical('HSL(360,100,100)');
     assert.strictEqual(result.mode, 'HSL');
@@ -150,25 +174,27 @@ describe('Converter color', function () {
     assert.strictEqual(result.g, 0);
     assert.strictEqual(result.b, 0);
     assert.strictEqual(result.c, 0);
-    assert.strictEqual(result.m, 255);
-    assert.strictEqual(result.y, 255);
+    assert.strictEqual(result.m, 100);
+    assert.strictEqual(result.y, 100);
+    assert.strictEqual(result.k, 0);
     assert.strictEqual(result.h, 0);
     assert.strictEqual(result.s, 100);
     assert.strictEqual(result.l, 100);
-    assert.strictEqual(result.n, 170);
+    assert.strictEqual(result.n, 67);
 
     result = ColorConverters.analysisFromCanonical('HSL(120,100,100)');
     assert.strictEqual(result.mode, 'HSL');
     assert.strictEqual(result.r, 0);
     assert.strictEqual(result.g, 255);
     assert.strictEqual(result.b, 0);
-    assert.strictEqual(result.c, 255);
+    assert.strictEqual(result.c, 100);
     assert.strictEqual(result.m, 0);
-    assert.strictEqual(result.y, 255);
+    assert.strictEqual(result.y, 100);
+    assert.strictEqual(result.k, 0);
     assert.strictEqual(result.h, 120);
     assert.strictEqual(result.s, 100);
     assert.strictEqual(result.l, 100);
-    assert.strictEqual(result.n, 170);
+    assert.strictEqual(result.n, 67);
 
     result = ColorConverters.analysisFromCanonical('HSL(47,100,100)');
     assert.strictEqual(result.mode, 'HSL');
@@ -183,31 +209,29 @@ describe('Converter color', function () {
     assert.strictEqual(result.mode, 'G');
     assert.strictEqual(result.n, 55);
 
-    result = ColorConverters.analysisFromCanonical('G(128)');
-    assert.strictEqual(result.mode, 'G');
-    assert.strictEqual(result.r, 127);
-    assert.strictEqual(result.g, 127);
-    assert.strictEqual(result.b, 127);
-    assert.strictEqual(result.c, 128);
-    assert.strictEqual(result.m, 128);
-    assert.strictEqual(result.y, 128);
-    assert.strictEqual(result.h, 0);
-    assert.strictEqual(result.s, 0);
-    assert.strictEqual(result.l, 50);
-    assert.strictEqual(result.n, 128);
-
-    result = ColorConverters.analysisFromCanonical('G(127)');
+    result = ColorConverters.analysisFromCanonical('G(50)');
     assert.strictEqual(result.mode, 'G');
     assert.strictEqual(result.r, 128);
     assert.strictEqual(result.g, 128);
     assert.strictEqual(result.b, 128);
-    assert.strictEqual(result.c, 127);
-    assert.strictEqual(result.m, 127);
-    assert.strictEqual(result.y, 127);
+    assert.strictEqual(result.c, 0);
+    assert.strictEqual(result.m, 0);
+    assert.strictEqual(result.y, 0);
+    assert.strictEqual(result.k, 50);
     assert.strictEqual(result.h, 0);
     assert.strictEqual(result.s, 0);
     assert.strictEqual(result.l, 50);
-    assert.strictEqual(result.n, 127);
+    assert.strictEqual(result.n, 50);
+  });
+
+  // prettier-ignore
+  it('#Test toRGB', function () {
+    assert.strictEqual(ColorConverters.toRGB("#224466"        ), "#224466");
+    assert.strictEqual(ColorConverters.toRGB("CMYK(0,0,0,0)"  ), "#FFFFFF");
+    assert.strictEqual(ColorConverters.toRGB("CMYK(0,0,0,100)"), "#000000");
+    assert.strictEqual(ColorConverters.toRGB("HSL(0,100,100)" ), "#FF0000");
+    assert.strictEqual(ColorConverters.toRGB("G(0)"           ), "#FFFFFF");
+    assert.strictEqual(ColorConverters.toRGB("G(100)"         ), "#000000");
   });
 
   // prettier-ignore
