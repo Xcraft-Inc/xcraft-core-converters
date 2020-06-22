@@ -230,7 +230,11 @@ describe('Converter color', function () {
     assert.strictEqual(ColorConverters.toRGB("CMYK(0,0,0,0)"  ), "#FFFFFF");
     assert.strictEqual(ColorConverters.toRGB("CMYK(0,0,0,100)"), "#000000");
     assert.strictEqual(ColorConverters.toRGB("HSL(0,100,100)" ), "#FF0000");
+    assert.strictEqual(ColorConverters.toRGB("HSL(60,100,100)"), "#FFFF00");
+    assert.strictEqual(ColorConverters.toRGB("HSL(0,50,100)"  ), "#FF8080");
+    assert.strictEqual(ColorConverters.toRGB("HSL(0,100,50)"  ), "#800000");
     assert.strictEqual(ColorConverters.toRGB("G(0)"           ), "#FFFFFF");
+    assert.strictEqual(ColorConverters.toRGB("G(50)"          ), "#808080");
     assert.strictEqual(ColorConverters.toRGB("G(100)"         ), "#000000");
   });
 
