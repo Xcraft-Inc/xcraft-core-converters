@@ -58,12 +58,68 @@ describe('Converter color', function () {
     assert.strictEqual(result.error, null);
   });
 
+  it('#Test parseEdited with error', function () {
+    let result;
+
+    result = ColorConverters.parseEdited('#');
+    assert.strictEqual(result.value, '#FFFFFF');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('#1234');
+    assert.strictEqual(result.value, '#FFFFFF');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('#1234567');
+    assert.strictEqual(result.value, '#FFFFFF');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('#0X0000');
+    assert.strictEqual(result.value, '#FFFFFF');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('rgb(1,2,333)');
+    assert.strictEqual(result.value, '#0102FF');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('rgb(1,2,3,4)');
+    assert.strictEqual(result.value, '#010203');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('rgb(0,128)');
+    assert.strictEqual(result.value, '#0080FF');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('cmyk(101,0,0,50)');
+    assert.strictEqual(result.value, 'CMYK(100,0,0,50)');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('cmyk(100,0,0,50,2)');
+    assert.strictEqual(result.value, 'CMYK(100,0,0,50)');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('g(101)');
+    assert.strictEqual(result.value, 'G(100)');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('hsl(360,101,100)');
+    assert.strictEqual(result.value, 'HSL(360,100,100)');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('hsl(360,100)');
+    assert.strictEqual(result.value, 'HSL(360,100,100)');
+    assert.notEqual(result.error, null);
+
+    result = ColorConverters.parseEdited('hsl(360,100,100,2)');
+    assert.strictEqual(result.value, 'HSL(360,100,100)');
+    assert.notEqual(result.error, null);
+  });
+
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(ColorConverters.getDisplayed(null           ), null);
-    assert.strictEqual(ColorConverters.getDisplayed('#000000'      ), 'RGB(0,0,0)');
-    assert.strictEqual(ColorConverters.getDisplayed('#0080FF'      ), 'RGB(0,128,255)');
-    assert.strictEqual(ColorConverters.getDisplayed('#FFFFFF'      ), 'RGB(255,255,255)');
+    assert.strictEqual(ColorConverters.getDisplayed('#000000'      ), '#000000');
+    assert.strictEqual(ColorConverters.getDisplayed('#0080FF'      ), '#0080FF');
+    assert.strictEqual(ColorConverters.getDisplayed('#FFFFFF'      ), '#FFFFFF');
     assert.strictEqual(ColorConverters.getDisplayed('CMYK(0,0,0,0)'), 'CMYK(0,0,0,0)');
     assert.strictEqual(ColorConverters.getDisplayed('G(100)'       ), 'G(100)');
     assert.strictEqual(ColorConverters.getDisplayed('HSL(1,2,3)'   ), 'HSL(1,2,3)');
