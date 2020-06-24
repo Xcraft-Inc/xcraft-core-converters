@@ -300,4 +300,13 @@ describe('Converter color', function () {
     assert.strictEqual(ColorConverters.slide("#224466", "#446688", 0.5), "#335577");
     assert.strictEqual(ColorConverters.slide("#224466", "#446688", 1.0), "#446688");
   });
+
+  it('#Test getLuminance', function () {
+    assert.strictEqual(ColorConverters.getLuminance('#000000'), 0);
+    assert.strictEqual(ColorConverters.getLuminance('#FFFFFF'), 1);
+    assert.strictEqual(ColorConverters.getLuminance('#FF0000'), 0.2126);
+    assert.strictEqual(ColorConverters.getLuminance('#00FF00'), 0.7152);
+    assert.strictEqual(ColorConverters.getLuminance('#0000FF'), 0.0722);
+    assert.strictEqual(ColorConverters.getLuminance('#888888'), 0.2462);
+  });
 });
