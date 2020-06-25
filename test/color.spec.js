@@ -49,6 +49,10 @@ describe('Converter color', function () {
     assert.strictEqual(result.value, 'G(100)');
     assert.strictEqual(result.error, null);
 
+    result = ColorConverters.parseEdited('hsl(80,100,100)');
+    assert.strictEqual(result.value, 'HSL(80,100,100)');
+    assert.strictEqual(result.error, null);
+
     result = ColorConverters.parseEdited('hsl(360,100,100)');
     assert.strictEqual(result.value, 'HSL(360,100,100)');
     assert.strictEqual(result.error, null);
