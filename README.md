@@ -12,55 +12,53 @@ To debug test:
 
 # Canonical
 
-**Canonical** values are used by the computer. It is they, for example, that are persisted in databases.
+**Canonical** values are used by the computer. These are the values that are persisted in _RethinkDB_.
 
-Wikipedia defines the term "canonical" :
+Here is the definition given by Wikipedia:
 
 _In computer science, canonicalization (sometimes standardization or normalization) is a process for converting data that has more than one possible representation into a "standard", "normal", or canonical form. This can be done to compare different representations for equivalence, to count the number of distinct data structures, to improve the efficiency of various algorithms by eliminating repeated calculations, or to make it possible to impose a meaningful sorting order._
 
-Generally, canonical values are strings, except for `number` and `bool`, which use JS native types.
+Generally, canonical values are `string`, except for `number` and `bool`, which use JS native types.
 For each type, the string containing the canonical value respects a precise syntax (see tests in `lib\xcraft-core-converters\test` for documentation).
 
-For example:
+Examples of canonical values:
 
 - **date** : `"2020-03-31"`
 - **time** : `"11:30:00"`
 - **datetime** : `"2019-01-18T23:59:59.000Z"`
 - **price** : `"100"`, `"49.95"`
 - **delay** : `"* * * 30 * * *"` _(30 days)_
-- **color** : `"#FF000"` _(rgb)_, `"HSL(40,100,100)"`, `"CMYK(100,0,0,50)"`, `G(50)`
+- **color** : `"#FF000"` _(red in rgb)_, `"HSL(40,100,100)"`, `"CMYK(100,0,0,50)"`, `G(50)` _( medium gray)_
 
 `number` and `bool` use JS native types:
 
 - **number** : `50`, `0.02`
 - **bool** : `true`, `false`
 
-The function `parseEdited` parse a free text entered by the user. Some flexibility allows the user to enter data in various formats, possibly incomplete, with a minimum of intelligence.
+The function `parseEdited(edited)` parse a free text entered by the user. Some flexibility allows the user to enter data in various formats, possibly incomplete, with a minimum of intelligence. For example:
 
-For example:
+- **date** : `parseEdited("25")` → `"2020-03-25"` _(completed by current month and year)_
+- **time** : `parseEdited("12")` → `"12:00:00"` _(completed with zeros)_
+- **delay** : `parseEdited("20j")` → `"* * * 20 * * *"`
+- **delay** : `parseEdited("4h")` → `"* * 4 * * * *"`
+- **color** : `parseEdited("#12F")` → `"#1122FF"`
 
-- **date** : `"25"` → `parseEdited` → `"2020-03-25"` _(completed by current month and year)_
-- **time** : `"12"` → `parseEdited` → `"12:00:00"` _(completed with zeros)_
-- **delay** : `"20j"` → `parseEdited` → `"* * * 20 * * *"`
-- **delay** : `"4h"` → `parseEdited` → `"* * 4 * * * *"`
-- **color** : `"#12F"` → `parseEdited` → `"#1122FF"`
-
-`parseEdited` return a map with `value` and `error`. If everything is ok, `error` is `null`. In the event of an `error`, the `value` comes as close as possible to something plausible.
+The function `parseEdited` return a map with `{value, error}`. If everything is ok, `error === null`. In the event of an `error`, the `value` comes as close as possible to something plausible.
 
 # Displayed
 
-**Displayed** values are for human users. A canonical value has several possible representations, more or less long (according to optionnal parameter `format`).
+**Displayed** values are for human users. A canonical value has several possible representations, more or less long.
 
-The function `getDisplayed` format a canonical value to a string for the human user.
+The function `getDisplayed(canonical, format)` format a canonical value to a string for the human user (the parameter `format` is optional). For example:
 
-For example:
+- **date** : `getDisplayed("2020-03-31")` → `"31.03.2020"`
+- **date** : `getDisplayed("2020-03-31", "dMy")` → `"31 mars 2020"` _(with parameter `format`)_
 
-- **date** : `"2020-03-31"` → `getDisplayed` → `"31.03.2020"`
-- **date** : `"2020-03-31"` → `getDisplayed` → `"31 mars 2020"` _(if parameter `format` set to `"dMy"`)_
+See in `lib\xcraft-core-converters\lib` for documentation of each type.
 
 # Many types
 
-There are many types, for all uses :
+There are many types, for all uses:
 
 - **date** : A date with day, month and year.
 - **time** : A time with hours, minutes and seconds.
@@ -72,7 +70,7 @@ There are many types, for all uses :
 - **delay** : Duration in minutes, hours, days, months or years.
 - **length** : A length with different units ("km", "m", "cm", "mm", usw.). The canonical value is in meters.
 - **weight** : A weight with different units ("t", "kg", "g", "mg"). The canonical value is in kilogram.
-- **volume** : A volume defined by 3 length, or a number of liters, with different units ("m", "cm", "l", "dm3"). The function `getDisplayedIATA` format a dimensional weight.
+- **volume** : A volume defined by 3 lengths, or a number of liters, with different units ("m", "cm", "l", "dm3"). The function `getDisplayedIATA` format a dimensional weight.
 
 # Common mistakes
 
