@@ -263,4 +263,33 @@ describe('Converter price', function () {
     assert.ok(!PriceConverters.check('123.456'));
     assert.ok(!PriceConverters.check('-1x3'));
   });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = PriceConverters.incEdited('', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '5.00');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 4);
+
+    result = PriceConverters.incEdited('54.1', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '59.10');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = PriceConverters.incEdited('54.1', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '49.10');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = PriceConverters.incEdited('1.2', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '0.00');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 4);
+
+    result = PriceConverters.incEdited('99.9', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '100.00');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 6);
+  });
 });

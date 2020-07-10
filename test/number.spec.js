@@ -176,4 +176,33 @@ describe('Converter number', function () {
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));
   });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = NumberConverters.incEdited('', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '5');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 1);
+
+    result = NumberConverters.incEdited('54.1', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '59.1');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 4);
+
+    result = NumberConverters.incEdited('54.1', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '49.1');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 4);
+
+    result = NumberConverters.incEdited('1.2', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '0');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 1);
+
+    result = NumberConverters.incEdited('99.9', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '100');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+  });
 });

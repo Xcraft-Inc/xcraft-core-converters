@@ -174,4 +174,33 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('.123'));
     assert.ok(!IntegerConverters.check('cm'));
   });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = IntegerConverters.incEdited('', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '5');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 1);
+
+    result = IntegerConverters.incEdited('54', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '59');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = IntegerConverters.incEdited('54', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '49');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = IntegerConverters.incEdited('1', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '0');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 1);
+
+    result = IntegerConverters.incEdited('99', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '100');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+  });
 });

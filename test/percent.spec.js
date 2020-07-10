@@ -13,6 +13,10 @@ describe('Converter percent', function () {
     assert.strictEqual(result.value, null);
     assert.strictEqual(result.error, null);
 
+    result = PercentConverters.parseEdited('0%');
+    assert.strictEqual(result.value, '0');
+    assert.strictEqual(result.error, null);
+
     result = PercentConverters.parseEdited('45%');
     assert.strictEqual(result.value, '0.45');
     assert.strictEqual(result.error, null);
@@ -105,6 +109,7 @@ describe('Converter percent', function () {
   // prettier-ignore
   it('#Test getDisplayed', function() {
     assert.strictEqual(PercentConverters.getDisplayed(null          ), null);
+    assert.strictEqual(PercentConverters.getDisplayed('0'           ), '0%');
     assert.strictEqual(PercentConverters.getDisplayed('0.12'        ), '12%');
     assert.strictEqual(PercentConverters.getDisplayed('0.12',      5), '12%');
     assert.strictEqual(PercentConverters.getDisplayed('0.1234999', 2), '12.35%');
@@ -126,5 +131,39 @@ describe('Converter percent', function () {
     assert.ok(!PercentConverters.check(''));
     assert.ok(!PercentConverters.check(null));
     assert.ok(!PercentConverters.check(undefined));
+  });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = PercentConverters.incEdited('', 0, 1, 0.05, 0, 1);
+    assert.strictEqual(result.edited, '5%');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = PercentConverters.incEdited('0.54', 0, 1, 0.05, 0, 1);
+    assert.strictEqual(result.edited, '59%');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+
+    result = PercentConverters.incEdited('54%', 0, 1, 0.05, 0, 1);
+    assert.strictEqual(result.edited, '59%');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+
+    result = PercentConverters.incEdited('54.1%', 0, -1, 0.05, 0, 1);
+    assert.strictEqual(result.edited, '49.1%');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = PercentConverters.incEdited('1.2%', 0, -1, 0.05, 0, 1);
+    assert.strictEqual(result.edited, '0%');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = PercentConverters.incEdited('99.9%', 0, 1, 0.05, 0, 1);
+    assert.strictEqual(result.edited, '100%');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 4);
   });
 });
