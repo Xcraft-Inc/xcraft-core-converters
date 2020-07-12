@@ -299,4 +299,68 @@ describe('Converter date', function () {
     testChangePeriod('20.01.2020', '30.01.2020', -1, '09.01.2020', '19.01.2020');
     testChangePeriod('10.01.2020', '20.01.2020', -1, '30.12.2019', '09.01.2020');
   });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = DateConverters.incEdited('31.03.2020', 0, -1, 1);
+    assert.strictEqual(result.edited, '30.03.2020');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = DateConverters.incEdited('31.03.2020', 0, 1, 1);
+    assert.strictEqual(result.edited, '01.04.2020');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = DateConverters.incEdited('31.03.2020', 1, 1, 1);
+    assert.strictEqual(result.edited, '01.04.2020');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = DateConverters.incEdited('31.03.2020', 2, 1, 1);
+    assert.strictEqual(result.edited, '01.04.2020');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = DateConverters.incEdited('31.03.2020', 3, 1, 1);
+    assert.strictEqual(result.edited, '30.04.2020');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = DateConverters.incEdited('31.03.2020', 4, 1, 1);
+    assert.strictEqual(result.edited, '30.04.2020');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = DateConverters.incEdited('31.03.2020', 5, 1, 1);
+    assert.strictEqual(result.edited, '30.04.2020');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = DateConverters.incEdited('31.03.2020', 6, 1, 1);
+    assert.strictEqual(result.edited, '31.03.2021');
+    assert.strictEqual(result.selectionStart, 6);
+    assert.strictEqual(result.selectionEnd, 10);
+
+    result = DateConverters.incEdited('31.03.2020', 7, 1, 1);
+    assert.strictEqual(result.edited, '31.03.2021');
+    assert.strictEqual(result.selectionStart, 6);
+    assert.strictEqual(result.selectionEnd, 10);
+
+    result = DateConverters.incEdited('31.03.2020', 8, 1, 1);
+    assert.strictEqual(result.edited, '31.03.2021');
+    assert.strictEqual(result.selectionStart, 6);
+    assert.strictEqual(result.selectionEnd, 10);
+
+    result = DateConverters.incEdited('31.03.2020', 9, 1, 1);
+    assert.strictEqual(result.edited, '31.03.2021');
+    assert.strictEqual(result.selectionStart, 6);
+    assert.strictEqual(result.selectionEnd, 10);
+
+    result = DateConverters.incEdited('31.03.2020', 10, 1, 1);
+    assert.strictEqual(result.edited, '31.03.2021');
+    assert.strictEqual(result.selectionStart, 6);
+    assert.strictEqual(result.selectionEnd, 10);
+  });
 });

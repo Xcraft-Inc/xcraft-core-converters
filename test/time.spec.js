@@ -169,4 +169,43 @@ describe('Converter time', function () {
     assert.ok(!TimeConverters.check(123));
     assert.ok(!TimeConverters.check(null));
   });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = TimeConverters.incEdited('11:59', 4, 1, 1);
+    assert.strictEqual(result.edited, '12:00');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = TimeConverters.incEdited('12:00', 0, -1, 1);
+    assert.strictEqual(result.edited, '11:00');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = TimeConverters.incEdited('12:00', 1, -1, 1);
+    assert.strictEqual(result.edited, '11:00');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = TimeConverters.incEdited('12:00', 2, -1, 1);
+    assert.strictEqual(result.edited, '11:00');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = TimeConverters.incEdited('12:00', 3, -1, 1);
+    assert.strictEqual(result.edited, '11:59');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = TimeConverters.incEdited('12:00', 4, -1, 1);
+    assert.strictEqual(result.edited, '11:59');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+
+    result = TimeConverters.incEdited('12:00', 5, -1, 1);
+    assert.strictEqual(result.edited, '11:59');
+    assert.strictEqual(result.selectionStart, 3);
+    assert.strictEqual(result.selectionEnd, 5);
+  });
 });
