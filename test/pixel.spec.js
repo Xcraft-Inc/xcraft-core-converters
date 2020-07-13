@@ -5,7 +5,7 @@ const PixelConverters = require('../lib/pixel.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter length', function () {
+describe('Converter pixel', function () {
   it('#Test parseEdited', function () {
     let result;
 
@@ -80,5 +80,44 @@ describe('Converter length', function () {
     assert.ok(!PixelConverters.check('123.4px'));
     assert.ok(!PixelConverters.check('abc'));
     assert.ok(!PixelConverters.check('px'));
+  });
+
+  it('#Test incEdited', function () {
+    let result;
+
+    result = PixelConverters.incEdited('', 0, 1, 5);
+    assert.strictEqual(result.edited, '5 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 1);
+
+    result = PixelConverters.incEdited('100', 0, 1, 5);
+    assert.strictEqual(result.edited, '105 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+
+    result = PixelConverters.incEdited('100px', 0, 1, 5);
+    assert.strictEqual(result.edited, '105 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+
+    result = PixelConverters.incEdited('100 px', 0, 1, 5);
+    assert.strictEqual(result.edited, '105 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+
+    result = PixelConverters.incEdited('100px', 0, -1, 5);
+    assert.strictEqual(result.edited, '95 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 2);
+
+    result = PixelConverters.incEdited('99px', 0, 1, 5, 0, 100);
+    assert.strictEqual(result.edited, '100 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 3);
+
+    result = PixelConverters.incEdited('2px', 0, -1, 5, 0, 100);
+    assert.strictEqual(result.edited, '0 px');
+    assert.strictEqual(result.selectionStart, 0);
+    assert.strictEqual(result.selectionEnd, 1);
   });
 });
