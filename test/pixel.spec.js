@@ -41,11 +41,11 @@ describe('Converter pixel', function () {
     assert.strictEqual(result.value, '-2px');
     assert.strictEqual(result.error, null);
 
-    result = PixelConverters.parseEdited('500', '499px', '501px');
+    result = PixelConverters.parseEdited('500', 499, 501);
     assert.strictEqual(result.value, '500px');
     assert.strictEqual(result.error, null);
 
-    result = PixelConverters.parseEdited('500', '500px', '500px');
+    result = PixelConverters.parseEdited('500', 500, 500);
     assert.strictEqual(result.value, '500px');
     assert.strictEqual(result.error, null);
   });
@@ -69,11 +69,11 @@ describe('Converter pixel', function () {
     assert.strictEqual(result.value, '123px');
     assert.notStrictEqual(result.error, null);
 
-    result = PixelConverters.parseEdited('199px', '200px', '300px');
+    result = PixelConverters.parseEdited('199px', 200, 300);
     assert.strictEqual(result.value, '200px');
     assert.notStrictEqual(result.error, null);
 
-    result = PixelConverters.parseEdited('301px', '200px', '300px');
+    result = PixelConverters.parseEdited('301px', 200, 300);
     assert.strictEqual(result.value, '300px');
     assert.notStrictEqual(result.error, null);
   });
