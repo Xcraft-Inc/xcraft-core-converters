@@ -40,6 +40,14 @@ describe('Converter pixel', function () {
     result = PixelConverters.parseEdited('-2 px');
     assert.strictEqual(result.value, '-2px');
     assert.strictEqual(result.error, null);
+
+    result = PixelConverters.parseEdited('500', '499px', '501px');
+    assert.strictEqual(result.value, '500px');
+    assert.strictEqual(result.error, null);
+
+    result = PixelConverters.parseEdited('500', '500px', '500px');
+    assert.strictEqual(result.value, '500px');
+    assert.strictEqual(result.error, null);
   });
 
   it('#Test parseEdited with error', function () {
@@ -59,6 +67,14 @@ describe('Converter pixel', function () {
 
     result = PixelConverters.parseEdited('123py');
     assert.strictEqual(result.value, '123px');
+    assert.notStrictEqual(result.error, null);
+
+    result = PixelConverters.parseEdited('199px', '200px', '300px');
+    assert.strictEqual(result.value, '200px');
+    assert.notStrictEqual(result.error, null);
+
+    result = PixelConverters.parseEdited('301px', '200px', '300px');
+    assert.strictEqual(result.value, '300px');
     assert.notStrictEqual(result.error, null);
   });
 
