@@ -143,60 +143,60 @@ describe('Converter price', function () {
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.strictEqual(PriceConverters.getDisplayed(       '123'   ),           '123.00');
-    assert.strictEqual(PriceConverters.getDisplayed(      '1234.5' ),         "1'234.50");
-    assert.strictEqual(PriceConverters.getDisplayed(     '-1234.5' ),        "−1'234.50");
+    assert.strictEqual(PriceConverters.getDisplayed(       '123'   ),                '123.00');
+    assert.strictEqual(PriceConverters.getDisplayed(      '1234.5' ),         "1\u202f234.50");
+    assert.strictEqual(PriceConverters.getDisplayed(     '-1234.5' ),        "−1\u202f234.50");
 
-    assert.strictEqual(PriceConverters.getDisplayed('7891234567.89'), "7'891'234'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed( '891234567.89'),   "891'234'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed(  '91234567.89'),    "91'234'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed(   '1234567.89'),     "1'234'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed(    '234567.89'),       "234'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed(     '34567.89'),        "34'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed(      '4567.89'),         "4'567.89");
-    assert.strictEqual(PriceConverters.getDisplayed(       '567.89'),           '567.89');
-    assert.strictEqual(PriceConverters.getDisplayed(        '67.89'),            '67.89');
-    assert.strictEqual(PriceConverters.getDisplayed(         '7.89'),             '7.89');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.89'),             '0.89');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.09'),             '0.09');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.06'),             '0.06');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.04'),             '0.04');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.00'),             '0.00');
-    assert.strictEqual(PriceConverters.getDisplayed(        '-1234'),        "−1'234.00");
-    assert.strictEqual(PriceConverters.getDisplayed(         '1234'),         "1'234.00");
+    assert.strictEqual(PriceConverters.getDisplayed('7891234567.89'), "7\u202f891\u202f234\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed( '891234567.89'),        "891\u202f234\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed(  '91234567.89'),         "91\u202f234\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed(   '1234567.89'),          "1\u202f234\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed(    '234567.89'),                 "234\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed(     '34567.89'),                  "34\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed(      '4567.89'),                   "4\u202f567.89");
+    assert.strictEqual(PriceConverters.getDisplayed(       '567.89'),                          '567.89');
+    assert.strictEqual(PriceConverters.getDisplayed(        '67.89'),                           '67.89');
+    assert.strictEqual(PriceConverters.getDisplayed(         '7.89'),                            '7.89');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.89'),                            '0.89');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.09'),                            '0.09');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.06'),                            '0.06');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.04'),                            '0.04');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.00'),                            '0.00');
+    assert.strictEqual(PriceConverters.getDisplayed(        '-1234'),                  "−1\u202f234.00");
+    assert.strictEqual(PriceConverters.getDisplayed(         '1234'),                   "1\u202f234.00");
   });
 
   // prettier-ignore
   it('#Test getDisplayed with money and precision 0.05', function() {
-    assert.strictEqual(PriceConverters.getDisplayed(    '0.89', "p-0.05"),      '0.90');
-    assert.strictEqual(PriceConverters.getDisplayed(    '0.09', "p-0.05"),      '0.10');
-    assert.strictEqual(PriceConverters.getDisplayed(    '0.06', "p-0.05"),      '0.05');
-    assert.strictEqual(PriceConverters.getDisplayed(    '0.04', "p-0.05"),      '0.05');
-    assert.strictEqual(PriceConverters.getDisplayed(    '0.00', "p-0.05"),      '0.00');
-    assert.strictEqual(PriceConverters.getDisplayed( '1234.15', "p-0.05"),  "1'234.15");
-    assert.strictEqual(PriceConverters.getDisplayed('-1234.15', "p-0.05"), "−1'234.15");
-    assert.strictEqual(PriceConverters.getDisplayed(   '-0.01', "p-0.05"),     '−0.00');
+    assert.strictEqual(PriceConverters.getDisplayed(    '0.89', "p-0.05"),           '0.90');
+    assert.strictEqual(PriceConverters.getDisplayed(    '0.09', "p-0.05"),           '0.10');
+    assert.strictEqual(PriceConverters.getDisplayed(    '0.06', "p-0.05"),           '0.05');
+    assert.strictEqual(PriceConverters.getDisplayed(    '0.04', "p-0.05"),           '0.05');
+    assert.strictEqual(PriceConverters.getDisplayed(    '0.00', "p-0.05"),           '0.00');
+    assert.strictEqual(PriceConverters.getDisplayed( '1234.15', "p-0.05"),  "1\u202f234.15");
+    assert.strictEqual(PriceConverters.getDisplayed('-1234.15', "p-0.05"), "−1\u202f234.15");
+    assert.strictEqual(PriceConverters.getDisplayed(   '-0.01', "p-0.05"),          '−0.00');
   });
 
   // prettier-ignore
   it('#Test getDisplayed with money and precision 1M and separators', function() {
-    assert.strictEqual(PriceConverters.getDisplayed('7891234567.89', "p-1M"), "7'891 M");
-    assert.strictEqual(PriceConverters.getDisplayed( '891234567.89', "p-1M"),   '891 M');
-    assert.strictEqual(PriceConverters.getDisplayed(  '91234567.89', "p-1M"),  '91.2 M');
-    assert.strictEqual(PriceConverters.getDisplayed(   '1234567.89', "p-1M"),  '1.23 M');
-    assert.strictEqual(PriceConverters.getDisplayed(    '234567.89', "p-1M"), "234'568");
-    assert.strictEqual(PriceConverters.getDisplayed(     '34567.89', "p-1M"),  "34'568");
-    assert.strictEqual(PriceConverters.getDisplayed(      '4567.89', "p-1M"),   "4'568");
-    assert.strictEqual(PriceConverters.getDisplayed(       '567.89', "p-1M"),  '567.90');
-    assert.strictEqual(PriceConverters.getDisplayed(        '67.89', "p-1M"),   '67.90');
-    assert.strictEqual(PriceConverters.getDisplayed(         '7.89', "p-1M"),    '7.90');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.89', "p-1M"),    '0.90');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.09', "p-1M"),    '0.10');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.06', "p-1M"),    '0.05');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.04', "p-1M"),    '0.05');
-    assert.strictEqual(PriceConverters.getDisplayed(         '0.00', "p-1M"),    '0.00');
-    assert.strictEqual(PriceConverters.getDisplayed(        '-1234', "p-1M"),  "−1'234");
-    assert.strictEqual(PriceConverters.getDisplayed(         '1234', "p-1M"),   "1'234");
+    assert.strictEqual(PriceConverters.getDisplayed('7891234567.89', "p-1M"), "7\u202f891 M");
+    assert.strictEqual(PriceConverters.getDisplayed( '891234567.89', "p-1M"),        '891 M');
+    assert.strictEqual(PriceConverters.getDisplayed(  '91234567.89', "p-1M"),       '91.2 M');
+    assert.strictEqual(PriceConverters.getDisplayed(   '1234567.89', "p-1M"),       '1.23 M');
+    assert.strictEqual(PriceConverters.getDisplayed(    '234567.89', "p-1M"), "234\u202f568");
+    assert.strictEqual(PriceConverters.getDisplayed(     '34567.89', "p-1M"),  "34\u202f568");
+    assert.strictEqual(PriceConverters.getDisplayed(      '4567.89', "p-1M"),   "4\u202f568");
+    assert.strictEqual(PriceConverters.getDisplayed(       '567.89', "p-1M"),       '567.90');
+    assert.strictEqual(PriceConverters.getDisplayed(        '67.89', "p-1M"),        '67.90');
+    assert.strictEqual(PriceConverters.getDisplayed(         '7.89', "p-1M"),         '7.90');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.89', "p-1M"),         '0.90');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.09', "p-1M"),         '0.10');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.06', "p-1M"),         '0.05');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.04', "p-1M"),         '0.05');
+    assert.strictEqual(PriceConverters.getDisplayed(         '0.00', "p-1M"),         '0.00');
+    assert.strictEqual(PriceConverters.getDisplayed(        '-1234', "p-1M"),  "−1\u202f234");
+    assert.strictEqual(PriceConverters.getDisplayed(         '1234', "p-1M"),   "1\u202f234");
   });
 
   // prettier-ignore
@@ -207,23 +207,23 @@ describe('Converter price', function () {
     assert.strictEqual(PriceConverters.getDisplayed(1 / 3), '0.33');
     assert.strictEqual(PriceConverters.getDisplayed(2 / 3), '0.67');
 
-    assert.strictEqual(PriceConverters.getDisplayed(7891234567.89, "p-1M"), "7'891 M");
-    assert.strictEqual(PriceConverters.getDisplayed( 891234567.89, "p-1M"),   '891 M');
-    assert.strictEqual(PriceConverters.getDisplayed(  91234567.89, "p-1M"),  '91.2 M');
-    assert.strictEqual(PriceConverters.getDisplayed(   1234567.89, "p-1M"),  '1.23 M');
-    assert.strictEqual(PriceConverters.getDisplayed(    234567.89, "p-1M"), "234'568");
-    assert.strictEqual(PriceConverters.getDisplayed(     34567.89, "p-1M"),  "34'568");
-    assert.strictEqual(PriceConverters.getDisplayed(      4567.89, "p-1M"),   "4'568");
-    assert.strictEqual(PriceConverters.getDisplayed(       567.89, "p-1M"),  '567.90');
-    assert.strictEqual(PriceConverters.getDisplayed(        67.89, "p-1M"),   '67.90');
-    assert.strictEqual(PriceConverters.getDisplayed(         7.89, "p-1M"),    '7.90');
-    assert.strictEqual(PriceConverters.getDisplayed(         0.89, "p-1M"),    '0.90');
-    assert.strictEqual(PriceConverters.getDisplayed(         0.09, "p-1M"),    '0.10');
-    assert.strictEqual(PriceConverters.getDisplayed(         0.06, "p-1M"),    '0.05');
-    assert.strictEqual(PriceConverters.getDisplayed(         0.04, "p-1M"),    '0.05');
-    assert.strictEqual(PriceConverters.getDisplayed(          0.0, "p-1M"),    '0.00');
-    assert.strictEqual(PriceConverters.getDisplayed(        -1234, "p-1M"),  "−1'234");
-    assert.strictEqual(PriceConverters.getDisplayed(         1234, "p-1M"),   "1'234");
+    assert.strictEqual(PriceConverters.getDisplayed(7891234567.89, "p-1M"), "7\u202f891 M");
+    assert.strictEqual(PriceConverters.getDisplayed( 891234567.89, "p-1M"),        '891 M');
+    assert.strictEqual(PriceConverters.getDisplayed(  91234567.89, "p-1M"),       '91.2 M');
+    assert.strictEqual(PriceConverters.getDisplayed(   1234567.89, "p-1M"),       '1.23 M');
+    assert.strictEqual(PriceConverters.getDisplayed(    234567.89, "p-1M"), "234\u202f568");
+    assert.strictEqual(PriceConverters.getDisplayed(     34567.89, "p-1M"),  "34\u202f568");
+    assert.strictEqual(PriceConverters.getDisplayed(      4567.89, "p-1M"),   "4\u202f568");
+    assert.strictEqual(PriceConverters.getDisplayed(       567.89, "p-1M"),       '567.90');
+    assert.strictEqual(PriceConverters.getDisplayed(        67.89, "p-1M"),        '67.90');
+    assert.strictEqual(PriceConverters.getDisplayed(         7.89, "p-1M"),         '7.90');
+    assert.strictEqual(PriceConverters.getDisplayed(         0.89, "p-1M"),         '0.90');
+    assert.strictEqual(PriceConverters.getDisplayed(         0.09, "p-1M"),         '0.10');
+    assert.strictEqual(PriceConverters.getDisplayed(         0.06, "p-1M"),         '0.05');
+    assert.strictEqual(PriceConverters.getDisplayed(         0.04, "p-1M"),         '0.05');
+    assert.strictEqual(PriceConverters.getDisplayed(          0.0, "p-1M"),         '0.00');
+    assert.strictEqual(PriceConverters.getDisplayed(        -1234, "p-1M"),  "−1\u202f234");
+    assert.strictEqual(PriceConverters.getDisplayed(         1234, "p-1M"),   "1\u202f234");
   });
 
   it('#Test check no-strict', function () {
