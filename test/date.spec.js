@@ -4,8 +4,8 @@ const assert = require('assert');
 const DateConverters = require('../lib/date.js');
 const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
-function getDisplayed(canonical, format) {
-  const s = DateConverters.getDisplayed(canonical, format);
+function getDisplayed(canonical, format, shift) {
+  const s = DateConverters.getDisplayed(canonical, format, shift);
   return StringBuilder._toFlatten(s);
 }
 
@@ -90,6 +90,17 @@ describe('Converter date', function () {
     result = DateConverters.parseEdited('31', '2017-03-10');
     assert.strictEqual(result.value, '2017-03-31');
     assert.strictEqual(result.error, null);
+
+    result = DateConverters.parseEdited(
+      '30 6',
+      '2021-01-01',
+      null,
+      null,
+      null,
+      -1
+    );
+    assert.strictEqual(result.value, '2021-07-01');
+    assert.strictEqual(result.error, null);
   });
 
   // prettier-ignore
@@ -141,23 +152,24 @@ describe('Converter date', function () {
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.strictEqual(getDisplayed('2017-03-31'         ), '31.03.2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'y'    ), '2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'My'   ), '@{month|long|march|Mars} 2017');
-    assert.strictEqual(getDisplayed('2017-03-31', 'M'    ), '@{month|long|march|Mars}');
-    assert.strictEqual(getDisplayed('2017-01-31', 'M3'   ), '@{month|short|january|Jan}');
-    assert.strictEqual(getDisplayed('2017-03-31', 'M3'   ), '@{month|short|march|Mars}');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W'    ), '@{dow|long|friday|Vendredi}');
-    assert.strictEqual(getDisplayed('2019-01-18', 'Wd'   ), '@{dow|short|friday|Ven} 18');
-    assert.strictEqual(getDisplayed('2019-01-18', 'd'    ), '18');
-    assert.strictEqual(getDisplayed('2019-01-18', 'Wdm'  ), '@{dow|short|friday|Ven} 18.01');
-    assert.strictEqual(getDisplayed('2019-01-18', 'Wdmy' ), '@{dow|short|friday|Ven} 18.01.2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy' ), '@{dow|long|friday|Vendredi} 18 @{month|long|january|janvier} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'dMy,W'), '18 @{month|long|january|janvier} 2019, @{dow|long|friday|Vendredi}');
-    assert.strictEqual(getDisplayed('2019-01-18', 'dMy'  ), '18 @{month|long|january|janvier} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'dM3y' ), '18 @{month|short|january|jan} 2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy'), '@{dow|long|friday|Vendredi} 18.01.2019');
-    assert.strictEqual(getDisplayed('2019-01-18', 'W3'   ), '@{dow|short|friday|Ven}');
+    assert.strictEqual(getDisplayed('2017-03-31'          ), '31.03.2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'y'     ), '2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'My'    ), '@{month|long|march|Mars} 2017');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M'     ), '@{month|long|march|Mars}');
+    assert.strictEqual(getDisplayed('2017-01-31', 'M3'    ), '@{month|short|january|Jan}');
+    assert.strictEqual(getDisplayed('2017-03-31', 'M3'    ), '@{month|short|march|Mars}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W'     ), '@{dow|long|friday|Vendredi}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wd'    ), '@{dow|short|friday|Ven} 18');
+    assert.strictEqual(getDisplayed('2019-01-18', 'd'     ), '18');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wdm'   ), '@{dow|short|friday|Ven} 18.01');
+    assert.strictEqual(getDisplayed('2019-01-18', 'Wdmy'  ), '@{dow|short|friday|Ven} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'WdMy'  ), '@{dow|long|friday|Vendredi} 18 @{month|long|january|janvier} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dMy,W' ), '18 @{month|long|january|janvier} 2019, @{dow|long|friday|Vendredi}');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dMy'   ), '18 @{month|long|january|janvier} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'dM3y'  ), '18 @{month|short|january|jan} 2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W dmy' ), '@{dow|long|friday|Vendredi} 18.01.2019');
+    assert.strictEqual(getDisplayed('2019-01-18', 'W3'    ), '@{dow|short|friday|Ven}');
+    assert.strictEqual(getDisplayed('2021-07-01', null, -1), '30.06.2021');
   });
 
   // prettier-ignore
