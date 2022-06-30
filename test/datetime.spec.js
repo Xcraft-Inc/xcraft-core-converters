@@ -106,7 +106,7 @@ describe('Converter datetime', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function () {
+  it('#Test getLocaleDisplayed', function () {
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00'        ), '30.06.2022 12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'time'), '12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'date'), '30.06.2022');
