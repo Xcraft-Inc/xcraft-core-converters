@@ -85,9 +85,21 @@ describe('Converter datetime', function () {
 
   // prettier-ignore
   it('#Test getDisplayed', function() {
-    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'        ), '31.03.2017 12:48');
-    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'time'), '12:48');
-    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z', 'date'), '31.03.2017');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'             ), '31.03.2017 12:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z',      'time'), '12:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z',      'date'), '31.03.2017');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.00+02:00'         ), '31.03.2017 10:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000+02:00'        ), '31.03.2017 10:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000+02:00', 'time'), '10:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000+02:00', 'date'), '31.03.2017');
+  });
+
+  // prettier-ignore
+  it('#Test getLocaleDisplayed', function () {
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.00+02:00'         ), '30.06.2022 12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00'        ), '30.06.2022 12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'time'), '12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'date'), '30.06.2022');
   });
 
   it('#Test check correct', function () {
