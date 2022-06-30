@@ -88,6 +88,9 @@ describe('Converter datetime', function () {
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'             ), '31.03.2017 12:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z',      'time'), '12:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z',      'date'), '31.03.2017');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00Z'                 ), '31.03.2017 12:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00Z',          'time'), '12:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00Z',          'date'), '31.03.2017');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000+02:00'        ), '31.03.2017 10:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000+02:00', 'time'), '10:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000+02:00', 'date'), '31.03.2017');
