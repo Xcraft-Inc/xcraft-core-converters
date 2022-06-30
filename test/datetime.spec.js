@@ -94,16 +94,28 @@ describe('Converter datetime', function () {
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000-02:00'        ), '31.03.2017 14:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000-02:00', 'time'), '14:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000-02:00', 'date'), '31.03.2017');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00+04:00'            ), '31.03.2017 08:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00+04:00',     'time'), '08:48');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00+04:00',     'date'), '31.03.2017');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2022-06-30T12:48:00+03:30'            ), '30.06.2022 09:18');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2022-06-30T12:48:00+03:30',     'time'), '09:18');
+    assert.strictEqual(DateTimeConverters.getDisplayed('2022-06-30T12:48:00+03:30',     'date'), '30.06.2022');
   });
 
   // prettier-ignore
-  it('#Test getLocaleDisplayed', function () {
+  it('#Test getDisplayed', function () {
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00'        ), '30.06.2022 12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'time'), '12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'date'), '30.06.2022');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000-02:00'        ), '30.06.2022 12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000-02:00', 'time'), '12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000-02:00', 'date'), '30.06.2022');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+04:00'            ), '30.06.2022 12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+04:00',     'time'), '12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+04:00',     'date'), '30.06.2022');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+03:30'            ), '30.06.2022 12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+03:30',     'time'), '12:48');
+    assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+03:30',     'date'), '30.06.2022');
   });
 
   it('#Test check correct', function () {
