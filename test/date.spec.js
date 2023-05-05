@@ -58,8 +58,8 @@ function testChangePeriod(
 
 //-----------------------------------------------------------------------------
 
-describe('Converter date', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.date', function () {
+  it('parseEdited', function () {
     let result;
 
     result = DateConverters.parseEdited('');
@@ -104,7 +104,7 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test invalid parseEdited', function() {
+  it('invalid parseEdited', function() {
     let result;
 
     result = DateConverters.parseEdited('31 2 2017');
@@ -146,12 +146,12 @@ describe('Converter date', function () {
     assert.strictEqual(result.value, now);
   });
 
-  it('#Test getDisplayed without format', function () {
+  it('getDisplayed without format', function () {
     assert.strictEqual(typeof getDisplayed('2017-03-31'), 'string');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(getDisplayed('2017-03-31'          ), '31.03.2017');
     assert.strictEqual(getDisplayed('2017-03-31', 'y'     ), '2017');
     assert.strictEqual(getDisplayed('2017-03-31', 'My'    ), '@{month|long|march|Mars} 2017');
@@ -173,7 +173,7 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayedBetweenTwoDates', function() {
+  it('getDisplayedBetweenTwoDates', function() {
     assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-25'), "@{date|between-two-dates|Aujourd'hui}");
     assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-26'), '@{date|between-two-dates|Demain}');
     assert.strictEqual(getDisplayedBetweenTwoDates('2019-12-25', '2019-12-27'), '@{date|between-two-dates|Après-demain}');
@@ -184,26 +184,26 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test getDaysBetweenTwoDates', function() {
+  it('getDaysBetweenTwoDates', function() {
     assert.strictEqual(DateConverters.getDaysBetweenTwoDates('2017-02-20', '2017-03-01'),    9);
     assert.strictEqual(DateConverters.getDaysBetweenTwoDates('2017-02-20', '2018-02-20'),  365);
     assert.strictEqual(DateConverters.getDaysBetweenTwoDates('2018-02-20', '2017-02-20'), -365);
   });
 
   // prettier-ignore
-  it('#Test moveAtEndingOfMonth', function() {
+  it('moveAtEndingOfMonth', function() {
     assert.strictEqual(DateConverters.moveAtEndingOfMonth('2017-02-15'), '2017-02-28');
     assert.strictEqual(DateConverters.moveAtEndingOfMonth('2017-03-31'), '2017-03-31');
   });
 
   // prettier-ignore
-  it('#Test moveAtBeginningOfMonth', function() {
+  it('moveAtBeginningOfMonth', function() {
     assert.strictEqual(DateConverters.moveAtBeginningOfMonth('2017-02-15'), '2017-02-01');
     assert.strictEqual(DateConverters.moveAtBeginningOfMonth('2017-03-01'), '2017-03-01');
   });
 
   // prettier-ignore
-  it('#Test getPeriodDescription', function() {
+  it('getPeriodDescription', function() {
     assert.strictEqual(getPeriodDescription('2019-01-01', '2019-12-31'      ), '2019');
     assert.strictEqual(getPeriodDescription('2019-01-01', '2020-12-31'      ), '2019 → 2020');
     assert.strictEqual(getPeriodDescription('2019-01-01', '2019-03-31'      ), '@{month|long|january|janvier} → @{month|long|march|mars} 2019');
@@ -219,7 +219,7 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test getCalcDate', function() {
+  it('getCalcDate', function() {
     assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '-2d'   ,  1), '2017-01-03');
     assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '-2d'   , -1), '2017-01-07');
     assert.strictEqual(DateConverters.getCalcDate('2017-01-05', '30d'   ,  1), '2017-02-04');
@@ -230,19 +230,19 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test getWeekOfYear', function() {
+  it('getWeekOfYear', function() {
     assert.strictEqual(DateConverters.getWeekOfYear('2019-01-01'),  1);
     assert.strictEqual(DateConverters.getWeekOfYear('2019-01-21'),  3);
     assert.strictEqual(DateConverters.getWeekOfYear('2019-12-25'), 52);
     assert.strictEqual(DateConverters.getWeekOfYear('2019-12-31'),  1);
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(DateConverters.check('0000-00-00'));
     assert.ok(DateConverters.check('2017-03-31'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!DateConverters.check('2017/03/31'));
     assert.ok(!DateConverters.check('2017-3-31'));
     assert.ok(!DateConverters.check('2017-AB-31'));
@@ -254,7 +254,7 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test addDays', function () {
+  it('addDays', function () {
     assert.strictEqual(DateConverters.addDays('2020-03-01',  1), '2020-03-02');
     assert.strictEqual(DateConverters.addDays('2020-03-01', 31), '2020-04-01');
     assert.strictEqual(DateConverters.addDays('2020-03-31',  1), '2020-04-01');
@@ -262,7 +262,7 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test addMonths', function () {
+  it('addMonths', function () {
     assert.strictEqual(DateConverters.addMonths('2020-03-01',   1), '2020-04-01');
     assert.strictEqual(DateConverters.addMonths('2020-03-31',   1), '2020-04-30');
     assert.strictEqual(DateConverters.addMonths('2020-02-29',  12), '2021-02-28');
@@ -273,7 +273,7 @@ describe('Converter date', function () {
     assert.strictEqual(DateConverters.addMonths('2020-12-31',  26), '2023-02-28');
     assert.strictEqual(DateConverters.addMonths('2020-12-31',  38), '2024-02-29');
     assert.strictEqual(DateConverters.addMonths('2020-12-31',  50), '2025-02-28');
-    
+
     assert.strictEqual(DateConverters.addMonths('2020-03-01',  -1), '2020-02-01');
     assert.strictEqual(DateConverters.addMonths('2020-03-31',  -1), '2020-02-29');
     assert.strictEqual(DateConverters.addMonths('2020-02-29',  -1), '2020-01-31');
@@ -283,7 +283,7 @@ describe('Converter date', function () {
   });
 
   // prettier-ignore
-  it('#Test changePeriod', function () {
+  it('changePeriod', function () {
     // Whole year test:
     testChangePeriod('01.01.2020', '31.12.2020',  1, '01.01.2021', '31.12.2021');
     testChangePeriod('01.01.2020', '31.12.2020', -1, '01.01.2019', '31.12.2019');
@@ -312,7 +312,7 @@ describe('Converter date', function () {
     testChangePeriod('10.01.2020', '20.01.2020', -1, '30.12.2019', '09.01.2020');
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = DateConverters.incEdited('31.03.2020', 0, -1, 1);

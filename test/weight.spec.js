@@ -5,8 +5,8 @@ const WeightConverters = require('../lib/weight.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter weight', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.weight', function () {
+  it('parseEdited', function () {
     let result;
 
     result = WeightConverters.parseEdited('');
@@ -34,18 +34,18 @@ describe('Converter weight', function () {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test getDisplayed without format', function () {
+  it('getDisplayed without format', function () {
     assert.strictEqual(typeof WeightConverters.getDisplayed('12'), 'string');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(WeightConverters.getDisplayed(null), null);
     assert.strictEqual(WeightConverters.getDisplayed('1.2', 'g'), '1200g');
   });
 
   // prettier-ignore
-  it('#Test convertWeight', function() {
+  it('convertWeight', function() {
     assert.strictEqual(WeightConverters.convertWeight('12',      'kg', 'kg'   ), '12');
     assert.strictEqual(WeightConverters.convertWeight('12',      'kg', 'kg', 3), '12');
     assert.strictEqual(WeightConverters.convertWeight('1.2',     'g',  'mg', 3), '1200');
@@ -61,19 +61,19 @@ describe('Converter weight', function () {
   });
 
   // prettier-ignore
-  it('#Test getSortable', function() {
+  it('getSortable', function() {
     assert.strictEqual(WeightConverters.getSortable('12'         ), '00000012000000');
     assert.strictEqual(WeightConverters.getSortable('1.666666667'), '00000001666666');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(WeightConverters.check('1'));
     assert.ok(WeightConverters.check('12'));
     assert.ok(WeightConverters.check('1.2'));
     assert.ok(WeightConverters.check('.2'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!WeightConverters.check('-3'));
     assert.ok(!WeightConverters.check('1kg'));
     assert.ok(!WeightConverters.check('1 kg'));

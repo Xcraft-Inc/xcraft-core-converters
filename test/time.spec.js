@@ -16,36 +16,36 @@ function getDisplayedBetweenTwoTimes(time1, time2, format) {
 
 //-----------------------------------------------------------------------------
 
-describe('Converter time', function () {
+describe('xcraft.converters.time', function () {
   // prettier-ignore
-  it('#Test jsToCanonical', function() {
+  it('jsToCanonical', function() {
     assert.strictEqual(TimeConverters.jsToCanonical(new Date(2019, 12, 25,  0,  0,  0)), '00:00:00');
     assert.strictEqual(TimeConverters.jsToCanonical(new Date(2019, 12, 25, 13, 20, 30)), '13:20:30');
     assert.strictEqual(TimeConverters.jsToCanonical(new Date(2019, 12, 25, 23, 59, 59)), '23:59:59');
   });
 
   // prettier-ignore
-  it('#Test canonicalToJs', function() {
+  it('canonicalToJs', function() {
     assert.strictEqual(TimeConverters.canonicalToJs("00:00:00").toISOString(), new Date(2000, 0, 1,  0,  0,  0).toISOString());
     assert.strictEqual(TimeConverters.canonicalToJs("09:30:00").toISOString(), new Date(2000, 0, 1,  9, 30,  0).toISOString());
     assert.strictEqual(TimeConverters.canonicalToJs("23:59:59").toISOString(), new Date(2000, 0, 1, 23, 59, 59).toISOString());
   });
 
   // prettier-ignore
-  it('#Test getHours', function() {
+  it('getHours', function() {
     assert.strictEqual(TimeConverters.getHours("00:00:00"),  0);
     assert.strictEqual(TimeConverters.getHours("12:00:00"), 12);
     assert.strictEqual(TimeConverters.getHours("23:00:00"), 23);
   });
 
   // prettier-ignore
-  it('#Test addHours', function() {
+  it('addHours', function() {
     assert.strictEqual(TimeConverters.addHours("00:00:00", 1), "01:00:00");
     assert.strictEqual(TimeConverters.addHours("00:30:02", 1), "01:30:02");
     assert.strictEqual(TimeConverters.addHours("17:30:02", 3), "20:30:02");
   });
 
-  it('#Test parseEdited', function () {
+  it('parseEdited', function () {
     let result;
 
     result = TimeConverters.parseEdited('14');
@@ -78,7 +78,7 @@ describe('Converter time', function () {
   });
 
   // prettier-ignore
-  it('#Test invalid parseEdited', function() {
+  it('invalid parseEdited', function() {
     let result;
 
     result = TimeConverters.parseEdited('23 60');
@@ -91,12 +91,12 @@ describe('Converter time', function () {
     assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Heure incorrecte}');
   });
 
-  it('#Test getDisplayed without format', function () {
+  it('getDisplayed without format', function () {
     assert.strictEqual(typeof getDisplayed('12:34:56'), 'string');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(getDisplayed('12:34:56'            ), '12:34');
     assert.strictEqual(getDisplayed('12:34:56', 'hms'     ), '12:34:56');
     assert.strictEqual(getDisplayed('01:00:45', 'Hm'      ), '1 @{heure}');
@@ -107,24 +107,24 @@ describe('Converter time', function () {
     assert.strictEqual(getDisplayed('00:15:45', 'duration'), '15min');
   });
 
-  it('#Test getNowCanonical', function () {
+  it('getNowCanonical', function () {
     assert.ok(TimeConverters.getNowCanonical('12:34:56').endsWith(':00'));
   });
 
-  it('#Test getSortable', function () {
+  it('getSortable', function () {
     assert.strictEqual(TimeConverters.getSortable('12:34:56'), '1234');
     assert.strictEqual(TimeConverters.getSortable('07:34:56'), '0734');
   });
 
   // prettier-ignore
-  it('#Test getCalcTime', function() {
+  it('getCalcTime', function() {
     assert.strictEqual(TimeConverters.getCalcTime('14:30:00', '-2h'), '12:30:00');
     assert.strictEqual(TimeConverters.getCalcTime('14:30:00', '10m'), '14:40:00');
     assert.strictEqual(TimeConverters.getCalcTime('14:30:00', '2s' ), '14:30:02');
   });
 
   // prettier-ignore
-  it('#Test getDisplayedBetweenTwoTimes', function() {
+  it('getDisplayedBetweenTwoTimes', function() {
     assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '14:30:00'), '@{time|between-two-times|Maintenant}');
     assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '14:45:00'), '@{time|between-two-times|Dans} 15 @{minutes}');
     assert.strictEqual(getDisplayedBetweenTwoTimes('14:30:00', '15:30:00'), '@{time|between-two-times|Dans} 1 @{heure}');
@@ -134,7 +134,7 @@ describe('Converter time', function () {
   });
 
   // prettier-ignore
-  it('#Test getPeriodDescription', function() {
+  it('getPeriodDescription', function() {
     assert.strictEqual(TimeConverters.getPeriodDescription('14:30:00', null               ), '14:30');
     assert.strictEqual(TimeConverters.getPeriodDescription(null,       '15:10:00'         ), '15:10');
     assert.strictEqual(TimeConverters.getPeriodDescription('14:30:00', '14:30:00'         ), '14:30');
@@ -145,24 +145,24 @@ describe('Converter time', function () {
   });
 
   // prettier-ignore
-  it('#Test getTotalMinutes', function() {
+  it('getTotalMinutes', function() {
     assert.strictEqual(TimeConverters.getTotalMinutes('08:34:00'), 8 * 60 + 34);
     assert.strictEqual(TimeConverters.getTotalMinutes('08:34:59'), 8 * 60 + 34);
   });
 
   // prettier-ignore
-  it('#Test getTimeFromMinutes', function() {
+  it('getTimeFromMinutes', function() {
     assert.strictEqual(TimeConverters.getTimeFromMinutes(0          ), '00:00:00');
     assert.strictEqual(TimeConverters.getTimeFromMinutes(8 * 60 + 34), '08:34:00');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(TimeConverters.check('00:00:00'));
     assert.ok(TimeConverters.check('08:10:30'));
     assert.ok(TimeConverters.check('23:59:59'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!TimeConverters.check('12:00'));
     assert.ok(!TimeConverters.check('12.00.00'));
     assert.ok(!TimeConverters.check(''));
@@ -170,7 +170,7 @@ describe('Converter time', function () {
     assert.ok(!TimeConverters.check(null));
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = TimeConverters.incEdited('11:59', 4, 1, 1);

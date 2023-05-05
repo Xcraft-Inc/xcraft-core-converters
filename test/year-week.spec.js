@@ -5,8 +5,8 @@ const YearWeekConverters = require('../lib/year-week.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter year-week', function () {
-  it('#Test getDisplayed without erros', function () {
+describe('xcraft.converters.year-week', function () {
+  it('getDisplayed without erros', function () {
     assert.strictEqual(
       YearWeekConverters.getDisplayed('2016-1', 'short'),
       '1.16'
@@ -33,13 +33,13 @@ describe('Converter year-week', function () {
     );
   });
 
-  it('#Test getDisplayed with empty', function () {
+  it('getDisplayed with empty', function () {
     assert.strictEqual(YearWeekConverters.getDisplayed(null), '');
     assert.strictEqual(YearWeekConverters.getDisplayed(undefined), '');
     assert.strictEqual(YearWeekConverters.getDisplayed(''), '');
   });
 
-  it('#Test getDisplayed with various errors', function () {
+  it('getDisplayed with various errors', function () {
     assert.strictEqual(YearWeekConverters.getDisplayed('tralala', 'short'), '');
     assert.strictEqual(YearWeekConverters.getDisplayed('tra.12', 'short'), '');
     assert.strictEqual(YearWeekConverters.getDisplayed('0', 'short'), '');

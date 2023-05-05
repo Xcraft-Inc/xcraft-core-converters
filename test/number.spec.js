@@ -5,8 +5,8 @@ const NumberConverters = require('../lib/number.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter number', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.number', function () {
+  it('parseEdited', function () {
     let result;
 
     result = NumberConverters.parseEdited('');
@@ -74,7 +74,7 @@ describe('Converter number', function () {
     assert.ok(result.error);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = NumberConverters.parseEdited(123);
@@ -123,7 +123,7 @@ describe('Converter number', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(NumberConverters.getDisplayed(null      ), null);
     assert.strictEqual(NumberConverters.getDisplayed(0         ), "0");
     assert.strictEqual(NumberConverters.getDisplayed(1234      ), "1'234");
@@ -137,7 +137,7 @@ describe('Converter number', function () {
     assert.strictEqual(NumberConverters.getDisplayed('1234'    ), "1'234"); // accept string
   });
 
-  it('#Test check no-strict', function () {
+  it('check no-strict', function () {
     assert.ok(!NumberConverters.check(undefined));
     assert.ok(NumberConverters.check(null));
     assert.ok(NumberConverters.check(0));
@@ -154,7 +154,7 @@ describe('Converter number', function () {
     assert.ok(NumberConverters.check('1.23'));
   });
 
-  it('#Test check strict', function () {
+  it('check strict', function () {
     assert.ok(!NumberConverters.check(undefined, true));
     assert.ok(!NumberConverters.check(null, true));
     assert.ok(NumberConverters.check(0, true));
@@ -171,13 +171,13 @@ describe('Converter number', function () {
     assert.ok(!NumberConverters.check('1.23', true));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!NumberConverters.check('123m'));
     assert.ok(!NumberConverters.check('123cm'));
     assert.ok(!NumberConverters.check('cm'));
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = NumberConverters.incEdited('', 0, 1, 5, 0, 100);

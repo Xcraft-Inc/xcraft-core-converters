@@ -5,8 +5,8 @@ const PriceConverters = require('../lib/price.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter price', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.price', function () {
+  it('parseEdited', function () {
     let result;
 
     result = PriceConverters.parseEdited('');
@@ -74,7 +74,7 @@ describe('Converter price', function () {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = PriceConverters.parseEdited('blupi');
@@ -135,14 +135,14 @@ describe('Converter price', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed with empty input', function() {
+  it('getDisplayed with empty input', function() {
     assert.strictEqual(PriceConverters.getDisplayed(undefined), '');
     assert.strictEqual(PriceConverters.getDisplayed(null     ), '');
     assert.strictEqual(PriceConverters.getDisplayed(''       ), '');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(PriceConverters.getDisplayed(       '123'   ),                '123.00');
     assert.strictEqual(PriceConverters.getDisplayed(      '1234.5' ),         "1\u202f234.50");
     assert.strictEqual(PriceConverters.getDisplayed(     '-1234.5' ),        "−1\u202f234.50");
@@ -167,7 +167,7 @@ describe('Converter price', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed with money and precision 0.05', function() {
+  it('getDisplayed with money and precision 0.05', function() {
     assert.strictEqual(PriceConverters.getDisplayed(    '0.89', "p-0.05"),           '0.90');
     assert.strictEqual(PriceConverters.getDisplayed(    '0.09', "p-0.05"),           '0.10');
     assert.strictEqual(PriceConverters.getDisplayed(    '0.06', "p-0.05"),           '0.05');
@@ -179,7 +179,7 @@ describe('Converter price', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed with money and precision 1M and separators', function() {
+  it('getDisplayed with money and precision 1M and separators', function() {
     assert.strictEqual(PriceConverters.getDisplayed('7891234567.89', "p-1M"), "7\u202f891 M");
     assert.strictEqual(PriceConverters.getDisplayed( '891234567.89', "p-1M"),        '891 M');
     assert.strictEqual(PriceConverters.getDisplayed(  '91234567.89', "p-1M"),       '91.2 M');
@@ -200,7 +200,7 @@ describe('Converter price', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed with JS number', function() {
+  it('getDisplayed with JS number', function() {
     assert.strictEqual(PriceConverters.getDisplayed(0), '0.00');
     assert.strictEqual(PriceConverters.getDisplayed(1), '1.00');
     assert.strictEqual(PriceConverters.getDisplayed(-1), '−1.00');
@@ -226,7 +226,7 @@ describe('Converter price', function () {
     assert.strictEqual(PriceConverters.getDisplayed(         1234, "p-1M"),   "1\u202f234");
   });
 
-  it('#Test check no-strict', function () {
+  it('check no-strict', function () {
     assert.ok(!PriceConverters.check(undefined));
     assert.ok(PriceConverters.check(null));
     assert.ok(PriceConverters.check(0));
@@ -242,7 +242,7 @@ describe('Converter price', function () {
     assert.ok(PriceConverters.check('-.25'));
   });
 
-  it('#Test check strict', function () {
+  it('check strict', function () {
     assert.ok(!PriceConverters.check(undefined, true));
     assert.ok(!PriceConverters.check(null, true));
     assert.ok(!PriceConverters.check(0, true));
@@ -258,13 +258,13 @@ describe('Converter price', function () {
     assert.ok(PriceConverters.check('-.25', true));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!PriceConverters.check("12'000"));
     assert.ok(!PriceConverters.check('123.456'));
     assert.ok(!PriceConverters.check('-1x3'));
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = PriceConverters.incEdited('', 0, 1, 5, 0, 100);

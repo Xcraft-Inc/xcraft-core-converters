@@ -5,8 +5,8 @@ const DoubleConverters = require('../lib/double.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter double', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.double', function () {
+  it('parseEdited', function () {
     let result;
 
     result = DoubleConverters.parseEdited('');
@@ -90,7 +90,7 @@ describe('Converter double', function () {
     assert.ok(result.error);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = DoubleConverters.parseEdited('blupi');
@@ -119,7 +119,7 @@ describe('Converter double', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(DoubleConverters.getDisplayed(null), null);
     assert.strictEqual(DoubleConverters.getDisplayed('1234'), "1'234");
     assert.strictEqual(DoubleConverters.getDisplayed('-1234'), "-1'234");
@@ -130,7 +130,7 @@ describe('Converter double', function () {
     assert.strictEqual(DoubleConverters.getDisplayed('.0123456789123456991'), "0.0123456789123456991");
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(DoubleConverters.check('0.00'));
     assert.ok(DoubleConverters.check(0));
     assert.ok(DoubleConverters.check('123.00'));
@@ -140,7 +140,7 @@ describe('Converter double', function () {
     assert.ok(DoubleConverters.check('1.23'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!DoubleConverters.check('123'));
     assert.ok(!DoubleConverters.check('123m'));
     assert.ok(!DoubleConverters.check('123cm'));

@@ -5,8 +5,8 @@ const IntegerConverters = require('../lib/integer.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter integer', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.integer', function () {
+  it('parseEdited', function () {
     let result;
 
     result = IntegerConverters.parseEdited('');
@@ -54,7 +54,7 @@ describe('Converter integer', function () {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = IntegerConverters.parseEdited('123.800');
@@ -119,7 +119,7 @@ describe('Converter integer', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(IntegerConverters.getDisplayed(null       ), null);
     assert.strictEqual(IntegerConverters.getDisplayed(0          ), "0");
     assert.strictEqual(IntegerConverters.getDisplayed(1234       ), "1'234");
@@ -141,7 +141,7 @@ describe('Converter integer', function () {
     assert.strictEqual(IntegerConverters.getDisplayed('.12456', 6), '0');
   });
 
-  it('#Test check no-strict', function () {
+  it('check no-strict', function () {
     assert.ok(!IntegerConverters.check(undefined));
     assert.ok(IntegerConverters.check(null));
     assert.ok(IntegerConverters.check(0));
@@ -154,7 +154,7 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('5.1'));
   });
 
-  it('#Test check strict', function () {
+  it('check strict', function () {
     assert.ok(!IntegerConverters.check(undefined, true));
     assert.ok(!IntegerConverters.check(null, true));
     assert.ok(IntegerConverters.check(0, true));
@@ -167,7 +167,7 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('5.1', true));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!IntegerConverters.check('1.23'));
     assert.ok(!IntegerConverters.check('123m'));
     assert.ok(!IntegerConverters.check('123cm'));
@@ -175,7 +175,7 @@ describe('Converter integer', function () {
     assert.ok(!IntegerConverters.check('cm'));
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = IntegerConverters.incEdited('', 0, 1, 5, 0, 100);

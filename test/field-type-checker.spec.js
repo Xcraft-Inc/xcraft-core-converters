@@ -5,8 +5,8 @@ const FieldType = require('../lib/field-type-checker.js');
 
 //-----------------------------------------------------------------------------
 
-describe('field-type', function () {
-  it('#Test field-type string', function () {
+describe('xcraft.converters.field-type', function () {
+  it('field-type string', function () {
     let result;
 
     result = FieldType.check('Blupi', 'Dupond', {type: 'string'});
@@ -25,7 +25,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type bool', function () {
+  it('field-type bool', function () {
     let result;
 
     result = FieldType.check('Blupi', false, {type: 'bool'});
@@ -44,7 +44,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type number', function () {
+  it('field-type number', function () {
     let result;
 
     result = FieldType.check('Blupi', null, {type: 'number'});
@@ -69,7 +69,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, true);
   });
 
-  it('#Test field-type price', function () {
+  it('field-type price', function () {
     let result;
 
     result = FieldType.check('Blupi', null, {type: 'price'});
@@ -97,7 +97,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type percent', function () {
+  it('field-type percent', function () {
     let result;
 
     result = FieldType.check('Blupi', null, {type: 'percent'});
@@ -131,7 +131,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type enum', function () {
+  it('field-type enum', function () {
     let result;
 
     result = FieldType.check('Blupi', 'A', {type: 'enum', values: ['A', 'B']});
@@ -153,7 +153,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type entityId', function () {
+  it('field-type entityId', function () {
     let result;
 
     result = FieldType.check('Blupi', 'toto@123', {
@@ -172,7 +172,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type date', function () {
+  it('field-type date', function () {
     let result;
 
     result = FieldType.check('Blupi', '2019-03-31', {type: 'date'});
@@ -191,7 +191,7 @@ describe('field-type', function () {
     assert.strictEqual(result.ok, false);
   });
 
-  it('#Test field-type time', function () {
+  it('field-type time', function () {
     let result;
 
     result = FieldType.check('Blupi', '12:00:00', {type: 'time'});

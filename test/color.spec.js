@@ -5,8 +5,8 @@ const ColorConverters = require('../lib/color.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter color', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.color', function () {
+  it('parseEdited', function () {
     let result;
 
     result = ColorConverters.parseEdited('');
@@ -62,7 +62,7 @@ describe('Converter color', function () {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = ColorConverters.parseEdited('#');
@@ -119,7 +119,7 @@ describe('Converter color', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(ColorConverters.getDisplayed(null           ), null);
     assert.strictEqual(ColorConverters.getDisplayed('#000000'      ), '#000000');
     assert.strictEqual(ColorConverters.getDisplayed('#0080FF'      ), '#0080FF');
@@ -129,7 +129,7 @@ describe('Converter color', function () {
     assert.strictEqual(ColorConverters.getDisplayed('HSL(1,2,3)'   ), 'HSL(1,2,3)');
   });
 
-  it('#Test analysisFromCanonical', function () {
+  it('analysisFromCanonical', function () {
     let result;
 
     result = ColorConverters.analysisFromCanonical(null);
@@ -285,7 +285,7 @@ describe('Converter color', function () {
   });
 
   // prettier-ignore
-  it('#Test toRGB', function () {
+  it('toRGB', function () {
     assert.strictEqual(ColorConverters.toRGB("#224466"        ), "#224466");
     assert.strictEqual(ColorConverters.toRGB("CMYK(0,0,0,0)"  ), "#FFFFFF");
     assert.strictEqual(ColorConverters.toRGB("CMYK(0,0,0,100)"), "#000000");
@@ -299,13 +299,13 @@ describe('Converter color', function () {
   });
 
   // prettier-ignore
-  it('#Test slide', function () {
+  it('slide', function () {
     assert.strictEqual(ColorConverters.slide("#224466", "#446688", 0.0), "#224466");
     assert.strictEqual(ColorConverters.slide("#224466", "#446688", 0.5), "#335577");
     assert.strictEqual(ColorConverters.slide("#224466", "#446688", 1.0), "#446688");
   });
 
-  it('#Test getLuminance', function () {
+  it('getLuminance', function () {
     assert.strictEqual(ColorConverters.getLuminance('#000000'), 0);
     assert.strictEqual(ColorConverters.getLuminance('#FFFFFF'), 1);
     assert.strictEqual(ColorConverters.getLuminance('#FF0000'), 0.2126);

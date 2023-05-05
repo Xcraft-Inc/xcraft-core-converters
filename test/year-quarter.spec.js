@@ -4,8 +4,8 @@ const assert = require('assert');
 const YearQuarterConverters = require('../lib/year-quarter.js');
 const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
-describe('Converter year-quarter', function () {
-  it('#Test getDisplayed without erros', function () {
+describe('xcraft.converters.year-quarter', function () {
+  it('getDisplayed without erros', function () {
     assert.strictEqual(
       StringBuilder._toFlatten(
         YearQuarterConverters.getDisplayed('2016-1', 'short')
@@ -56,13 +56,13 @@ describe('Converter year-quarter', function () {
     );
   });
 
-  it('#Test getDisplayed with empty', function () {
+  it('getDisplayed with empty', function () {
     assert.strictEqual(YearQuarterConverters.getDisplayed(null), '');
     assert.strictEqual(YearQuarterConverters.getDisplayed(undefined), '');
     assert.strictEqual(YearQuarterConverters.getDisplayed(''), '');
   });
 
-  it('#Test getDisplayed with various errors', function () {
+  it('getDisplayed with various errors', function () {
     assert.strictEqual(
       YearQuarterConverters.getDisplayed('tralala', 'short'),
       ''

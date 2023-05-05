@@ -6,9 +6,9 @@ const StringBuilder = require('goblin-nabu/lib/string-builder.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter length', function () {
+describe('xcraft.converters.length', function () {
   // prettier-ignore
-  it('#Test parseEdited', function() {
+  it('parseEdited', function() {
     let result;
 
     result = LengthConverters.parseEdited('123', 'cm');
@@ -32,12 +32,12 @@ describe('Converter length', function () {
     assert.strictEqual(StringBuilder._toFlatten(result.error), '@{Unité} "x" @{incorrecte}');
   });
 
-  it('#Test getDisplayed without format', function () {
+  it('getDisplayed without format', function () {
     assert.strictEqual(typeof LengthConverters.getDisplayed('12'), 'string');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(LengthConverters.getDisplayed(null        ), null);
     assert.strictEqual(LengthConverters.getDisplayed('1.2'       ), '1.2m');
     assert.strictEqual(LengthConverters.getDisplayed('1200', 'km'), '1.2km');
@@ -45,7 +45,7 @@ describe('Converter length', function () {
   });
 
   // prettier-ignore
-  it('#Test convertLength', function() {
+  it('convertLength', function() {
     assert.strictEqual(LengthConverters.convertLength('12',      'mm', 'cm'  ), '1.2');
     assert.strictEqual(LengthConverters.convertLength('12',      'cm', 'mm'  ), '120');
     assert.strictEqual(LengthConverters.convertLength('12',      'km', 'm'   ), '12000');
@@ -57,13 +57,13 @@ describe('Converter length', function () {
     assert.strictEqual(LengthConverters.convertLength('1.23456', 'm',  'm', 6), '1.23456');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(LengthConverters.check('123'));
     assert.ok(LengthConverters.check('.123'));
     assert.ok(LengthConverters.check('1.23'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!LengthConverters.check('-123'));
     assert.ok(!LengthConverters.check('123m'));
     assert.ok(!LengthConverters.check('123cm'));

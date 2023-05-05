@@ -5,8 +5,8 @@ const PixelConverters = require('../lib/pixel.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter pixel', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.pixel', function () {
+  it('parseEdited', function () {
     let result;
 
     result = PixelConverters.parseEdited(null);
@@ -50,7 +50,7 @@ describe('Converter pixel', function () {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = PixelConverters.parseEdited('123p');
@@ -79,26 +79,26 @@ describe('Converter pixel', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(PixelConverters.getDisplayed(null  ), null);
     assert.strictEqual(PixelConverters.getDisplayed('12px'), '12 px');
     assert.strictEqual(PixelConverters.getDisplayed('0px' ), '0 px');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(PixelConverters.check('123px'));
     assert.ok(PixelConverters.check('0px'));
     assert.ok(PixelConverters.check('-5px'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!PixelConverters.check('123'));
     assert.ok(!PixelConverters.check('123.4px'));
     assert.ok(!PixelConverters.check('abc'));
     assert.ok(!PixelConverters.check('px'));
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = PixelConverters.incEdited('', 0, 1, 5);

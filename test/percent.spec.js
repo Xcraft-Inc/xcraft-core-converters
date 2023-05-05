@@ -5,8 +5,8 @@ const PercentConverters = require('../lib/percent.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter percent', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.percent', function () {
+  it('parseEdited', function () {
     let result;
 
     result = PercentConverters.parseEdited('');
@@ -62,7 +62,7 @@ describe('Converter percent', function () {
     assert.strictEqual(result.error, null);
   });
 
-  it('#Test parseEdited with error', function () {
+  it('parseEdited with error', function () {
     let result;
 
     result = PercentConverters.parseEdited('4%2');
@@ -115,7 +115,7 @@ describe('Converter percent', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(PercentConverters.getDisplayed(null          ), null);
     assert.strictEqual(PercentConverters.getDisplayed('0'           ), '0%');
     assert.strictEqual(PercentConverters.getDisplayed('0.12'        ), '12%');
@@ -129,7 +129,7 @@ describe('Converter percent', function () {
     assert.strictEqual(PercentConverters.getDisplayed('1.237%', 2        , 1), '1.24%');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(PercentConverters.check('0'));
     assert.ok(PercentConverters.check(0));
     assert.ok(PercentConverters.check(5));
@@ -139,14 +139,14 @@ describe('Converter percent', function () {
     assert.ok(PercentConverters.check('-0.05'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!PercentConverters.check('10%'));
     assert.ok(!PercentConverters.check(''));
     assert.ok(!PercentConverters.check(null));
     assert.ok(!PercentConverters.check(undefined));
   });
 
-  it('#Test incEdited', function () {
+  it('incEdited', function () {
     let result;
 
     result = PercentConverters.incEdited('', 0, 1, 0.05, 0, 1);

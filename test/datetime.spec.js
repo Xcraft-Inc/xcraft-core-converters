@@ -5,16 +5,16 @@ const DateTimeConverters = require('../lib/datetime.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter datetime', function () {
+describe('xcraft.converters.datetime', function () {
   // prettier-ignore
-  it('#Test jsToCanonical', function() {
+  it('jsToCanonical', function() {
     assert.strictEqual(DateTimeConverters.jsToCanonical(new Date(2019, 0, 18,  0,  0,  0)), '2019-01-18T00:00:00.000Z');
     assert.strictEqual(DateTimeConverters.jsToCanonical(new Date(2019, 0, 18, 14, 15, 30)), '2019-01-18T14:15:30.000Z');
     assert.strictEqual(DateTimeConverters.jsToCanonical(new Date(2019, 0, 18, 23, 59, 59)), '2019-01-18T23:59:59.000Z');
   });
 
   // prettier-ignore
-  it('#Test canonicalToJs', function() {
+  it('canonicalToJs', function() {
     let js;
 
     js = DateTimeConverters.canonicalToJs('2011-10-05T00:00:00.000Z');
@@ -28,7 +28,7 @@ describe('Converter datetime', function () {
   });
 
   // prettier-ignore
-  it('#Test canonical <-> js', function() {
+  it('canonical <-> js', function() {
     let c1, c2, js;
 
     c1 = '2019-11-25T14:48:33.000Z';
@@ -48,7 +48,7 @@ describe('Converter datetime', function () {
   });
 
   // prettier-ignore
-  it('#Test parseEdited', function() {
+  it('parseEdited', function() {
     let result;
 
     result = DateTimeConverters.parseEdited('31 3 2017 13 41 0');
@@ -79,12 +79,12 @@ describe('Converter datetime', function () {
   });
 
   // prettier-ignore
-  it('#Test getDisplayed without format', function() {
+  it('getDisplayed without format', function() {
     assert.strictEqual(typeof DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'), 'string');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z'             ), '31.03.2017 12:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z',      'time'), '12:48');
     assert.strictEqual(DateTimeConverters.getDisplayed('2017-03-31T12:48:00.000Z',      'date'), '31.03.2017');
@@ -106,7 +106,7 @@ describe('Converter datetime', function () {
   });
 
   // prettier-ignore
-  it('#Test getLocaleDisplayed', function () {
+  it('getLocaleDisplayed', function () {
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00'        ), '30.06.2022 12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'time'), '12:48');
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00.000+02:00', 'date'), '30.06.2022');
@@ -121,12 +121,12 @@ describe('Converter datetime', function () {
     assert.strictEqual(DateTimeConverters.getLocaleDisplayed('2022-06-30T12:48:00+03:30',     'date'), '30.06.2022');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(DateTimeConverters.check('0000-00-00T00:00:00.000Z'));
     assert.ok(DateTimeConverters.check('2019-01-18T14:00:00.000Z'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!DateTimeConverters.check('2019-01-18T14:00:00'));
     assert.ok(!DateTimeConverters.check('2019-01-18t14:00:00.000Z'));
     assert.ok(!DateTimeConverters.check('coucou'));

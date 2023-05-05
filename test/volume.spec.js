@@ -5,8 +5,8 @@ const VolumeConverters = require('../lib/volume.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Converter volume', function () {
-  it('#Test parseEdited', function () {
+describe('xcraft.converters.volume', function () {
+  it('parseEdited', function () {
     let result;
 
     result = VolumeConverters.parseEdited('');
@@ -38,12 +38,12 @@ describe('Converter volume', function () {
     assert.ok(result.error);
   });
 
-  it('#Test getDisplayed without format', function () {
+  it('getDisplayed without format', function () {
     assert.strictEqual(typeof VolumeConverters.getDisplayed('5'), 'string');
   });
 
   // prettier-ignore
-  it('#Test getDisplayed', function() {
+  it('getDisplayed', function() {
     assert.strictEqual(VolumeConverters.getDisplayed(null                  ), null);
     assert.strictEqual(VolumeConverters.getDisplayed('0.12 0.13 1.4', 'cm' ), '12 × 13 × 140 cm');
     assert.strictEqual(VolumeConverters.getDisplayed('1.2 1.3 1.4',   'm'  ), '1.2 × 1.3 × 1.4 m');
@@ -53,14 +53,14 @@ describe('Converter volume', function () {
   });
 
   // prettier-ignore
-  it('#Test getCanonicalIATA', function() {
+  it('getCanonicalIATA', function() {
     assert.strictEqual(VolumeConverters.getCanonicalIATA('0.1 0.2 0.3', 6000), '1');
     assert.strictEqual(VolumeConverters.getCanonicalIATA('0.1 0.2 0.3', 5000), '1.2');
     assert.strictEqual(VolumeConverters.getCanonicalIATA('1 2 3',       5000), '1200');
   });
 
   // prettier-ignore
-  it('#Test getDisplayedIATA', function() {
+  it('getDisplayedIATA', function() {
     assert.strictEqual(VolumeConverters.getDisplayedIATA('1 1 1', 6000         ), '166.667kg');
     assert.strictEqual(VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg'   ), '166.667kg');
     assert.strictEqual(VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 0), '167kg');
@@ -69,7 +69,7 @@ describe('Converter volume', function () {
     assert.strictEqual(VolumeConverters.getDisplayedIATA('1 1 1', 6000, 'kg', 5), '166.667kg');
   });
 
-  it('#Test check correct', function () {
+  it('check correct', function () {
     assert.ok(VolumeConverters.check('1 2 3'));
     assert.ok(VolumeConverters.check('12 34 56'));
     assert.ok(VolumeConverters.check('1.2 3.4 5.6'));
@@ -78,7 +78,7 @@ describe('Converter volume', function () {
     assert.ok(VolumeConverters.check('123'));
   });
 
-  it('#Test check wrong', function () {
+  it('check wrong', function () {
     assert.ok(!VolumeConverters.check('2 3'));
     assert.ok(!VolumeConverters.check('2 3 4 5'));
     assert.ok(!VolumeConverters.check('2 -3 4'));
