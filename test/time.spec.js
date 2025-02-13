@@ -105,6 +105,7 @@ describe('xcraft.converters.time', function () {
     assert.strictEqual(getDisplayed('09:30:45', 'duration'), '9h30');
     assert.strictEqual(getDisplayed('09:00:45', 'duration'), '9h');
     assert.strictEqual(getDisplayed('00:15:45', 'duration'), '15min');
+    assert.strictEqual(getDisplayed('00:00:42', 'duration'), '42sec');
   });
 
   it('getNowCanonical', function () {
