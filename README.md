@@ -1,87 +1,268 @@
-# Xcraft Converters
+# 📘 Documentation du module xcraft-core-converters
 
-To run test:
+## Aperçu
 
-- `npm test xcraft-core-converters`
+Le module `xcraft-core-converters` est une bibliothèque complète de conversion de données pour l'écosystème Xcraft. Il fournit un ensemble de convertisseurs spécialisés permettant de transformer des valeurs entre leur format canonique (interne), leur format d'affichage (pour l'UI) et leur format d'édition (saisie utilisateur). Cette bibliothèque est essentielle pour assurer la cohérence des données à travers l'application.
 
-To debug test:
+## Structure du module
 
-- Open the file `xcraft-core-converters/lib/\*.js` or `xcraft-core-converters/test/\*.js` to debug
-- Set a breakpoint
-- Run "Test current file (mocha)"
+Le module est organisé en plusieurs convertisseurs spécialisés, chacun dédié à un type de données spécifique :
 
-# Canonical
+- **Types de base** : `bool`, `number`, `integer`, `double`, `percent`
+- **Dates et temps** : `date`, `time`, `datetime`, `delay`, `calendar`
+- **Mesures** : `price`, `weight`, `length`, `pixel`, `volume`
+- **Périodes** : `month`, `dow` (jour de la semaine), `quarter`, `semester`, `year-week`, `year-month`, `year-quarter`, `year-semester`
+- **Autres** : `color`, `reference`, `field-type-checker`
 
-**Canonical** values are used by the computer. These are the values that are persisted in _RethinkDB_.
+Chaque convertisseur expose généralement les fonctions suivantes :
 
-Here is the definition given by Wikipedia:
+- `check()` - Vérifie si une valeur est au format canonique valide
+- `getDisplayed()` - Convertit une valeur canonique en format d'affichage
+- `parseEdited()` - Analyse une valeur éditée et la convertit en format canonique
 
-_In computer science, canonicalization (sometimes standardization or normalization) is a process for converting data that has more than one possible representation into a "standard", "normal", or canonical form. This can be done to compare different representations for equivalence, to count the number of distinct data structures, to improve the efficiency of various algorithms by eliminating repeated calculations, or to make it possible to impose a meaningful sorting order._
+## Fonctionnement global
 
-Generally, canonical values are `string`, except for `number` and `bool`, which use JS native types.
-For each type, the string containing the canonical value respects a precise syntax (see tests in `lib\xcraft-core-converters\test` for documentation).
+Le module fonctionne sur le principe de conversion bidirectionnelle entre trois formats principaux :
 
-Examples of canonical values:
+1. **Format canonique** : Le format interne utilisé pour stocker les données (ex: `2023-01-15` pour une date)
+2. **Format d'affichage** : Le format lisible par l'utilisateur (ex: `15.01.2023` pour une date)
+3. **Format d'édition** : Le format accepté lors de la saisie utilisateur (ex: `15 1 23` pour une date)
 
-- **date** : `"2020-03-31"`
-- **time** : `"11:30:00"`
-- **datetime** : `"2019-01-18T23:59:59.000Z"`
-- **price** : `"100"`, `"49.95"`
-- **delay** : `"* * * 30 * * *"` _(30 days)_
-- **color** : `"#FF000"` _(red in rgb)_, `"HSL(40,100,100)"`, `"CMYK(100,0,0,50)"`, `G(50)` _( medium gray)_
+La fonction centrale `getConverter(type)` permet d'obtenir le convertisseur approprié pour un type donné.
 
-`number` and `bool` use JS native types:
+## Exemples d'utilisation
 
-- **number** : `50`, `0.02`
-- **bool** : `true`, `false`
+### Conversion de date
 
-The function `parseEdited(edited)` parse a free text entered by the user. Some flexibility allows the user to enter data in various formats, possibly incomplete, with a minimum of intelligence. For example:
+```javascript
+const DateConverters = require('xcraft-core-converters/lib/date.js');
 
-- **date** : `parseEdited("25")` → `"2020-03-25"` _(completed by current month and year)_
-- **time** : `parseEdited("12")` → `"12:00:00"` _(completed with zeros)_
-- **delay** : `parseEdited("20j")` → `"* * * 20 * * *"`
-- **delay** : `parseEdited("4h")` → `"* * 4 * * * *"`
-- **color** : `parseEdited("#12F")` → `"#1122FF"`
+// Vérifier si une valeur est une date canonique valide
+DateConverters.check('2023-01-15'); // true
 
-The function `parseEdited` return a map with `{value, error}`. If everything is ok, `error === null`. In the event of an `error`, the `value` comes as close as possible to something plausible.
+// Convertir une date canonique en format d'affichage
+DateConverters.getDisplayed('2023-01-15'); // '15.01.2023'
+DateConverters.getDisplayed('2023-01-15', 'dMy'); // '15 janvier 2023'
 
-# Displayed
+// Analyser une date éditée
+const result = DateConverters.parseEdited('15 1 23');
+console.log(result.value); // '2023-01-15'
+console.log(result.error); // null
 
-**Displayed** values are for human users. A canonical value has several possible representations, more or less long.
+// Manipuler des dates
+const nextMonth = DateConverters.addMonths('2023-01-15', 1); // '2023-02-15'
+const lastWeek = DateConverters.addDays('2023-01-15', -7); // '2023-01-08'
+```
 
-The function `getDisplayed(canonical, format)` format a canonical value to a string for the human user (the parameter `format` is optional). For example:
+### Conversion de prix
 
-- **date** : `getDisplayed("2020-03-31")` → `"31.03.2020"`
-- **date** : `getDisplayed("2020-03-31", "dMy")` → `"31 mars 2020"` _(with parameter `format`)_
+```javascript
+const PriceConverters = require('xcraft-core-converters/lib/price.js');
 
-See in `lib\xcraft-core-converters\lib` for documentation of each type.
+// Convertir un prix canonique en format d'affichage
+PriceConverters.getDisplayed('1234.5'); // "1 234.50"
+PriceConverters.getDisplayed('1234567.89', 'p-1M'); // "1.23 M"
 
-# Many types
+// Analyser un prix édité
+const result = PriceConverters.parseEdited("1'234.5");
+console.log(result.value); // '1234.5'
+console.log(result.error); // null
 
-There are many types, for all uses:
+// Incrémenter un prix édité
+const incResult = PriceConverters.incEdited('54.1', 0, 1, 5, 0, 100);
+console.log(incResult.edited); // '59.10'
+```
 
-- **date** : A date with day, month and year.
-- **time** : A time with hours, minutes and seconds.
-- **datetime** : A date and time.
-- **integer** : An integer, therefore without fractional part.
-- **number** : A real number, therefore with a fractional part.
-- **price** : A price in Swiss francs, with 2 decimal places for cents (accept big numbers).
-- **percent** : A percentage.
-- **delay** : Duration in minutes, hours, days, months or years.
-- **length** : A length with different units ("km", "m", "cm", "mm", usw.). The canonical value is in meters.
-- **weight** : A weight with different units ("t", "kg", "g", "mg"). The canonical value is in kilogram.
-- **volume** : A volume defined by 3 lengths, or a number of liters, with different units ("m", "cm", "l", "dm3"). The function `getDisplayedIATA` format a dimensional weight.
+### Conversion de couleur
 
-# Common mistakes
+```javascript
+const ColorConverters = require('xcraft-core-converters/lib/color.js');
 
-To get today's canonical date, don't do this:
+// Convertir une couleur en format RGB
+ColorConverters.toRGB('HSL(120,100,100)'); // '#00FF00'
+ColorConverters.toRGB('CMYK(100,0,100,0)'); // '#00FF00'
 
-- `const canonicalNow = date.now()`
+// Analyser une couleur éditée
+const result = ColorConverters.parseEdited('rgb(0,128,255)');
+console.log(result.value); // '#0080FF'
 
-Instead, write this:
+// Manipuler des couleurs
+const darkRed = ColorConverters.changeColor('#FF0000', 0, 1, 0.5); // '#800000'
+const blended = ColorConverters.slide('#224466', '#446688', 0.5); // '#335577'
+```
 
-- `const canonicalNow = DateConverters.getNowCanonical()`
+### Utilisation du nouveau module calendar
 
-Or, to display the current date in plain text:
+```javascript
+const CalendarConverters = require('xcraft-core-converters/lib/calendar.js');
 
-- `const displayedNow = DateConverters.getDisplayed(DateConverters.getNowCanonical())`
+// Convertir une date en format planner
+const plannerDate = CalendarConverters.toPlannerDate('2023-01-15T12:00:00Z'); // '2023-01-15'
+
+// Convertir une date avec fuseau horaire
+const zonedDate = CalendarConverters.addTimezone('2023-01-15T12:00:00', 'Europe/Paris');
+console.log(zonedDate); // '2023-01-15T12:00:00[Europe/Paris]'
+
+// Obtenir la date actuelle avec fuseau horaire
+const now = CalendarConverters.nowZonedDateTimeISO();
+```
+
+## Interactions avec d'autres modules
+
+Ce module est utilisé par de nombreux composants de l'écosystème Xcraft, notamment :
+
+- **[goblin-laboratory]** : Pour la conversion des données dans les widgets
+- **[goblin-desktop]** : Pour l'affichage et l'édition des données dans l'interface utilisateur
+- **[goblin-nabu]** : Pour l'internationalisation des valeurs affichées
+
+## Configuration avancée
+
+Le module ne nécessite pas de configuration particulière, mais certains convertisseurs acceptent des paramètres pour personnaliser leur comportement :
+
+- Format d'affichage (par exemple, format court ou long pour les dates)
+- Unités de mesure préférées (par exemple, kg ou g pour les poids)
+- Valeurs minimales et maximales pour la validation
+
+## Détails des sources
+
+### `converters.js`
+
+Ce fichier central expose la fonction `getConverter(type)` qui permet d'obtenir le convertisseur approprié pour un type donné. Il importe tous les convertisseurs spécifiques et les expose via un objet `typeConverters`.
+
+### `bool.js`
+
+Convertisseur pour les valeurs booléennes.
+
+- `check(canonical)` : Vérifie si la valeur est un booléen
+- `getDisplayed(canonicalBool, format)` : Convertit un booléen en "Oui"/"Non" ou "True"/"False" selon le format
+
+### `calendar.js`
+
+Nouveau convertisseur pour la gestion avancée des dates avec fuseaux horaires.
+
+```javascript
+// Exemple d'utilisation
+const plainDate = CalendarConverters.plainDateISO(new Date()); // '2023-01-15'
+const plainTime = CalendarConverters.plainTimeISO(new Date()); // '14:30:45.123'
+const zonedDateTime = CalendarConverters.addTimezone('2023-01-15T14:30:00', 'Europe/Paris');
+// zonedDateTime = '2023-01-15T14:30:00[Europe/Paris]'
+```
+
+### `color.js`
+
+Convertisseur pour les couleurs, supportant les formats RGB, CMYK, HSL et niveaux de gris.
+
+```javascript
+// Exemple d'utilisation
+const color = '#FF0000';
+const luminance = ColorConverters.getLuminance(color); // 0.2126
+const analysis = ColorConverters.analysisFromCanonical(color);
+// analysis contient {mode: 'RGB', r: 255, g: 0, b: 0, c: 0, m: 100, y: 100, k: 0, h: 0, s: 100, l: 100, n: 67}
+```
+
+### `date.js`
+
+Convertisseur pour les dates, avec de nombreuses fonctions de manipulation.
+
+```javascript
+// Exemple d'utilisation avancée
+const today = DateConverters.getNowCanonical();
+const endOfMonth = DateConverters.moveAtEndingOfMonth(today);
+const periodDesc = DateConverters.getPeriodDescription(
+  '2023-01-01',
+  '2023-12-31'
+); // '2023'
+```
+
+### `datetime.js`
+
+Convertisseur pour les dates et heures combinées.
+
+```javascript
+// Exemple d'utilisation
+const now = DateTimeConverters.getNowCanonical();
+const displayed = DateTimeConverters.getDisplayed(now); // ex: '15.01.2023 14:30'
+const delta = DateTimeConverters.getDisplayedDelta(
+  '2023-01-15T12:00:00.000Z',
+  now
+); // ex: 'Il y a 2 heures'
+```
+
+### `delay.js`
+
+Convertisseur pour les délais au format cron.
+
+```javascript
+// Exemple d'utilisation
+const delay = '* * 4 * * * *';
+const displayed = DelayConverters.getDisplayed(delay); // '4h'
+const parsed = DelayConverters.parseEdited('4h');
+// parsed.value = '* * 4 * * * *'
+```
+
+### `integer.js` et `number.js`
+
+Convertisseurs pour les nombres entiers et à virgule flottante.
+
+```javascript
+// Exemple d'utilisation
+const displayed = NumberConverters.getDisplayed(1234.567, 2); // "1'234.57"
+const parsed = NumberConverters.parseEdited("1'234.5");
+// parsed.value = 1234.5
+```
+
+### `length.js`, `pixel.js`, `volume.js`, `weight.js`
+
+Convertisseurs pour différentes unités de mesure.
+
+```javascript
+// Exemple d'utilisation pour les longueurs
+const meters = LengthConverters.convertLength('120', 'cm', 'm'); // '1.2'
+const displayed = LengthConverters.getDisplayed('1.2', 'cm'); // '120cm'
+
+// Exemple pour les volumes
+const volume = VolumeConverters.getDisplayed('0.12 0.13 1.4', 'cm'); // '12 × 13 × 140 cm'
+const iata = VolumeConverters.getDisplayedIATA('1 1 1', 5000, 'kg'); // '200kg'
+```
+
+### `price.js`
+
+Convertisseur spécialisé pour les prix.
+
+```javascript
+// Exemple d'utilisation avancée
+const sortable = PriceConverters.getSortable(1234.56); // '0000123456'
+const formatted = PriceConverters.getDisplayed(1234567.89, 'p-1M'); // "1.23 M"
+```
+
+### `time.js`
+
+Convertisseur pour les heures.
+
+```javascript
+// Exemple d'utilisation
+const now = TimeConverters.getNowCanonical();
+const later = TimeConverters.addHours(now, 2);
+const period = TimeConverters.getPeriodDescription(now, later); // ex: '14:30 → 16:30'
+```
+
+### Autres convertisseurs
+
+Le module inclut également des convertisseurs pour les périodes temporelles comme les jours de la semaine, mois, trimestres, etc.
+
+```javascript
+// Exemple pour les mois
+const monthName = MonthConverters.getDisplayed(3, 'long'); // 'Mars'
+
+// Exemple pour les trimestres
+const quarterName = QuarterConverters.getDisplayed(2); // 'Q2'
+
+// Exemple pour les années-semaines
+const yearWeek = YearWeekConverters.getDisplayed('2023-15', 'short'); // '15.23'
+```
+
+_Cette documentation a été mise à jour automatiquement._
+
+[goblin-laboratory]: https://github.com/Xcraft-Inc/goblin-laboratory
+[goblin-desktop]: https://github.com/Xcraft-Inc/goblin-desktop
+[goblin-nabu]: https://github.com/Xcraft-Inc/goblin-nabu
