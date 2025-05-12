@@ -91,7 +91,7 @@ const darkRed = ColorConverters.changeColor('#FF0000', 0, 1, 0.5); // '#800000'
 const blended = ColorConverters.slide('#224466', '#446688', 0.5); // '#335577'
 ```
 
-### Utilisation du nouveau module calendar
+### Utilisation du module calendar
 
 ```javascript
 const CalendarConverters = require('xcraft-core-converters/lib/calendar.js');
@@ -138,7 +138,7 @@ Convertisseur pour les valeurs booléennes.
 
 ### `calendar.js`
 
-Nouveau convertisseur pour la gestion avancée des dates avec fuseaux horaires.
+Convertisseur pour la gestion avancée des dates avec fuseaux horaires.
 
 ```javascript
 // Exemple d'utilisation
@@ -147,6 +147,13 @@ const plainTime = CalendarConverters.plainTimeISO(new Date()); // '14:30:45.123'
 const zonedDateTime = CalendarConverters.addTimezone('2023-01-15T14:30:00', 'Europe/Paris');
 // zonedDateTime = '2023-01-15T14:30:00[Europe/Paris]'
 ```
+
+Fonctions principales:
+- `toPlannerDate(dateOrDateTime)` - Convertit une date ou datetime en format date simple
+- `parseZonedDateTime(dateOrDateTime)` - Analyse une date avec fuseau horaire
+- `toJsDate(dateOrDateTime)` - Convertit en objet Date JavaScript
+- `getTimezone(dateOrDateTime)` - Extrait le fuseau horaire
+- `addTimezone(plainDateTime, timezone)` - Ajoute un fuseau horaire à une date
 
 ### `color.js`
 
@@ -159,6 +166,12 @@ const luminance = ColorConverters.getLuminance(color); // 0.2126
 const analysis = ColorConverters.analysisFromCanonical(color);
 // analysis contient {mode: 'RGB', r: 255, g: 0, b: 0, c: 0, m: 100, y: 100, k: 0, h: 0, s: 100, l: 100, n: 67}
 ```
+
+Fonctions principales:
+- `analysisFromCanonical(canonical)` - Analyse complète d'une couleur
+- `toRGB(canonical)` - Convertit n'importe quel format en RGB
+- `slide(color1, color2, slider)` - Mélange deux couleurs
+- `changeColor(color, hueShift, saturationFactor, lightFactor)` - Modifie une couleur
 
 ### `date.js`
 
@@ -174,6 +187,13 @@ const periodDesc = DateConverters.getPeriodDescription(
 ); // '2023'
 ```
 
+Fonctions principales:
+- `addDays/addMonths/addYears` - Manipulation de dates
+- `getDisplayed(canonicalDate, format)` - Affichage formaté
+- `parseEdited(editedDate)` - Analyse de saisie utilisateur
+- `getPeriodDescription(fromDate, toDate)` - Description d'une période
+- `changePeriod(fromDate, toDate, direction)` - Navigation entre périodes
+
 ### `datetime.js`
 
 Convertisseur pour les dates et heures combinées.
@@ -187,6 +207,11 @@ const delta = DateTimeConverters.getDisplayedDelta(
   now
 ); // ex: 'Il y a 2 heures'
 ```
+
+Fonctions principales:
+- `jsToCanonical/canonicalToJs` - Conversion entre formats
+- `getDisplayed/getLocaleDisplayed` - Affichage avec/sans fuseau horaire
+- `getDisplayedDelta` - Affichage relatif entre deux dates
 
 ### `delay.js`
 
