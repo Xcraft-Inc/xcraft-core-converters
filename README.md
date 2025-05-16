@@ -154,6 +154,10 @@ Fonctions principales:
 - `toJsDate(dateOrDateTime)` - Convertit en objet Date JavaScript
 - `getTimezone(dateOrDateTime)` - Extrait le fuseau horaire
 - `addTimezone(plainDateTime, timezone)` - Ajoute un fuseau horaire à une date
+- `plainDateISO(date)` - Convertit une date JS en format ISO 8601 (date seulement)
+- `plainTimeISO(date)` - Convertit une date JS en format ISO 8601 (heure seulement)
+- `plainDateTimeISO(date)` - Convertit une date JS en format ISO 8601 (date et heure)
+- `nowZonedDateTimeISO()` - Retourne la date et l'heure actuelles avec le fuseau horaire local
 
 ### `color.js`
 
@@ -169,9 +173,11 @@ const analysis = ColorConverters.analysisFromCanonical(color);
 
 Fonctions principales:
 - `analysisFromCanonical(canonical)` - Analyse complète d'une couleur
+- `analysisToCanonical(analysis)` - Convertit une analyse en valeur canonique
 - `toRGB(canonical)` - Convertit n'importe quel format en RGB
 - `slide(color1, color2, slider)` - Mélange deux couleurs
 - `changeColor(color, hueShift, saturationFactor, lightFactor)` - Modifie une couleur
+- `getLuminance(canonical)` - Calcule la luminance d'une couleur (entre 0 et 1)
 
 ### `date.js`
 
@@ -193,6 +199,8 @@ Fonctions principales:
 - `parseEdited(editedDate)` - Analyse de saisie utilisateur
 - `getPeriodDescription(fromDate, toDate)` - Description d'une période
 - `changePeriod(fromDate, toDate, direction)` - Navigation entre périodes
+- `getCalcDate(date, exp, direction)` - Calcule une date relative (ex: '-2d', '3m', '1y')
+- `incEdited(edited, cursorPosition, direction, step, min, max)` - Incrémente une date éditée
 
 ### `datetime.js`
 
@@ -212,6 +220,9 @@ Fonctions principales:
 - `jsToCanonical/canonicalToJs` - Conversion entre formats
 - `getDisplayed/getLocaleDisplayed` - Affichage avec/sans fuseau horaire
 - `getDisplayedDelta` - Affichage relatif entre deux dates
+- `getPeriodDescription` - Description d'une période de temps
+- `getMinutesBetweenTwoDatetimes` - Calcule les minutes entre deux dates
+- `getDisplayedBetweenToDatetimes` - Affiche la durée entre deux dates
 
 ### `delay.js`
 
@@ -225,6 +236,10 @@ const parsed = DelayConverters.parseEdited('4h');
 // parsed.value = '* * 4 * * * *'
 ```
 
+Fonctions principales:
+- `getDisplayed(canonicalDelay)` - Convertit un délai cron en format lisible
+- `parseEdited(editedDelay)` - Analyse un délai édité et le convertit en format cron
+
 ### `integer.js` et `number.js`
 
 Convertisseurs pour les nombres entiers et à virgule flottante.
@@ -235,6 +250,12 @@ const displayed = NumberConverters.getDisplayed(1234.567, 2); // "1'234.57"
 const parsed = NumberConverters.parseEdited("1'234.5");
 // parsed.value = 1234.5
 ```
+
+Fonctions principales:
+- `check(canonical, strict)` - Vérifie si la valeur est un nombre valide
+- `getDisplayed(canonicalNumber, decimals)` - Affiche un nombre formaté
+- `parseEdited(editedNumber, minCanonical, maxCanonical)` - Analyse un nombre édité
+- `incEdited(edited, cursorPosition, direction, step, min, max)` - Incrémente un nombre édité
 
 ### `length.js`, `pixel.js`, `volume.js`, `weight.js`
 
@@ -250,6 +271,19 @@ const volume = VolumeConverters.getDisplayed('0.12 0.13 1.4', 'cm'); // '12 × 1
 const iata = VolumeConverters.getDisplayedIATA('1 1 1', 5000, 'kg'); // '200kg'
 ```
 
+Fonctions principales pour les longueurs:
+- `convertLength(value, inputUnit, outputUnit, decimals)` - Convertit entre unités
+- `getDisplayed(canonicalLength, displayedUnit)` - Affiche une longueur formatée
+
+Fonctions principales pour les volumes:
+- `getDisplayed(canonicalVolume, displayedUnit)` - Affiche un volume formaté
+- `getDisplayedIATA(canonicalVolume, cm3kg, displayedUnit, decimals)` - Calcule et affiche le poids dimensionnel
+
+Fonctions principales pour les poids:
+- `convertWeight(value, inputUnit, outputUnit, decimals)` - Convertit entre unités
+- `getSortable(weight)` - Génère une représentation triable d'un poids
+- `getDisplayed(canonicalWeight, displayedUnit)` - Affiche un poids formaté
+
 ### `price.js`
 
 Convertisseur spécialisé pour les prix.
@@ -259,6 +293,13 @@ Convertisseur spécialisé pour les prix.
 const sortable = PriceConverters.getSortable(1234.56); // '0000123456'
 const formatted = PriceConverters.getDisplayed(1234567.89, 'p-1M'); // "1.23 M"
 ```
+
+Fonctions principales:
+- `check(canonical, strict)` - Vérifie si la valeur est un prix valide
+- `getSortable(price)` - Génère une représentation triable d'un prix
+- `getDisplayed(canonicalPrice, format)` - Affiche un prix formaté
+- `parseEdited(editedPrice, minCanonical, maxCanonical)` - Analyse un prix édité
+- `incEdited(edited, cursorPosition, direction, step, min, max)` - Incrémente un prix édité
 
 ### `time.js`
 
@@ -270,6 +311,15 @@ const now = TimeConverters.getNowCanonical();
 const later = TimeConverters.addHours(now, 2);
 const period = TimeConverters.getPeriodDescription(now, later); // ex: '14:30 → 16:30'
 ```
+
+Fonctions principales:
+- `addHours/addMinutes/addSeconds` - Manipulation d'heures
+- `getDisplayed(time, format)` - Affiche une heure formatée
+- `parseEdited(editedTime)` - Analyse une heure éditée
+- `getPeriodDescription(fromTime, toTime, format)` - Description d'une période
+- `getTimeFromMinutes/getTotalMinutes` - Conversion entre minutes et format hh:mm:ss
+- `getCalcTime(time, exp)` - Calcule une heure relative (ex: '-2h', '10m')
+- `incEdited(edited, cursorPosition, direction, step, min, max)` - Incrémente une heure éditée
 
 ### Autres convertisseurs
 
