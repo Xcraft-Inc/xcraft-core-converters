@@ -1,6 +1,6 @@
 {
   "name": "xcraft-core-converters",
-  "version": "4.6.4",
+  "version": "4.6.5",
   "description": "Xcraft converters",
   "main": "lib/index.js",
   "engines": {
