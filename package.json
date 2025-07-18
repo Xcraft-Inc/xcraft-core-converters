@@ -13,7 +13,16 @@
     "xcraft",
     "converters"
   ],
-  "author": "Daniel Roux",
+  "author": "Epsitec SA",
+  "contributors": [
+    "Daniel Roux <roux@epsitec.ch>",
+    "Mathieu Schroeter <schroeter@epsitec.ch>",
+    "Samuel Loup <loup@epsitec.ch>",
+    "Gillian Fries <fries@epsitec.ch>",
+    "Yannick Vessaz <vessaz@epsitec.ch>",
+    "Catia Guidi <guidi@epsitec.ch>",
+    "Pierre Arnaud <arnaud@epsitec.ch>"
+  ],
   "license": "MIT",
   "dependencies": {
     "bignumber.js": "^8.1.1"
