@@ -283,6 +283,15 @@ describe('xcraft.converters.date', function () {
   });
 
   // prettier-ignore
+  it('addYears', function () {
+    assert.strictEqual(DateConverters.addYears('2020-03-01',  1), '2021-03-01');
+    assert.strictEqual(DateConverters.addYears('2020-02-29',  1), '2021-02-28');
+    assert.strictEqual(DateConverters.addYears('2021-03-01', -1), '2020-03-01');
+    assert.strictEqual(DateConverters.addYears('2020-02-29', -1), '2019-02-28');
+    assert.strictEqual(DateConverters.addYears('2021-02-28', -1), '2020-02-28');
+  });
+
+  // prettier-ignore
   it('changePeriod', function () {
     // Whole year test:
     testChangePeriod('01.01.2020', '31.12.2020',  1, '01.01.2021', '31.12.2021');
